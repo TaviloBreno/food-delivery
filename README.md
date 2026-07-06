@@ -1,69 +1,226 @@
-# CodeIgniter 4 Application Starter
+# Food Delivery Platform
 
-## What is CodeIgniter?
+Uma plataforma de entrega de alimentos robusta e escalável desenvolvida com CodeIgniter 4, oferecendo uma solução completa para gerenciamento de restaurantes, pedidos e entregas.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## 📋 Sumário
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- [Visão Geral](#visão-geral)
+- [Funcionalidades](#funcionalidades)
+- [Stack Tecnológico](#stack-tecnológico)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação](#instalação)
+- [Configuração](#configuração)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Testes](#testes)
+- [Documentação](#documentação)
+- [Contribuindo](#contribuindo)
+- [Licença](#licença)
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 🎯 Visão Geral
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+O Food Delivery é uma plataforma desenvolvida para facilitar o gerenciamento de entrega de alimentos, conectando restaurantes e clientes através de uma interface intuitiva e performática. O projeto foi construído com foco em segurança, escalabilidade e experiência do usuário.
 
-## Installation & updates
+## ✨ Funcionalidades
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+- **Gerenciamento de Usuários**: Autenticação segura com suporte a múltiplos perfis (cliente, restaurante, entregador)
+- **Catálogo de Produtos**: Gestão completa de menus e itens de restaurantes
+- **Sistema de Pedidos**: Criação, rastreamento e gerenciamento de pedidos em tempo real
+- **Painel Administrativo**: Dashboard completo para administração do sistema
+- **Notificações**: Sistema integrado de alertas e confirmações
+- **Segurança**: Implementação de boas práticas de segurança web (CSRF, XSS, SQL Injection prevention)
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## 🛠️ Stack Tecnológico
 
-## Setup
+| Componente | Tecnologia | Versão |
+|-----------|-----------|---------|
+| **Framework** | CodeIgniter | 4.x |
+| **Linguagem** | PHP | 8.2+ |
+| **Database** | MySQL/MariaDB | 5.7+ |
+| **Frontend** | HTML5, CSS3, JavaScript | - |
+| **Package Manager** | Composer | - |
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### Extensões PHP Necessárias
 
-## Important Change with index.php
+- `intl` - Internacionalização
+- `mbstring` - Manipulação de strings multibyte
+- `mysqlnd` - Driver MySQL nativo
+- `curl` - Requisições HTTP
+- `json` - Suporte a JSON (padrão)
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## 📋 Pré-requisitos
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Certifique-se de ter instalado em seu sistema:
 
-**Please** read the user guide for a better explanation of how CI4 works!
+- **PHP** 8.2 ou superior
+- **Composer** 2.0 ou superior
+- **MySQL** 5.7 ou superior (ou MariaDB equivalente)
+- **Git** para controle de versão
+- **Node.js** (opcional, para ferramentas de build)
 
-## Repository Management
+## 🚀 Instalação
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+### 1. Clone o Repositório
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+```bash
+git clone https://github.com/seu-usuario/food-delivery.git
+cd food-delivery
+```
 
-## Server Requirements
+### 2. Instale as Dependências
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+```bash
+composer install
+```
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+### 3. Configure o Ambiente
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+```bash
+cp env .env
+```
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+Edite o arquivo `.env` com suas configurações:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+```bash
+# Base URL
+app.baseURL = 'http://localhost:8080'
+
+# Database
+database.default.hostname = localhost
+database.default.database = food_delivery
+database.default.username = root
+database.default.password = seu_password
+```
+
+### 4. Gere a Chave de Criptografia
+
+```bash
+php spark key:generate
+```
+
+### 5. Execute as Migrations
+
+```bash
+php spark migrate
+```
+
+### 6. Seed do Banco de Dados (Opcional)
+
+```bash
+php spark db:seed SeedName
+```
+
+## ⚙️ Configuração
+
+### Banco de Dados
+
+O projeto utiliza migrations para versionamento do banco de dados. Todas as migrations estão localizadas em `app/Database/Migrations/`.
+
+Para criar uma nova migration:
+
+```bash
+php spark make:migration CreateTableName
+```
+
+### Variáveis de Ambiente
+
+Configurações importantes no arquivo `.env`:
+
+- `APP_ENVIRONMENT`: Ambiente da aplicação (development, production)
+- `DATABASE_*`: Credenciais do banco de dados
+- `ENCRYPTION_KEY`: Chave de criptografia gerada automaticamente
+- `CSRF_PROTECTION`: Ativar/desativar proteção CSRF
+
+## 📁 Estrutura do Projeto
+
+```
+app/
+├── Config/          # Arquivos de configuração
+├── Controllers/     # Controllers da aplicação
+├── Database/        # Migrations e Seeds
+├── Entities/        # Entity models
+├── Filters/         # HTTP Filters
+├── Helpers/         # Funções auxiliares
+├── Language/        # Arquivos de idioma
+├── Libraries/       # Classes customizadas
+├── Models/          # Database models
+├── Views/           # Templates HTML
+└── Exceptions/      # Exceções personalizadas
+
+public/             # Webroot - apontado pelo servidor web
+├── index.php        # Entry point
+├── admin/           # Painel administrativo
+└── css/, js/        # Assets estáticos
+
+tests/              # Testes automatizados
+├── unit/            # Testes unitários
+├── database/        # Testes de banco de dados
+└── session/         # Testes de sessão
+
+vendor/             # Dependências do Composer
+writable/           # Diretório para arquivos temporários
+├── cache/           # Cache de aplicação
+├── logs/            # Logs do sistema
+├── session/         # Sessões de usuário
+└── uploads/         # Arquivos enviados
+```
+
+## 🧪 Testes
+
+O projeto utiliza PHPUnit para testes automatizados.
+
+### Executar todos os testes
+
+```bash
+php spark test
+```
+
+### Executar testes específicos
+
+```bash
+php spark test --filter HealthTest
+```
+
+### Executar testes com cobertura
+
+```bash
+php spark test --coverage
+```
+
+## 📚 Documentação
+
+Para mais informações sobre CodeIgniter 4, consulte a [documentação oficial](https://codeigniter.com/user_guide/).
+
+### Recursos Úteis
+
+- [Guia de Roteamento](https://codeigniter.com/user_guide/incoming/routing.html)
+- [Controllers](https://codeigniter.com/user_guide/incoming/controllers.html)
+- [Models](https://codeigniter.com/user_guide/models/index.html)
+- [Validation](https://codeigniter.com/user_guide/libraries/validation.html)
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Por favor, siga os passos abaixo:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+### Padrões de Código
+
+- Siga os padrões PSR-12 de codificação PHP
+- Adicione testes para novas funcionalidades
+- Mantenha a documentação atualizada
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 📧 Suporte
+
+Para dúvidas ou problemas, abra uma issue no repositório ou entre em contato com a equipe de desenvolvimento.
+
+---
+
+**Desenvolvido com ❤️ usando CodeIgniter 4**
