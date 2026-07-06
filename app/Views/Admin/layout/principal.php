@@ -2,78 +2,22 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Food Delivery | <?php echo $this->renderSection('titulo'); ?></title>
-  <!-- plugins:css -->
+
   <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>vendors/base/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
   <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
   <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>css/style.css">
-  <!-- endinject -->
+  <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>css/alertas.css">
   <link rel="shortcut icon" href="<?php echo site_url('admin/'); ?>images/favicon.png" />
 
-  <style>
-    .alert {
-      position: relative;
-      animation: slideDown 0.5s ease-out;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .alert .progress {
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 0 0 4px 4px;
-      margin: 8px -16px -16px -16px;
-      overflow: hidden;
-    }
-
-    .alert .progress-bar {
-      height: 3px;
-      border-radius: 0 0 4px 4px;
-      transition: width 20s linear;
-    }
-
-    /* 🔥 CORES PERSONALIZADAS PARA CADA TIPO DE ALERTA */
-    .alert-success .progress-bar {
-      background-color: #28a745 !important;
-    }
-
-    .alert-danger .progress-bar {
-      background-color: #dc3545 !important;
-    }
-
-    .alert-warning .progress-bar {
-      background-color: #ffc107 !important;
-    }
-
-    .alert-info .progress-bar {
-      background-color: #17a2b8 !important;
-    }
-  </style>
-
   <?php echo $this->renderSection('estilos'); ?>
-
 </head>
 
 <body>
   <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex justify-content-center">
         <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
@@ -110,11 +54,8 @@
                   <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="item-content flex-grow">
-                  <h6 class="ellipsis font-weight-normal">David Grey
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    The meeting is cancelled
-                  </p>
+                  <h6 class="ellipsis font-weight-normal">David Grey</h6>
+                  <p class="font-weight-light small-text text-muted mb-0">The meeting is cancelled</p>
                 </div>
               </a>
               <a class="dropdown-item">
@@ -122,11 +63,8 @@
                   <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="item-content flex-grow">
-                  <h6 class="ellipsis font-weight-normal">Tim Cook
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    New product launch
-                  </p>
+                  <h6 class="ellipsis font-weight-normal">Tim Cook</h6>
+                  <p class="font-weight-light small-text text-muted mb-0">New product launch</p>
                 </div>
               </a>
               <a class="dropdown-item">
@@ -134,11 +72,8 @@
                   <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="item-content flex-grow">
-                  <h6 class="ellipsis font-weight-normal"> Johnson
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    Upcoming board meeting
-                  </p>
+                  <h6 class="ellipsis font-weight-normal">Johnson</h6>
+                  <p class="font-weight-light small-text text-muted mb-0">Upcoming board meeting</p>
                 </div>
               </a>
             </div>
@@ -158,9 +93,7 @@
                 </div>
                 <div class="item-content">
                   <h6 class="font-weight-normal">Application Error</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    Just now
-                  </p>
+                  <p class="font-weight-light small-text mb-0 text-muted">Just now</p>
                 </div>
               </a>
               <a class="dropdown-item">
@@ -171,9 +104,7 @@
                 </div>
                 <div class="item-content">
                   <h6 class="font-weight-normal">Settings</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    Private message
-                  </p>
+                  <p class="font-weight-light small-text mb-0 text-muted">Private message</p>
                 </div>
               </a>
               <a class="dropdown-item">
@@ -184,9 +115,7 @@
                 </div>
                 <div class="item-content">
                   <h6 class="font-weight-normal">New user registration</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    2 days ago
-                  </p>
+                  <p class="font-weight-light small-text mb-0 text-muted">2 days ago</p>
                 </div>
               </a>
             </div>
@@ -198,12 +127,10 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
-                <i class="mdi mdi-settings text-primary"></i>
-                Settings
+                <i class="mdi mdi-settings text-primary"></i> Settings
               </a>
               <a class="dropdown-item">
-                <i class="mdi mdi-logout text-primary"></i>
-                Logout
+                <i class="mdi mdi-logout text-primary"></i> Logout
               </a>
             </div>
           </li>
@@ -213,9 +140,8 @@
         </button>
       </div>
     </nav>
-    <!-- partial -->
+
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
@@ -232,8 +158,8 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
               </ul>
             </div>
           </li>
@@ -269,11 +195,11 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> Login 2 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register-2.html"> Register 2 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/lock-screen.html"> Lockscreen </a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/samples/login.html">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/samples/login-2.html">Login 2</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/samples/register.html">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/samples/register-2.html">Register 2</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/samples/lock-screen.html">Lockscreen</a></li>
               </ul>
             </div>
           </li>
@@ -285,10 +211,9 @@
           </li>
         </ul>
       </nav>
-      <!-- partial -->
+
       <div class="main-panel">
         <div class="content-wrapper">
-
           <?php if (session()->has('sucesso')): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Perfeito!</strong> <?php echo session('sucesso'); ?>
@@ -325,96 +250,34 @@
             </div>
           <?php endif; ?>
 
-
           <?php echo $this->renderSection('conteudo'); ?>
-
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
           </div>
         </footer>
-        <!-- partial -->
       </div>
-      <!-- main-panel ends -->
     </div>
-    <!-- page-body-wrapper ends -->
   </div>
-  <!-- container-scroller -->
 
-  <!-- plugins:js -->
   <script src="<?php echo site_url('admin/'); ?>vendors/base/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
   <script src="<?php echo site_url('admin/'); ?>vendors/chart.js/Chart.min.js"></script>
   <script src="<?php echo site_url('admin/'); ?>vendors/datatables.net/jquery.dataTables.js"></script>
   <script src="<?php echo site_url('admin/'); ?>vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
   <script src="<?php echo site_url('admin/'); ?>js/off-canvas.js"></script>
   <script src="<?php echo site_url('admin/'); ?>js/hoverable-collapse.js"></script>
   <script src="<?php echo site_url('admin/'); ?>js/template.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
   <script src="<?php echo site_url('admin/'); ?>js/dashboard.js"></script>
   <script src="<?php echo site_url('admin/'); ?>js/data-table.js"></script>
   <script src="<?php echo site_url('admin/'); ?>js/jquery.dataTables.js"></script>
   <script src="<?php echo site_url('admin/'); ?>js/dataTables.bootstrap4.js"></script>
-  <!-- End custom js for this page-->
   <script src="<?php echo site_url('admin/'); ?>js/jquery.cookie.js" type="text/javascript"></script>
-
-  <script>
-    $(document).ready(function() {
-      // 🔥 CONFIGURAÇÃO: 20 segundos = 20000 milissegundos
-      var tempoExibicao = 20000; // 20 segundos
-
-      // 🔥 SELECIONA TODOS OS ALERTS
-      $('.alert').each(function() {
-        var $alert = $(this);
-
-        // 🔥 ADICIONA CLASSE PARA ANIMAÇÃO DE SAÍDA
-        $alert.addClass('fade show');
-
-        // 🔥 PROGRESS BAR (OPCIONAL) - MOSTRA O TEMPO RESTANTE
-        var progressBar = $('<div class="progress" style="height: 3px; margin-top: 8px;">' +
-          '<div class="progress-bar bg-' + getAlertColor($alert) + '" ' +
-          'role="progressbar" style="width: 100%; transition: width 20s linear;"></div>' +
-          '</div>');
-        $alert.append(progressBar);
-
-        // 🔥 ANIMA A BARRA DE PROGRESSO
-        setTimeout(function() {
-          progressBar.find('.progress-bar').css('width', '0%');
-        }, 100);
-
-        // 🔥 AGENDA O FECHAMENTO AUTOMÁTICO
-        var timer = setTimeout(function() {
-          $alert.alert('close');
-        }, tempoExibicao);
-
-        // 🔥 PERMITE FECHAR MANUALMENTE (INTERROMPE O TIMER)
-        $alert.on('close.bs.alert', function() {
-          clearTimeout(timer);
-        });
-      });
-
-      // 🔥 FUNÇÃO PARA DEFINIR A COR DA BARRA DE PROGRESSO
-      function getAlertColor($alert) {
-        if ($alert.hasClass('alert-success')) return 'success';
-        if ($alert.hasClass('alert-danger')) return 'danger';
-        if ($alert.hasClass('alert-warning')) return 'warning';
-        if ($alert.hasClass('alert-info')) return 'info';
-        return 'primary';
-      }
-    });
-  </script>
-
+  <script src="<?php echo site_url('admin/'); ?>js/alertas.js"></script>
 
   <?php echo $this->renderSection('scripts'); ?>
-
 </body>
 
 </html>
