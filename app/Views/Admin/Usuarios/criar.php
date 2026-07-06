@@ -13,7 +13,7 @@
             <div class="card-body bg-primary pb-0 pt-4">
                 <h4 class="card-title text-white"><?php echo esc($titulo); ?></h4>
             </div>
-            
+
             <div class="card-body">
                 <?php echo view('Admin/Usuarios/form', ['usuario' => $usuario ?? null]); ?>
             </div>
@@ -25,4 +25,5 @@
 <?php echo $this->section('scripts'); ?>
 <script src="<?php echo site_url('admin/vendors/jquery-mask/jquery.mask.min.js'); ?>"></script>
 <script src="<?php echo site_url('admin/js/usuarios-form.js'); ?>"></script>
+<script src="<?php echo site_url('admin/js/senha-forca.js'); ?>"></script>
 <?php echo $this->endSection(); ?>

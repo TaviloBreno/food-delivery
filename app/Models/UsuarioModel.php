@@ -49,8 +49,8 @@ class UsuarioModel extends Model
             'is_unique' => 'Este telefone já está cadastrado. Use outro telefone ou entre em contato com o suporte.',
         ],
         'senha' => [
-            'required' => 'A senha é obrigatória. Crie uma senha com pelo menos 6 caracteres.',
-            'min_length' => 'A senha deve ter no mínimo 6 caracteres. Use letras e números para mais segurança.',
+            'required' => 'A senha é obrigatória. Crie uma senha com pelo menos 8 caracteres.',
+            'min_length' => 'A senha deve ter no mínimo 8 caracteres. Use letras, números e caracteres especiais para mais segurança.',
         ],
         'senha_confirmacao' => [
             'required' => 'Confirme sua senha digitando novamente.',
@@ -79,9 +79,8 @@ class UsuarioModel extends Model
             ->getResult();
     }
 
-    // 🔥 MÉTODO AUXILIAR PARA VALIDAR SENHA (opcional)
     public function validarSenha(string $senha): bool
     {
-        return strlen($senha) >= 6;
+        return strlen($senha) >= 8;
     }
 }
