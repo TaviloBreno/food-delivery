@@ -4,6 +4,8 @@
 
 <?php echo $this->section('estilos'); ?>
 
+  <link rel="stylesheet" href="<?php echo site_url('admin/vendors/auto-complete/jquery-ui.css'); ?>">
+
 <?php echo $this->endSection(); ?>
 
 
@@ -16,9 +18,11 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title"><?php echo $titulo; ?></h4>
-                  <p class="card-description">
-                    <?php echo $subtitulo; ?>
-                  </p>
+
+                  <div class="ui-widget">
+                    <input id="query" name="query" class="form-control bg-light mb-5">
+                  </div>
+
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
@@ -53,5 +57,43 @@
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
+
+<script src="<?php echo site_url('admin/vendors/auto-complete/jquery-ui.js'); ?>"></script>
+
+<script>
+  $(function() {
+    $("query").autocomplete({
+      source: function(request, response){
+        $.ajax({
+            url: "<?php echo site_url('admin/usuarios/procurar'); ?>",
+            dataType: "json",
+            data: {
+              term:request.term
+            },
+            success: function(data){
+                if(data.length < 1){
+                  var data = [
+                    {
+                      label: 'Usuario não encontrado',
+                      value: -1
+                    }
+                  ];
+                }
+                response(data);
+            }
+        });
+      },
+      minLegth: 1,
+      select: function (event, ui) {
+        if(ui.item.value == -1){
+                          $(this).val("");
+                          return false;
+        }else{
+          window.location.href = '<?php echo site_url('admin/usuarios/show/'); ?>' + ui.item.id;
+        }
+      }
+    });
+  });
+</script>
 
 <?php echo $this->endSection(); ?>
