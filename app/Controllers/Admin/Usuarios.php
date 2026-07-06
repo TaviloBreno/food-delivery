@@ -6,13 +6,11 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\UsuarioModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class Usuarios extends BaseController
 {
-    /**
-     * @var UsuarioModel
-    */
-    private $usuarioModel;
+    private UsuarioModel $usuarioModel;
 
     public function __construct()
     {
@@ -50,40 +48,36 @@ class Usuarios extends BaseController
         return $this->response->setJSON($retorno);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param integer|null $id
-     * @return object|null
-     */
     public function show($id = null)
     {
         $id = (int) $id;
 
         $usuario = $this->buscaUsuarioOu404($id);
+        
+        if ($usuario instanceof RedirectResponse) {
+            return $usuario;
+        }
 
         $data = [
-            'titulo' => "Detalhando o usuário $usuario->nome",
+            'titulo' => "Detalhando o usuário {$usuario->nome}",
             'usuario' => $usuario,
         ];
 
         return view("Admin/Usuarios/show", $data);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param integer|null $id
-     * @return object|null
-     */
     public function editar($id = null)
     {
         $id = (int) $id;
 
         $usuario = $this->buscaUsuarioOu404($id);
+        
+        if ($usuario instanceof RedirectResponse) {
+            return $usuario;
+        }
 
         $data = [
-            'titulo' => "Editando o usuário $usuario->nome",
+            'titulo' => "Editando o usuário {$usuario->nome}",
             'usuario' => $usuario,
         ];
 
@@ -91,12 +85,12 @@ class Usuarios extends BaseController
     }
 
     /**
-     * Undocumented function
+     * Busca usuário ou redireciona com erro
      *
-     * @param integer|null $id
-     * @return object|null
+     * @param int|null $id
+     * @return object|RedirectResponse
      */
-    private function buscaUsuarioOu404(int $id = null)
+    private function buscaUsuarioOu404(?int $id = null)
     {
         if (!$id || !$usuario = $this->usuarioModel->withDeleted(true)->find($id)) {
             return redirect()->back()->with('atencao', 'Usuário não encontrado');
