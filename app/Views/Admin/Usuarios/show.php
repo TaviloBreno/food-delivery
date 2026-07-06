@@ -46,18 +46,12 @@
                         </p>
                         <p class="card-text">
                             <span class="font-weight-bold">Cadastrado em: </span>
-                            <?php echo esc(date('d/m/Y H:i', strtotime($usuario->criado_em))); ?>
+                            <?php echo esc($usuario->criado_em->humanize()); ?>
                         </p>
                         <p class="card-text">
                             <span class="font-weight-bold">Última atualização: </span>
-                            <?php echo esc(date('d/m/Y H:i', strtotime($usuario->atualizado_em))); ?>
+                            <?php echo esc($usuario->atualizado_em->humanize()); ?>
                         </p>
-                        <?php if ($usuario->deletado_em !== null): ?>
-                        <p class="card-text text-danger">
-                            <span class="font-weight-bold">Deletado em: </span>
-                            <?php echo esc(date('d/m/Y H:i', strtotime($usuario->deletado_em))); ?>
-                        </p>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>
