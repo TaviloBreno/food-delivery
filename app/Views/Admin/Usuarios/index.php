@@ -36,17 +36,17 @@
                         </thead>
                         <tbody>
                             <?php foreach ($usuarios as $usuario): ?>
-                            <tr>
-                                <td><?php echo $usuario->id; ?></td>
-                                <td>
-                                    <a href="<?php echo site_url("admin/usuarios/show/$usuario->id"); ?>">
-                                        <?php echo $usuario->nome; ?>
-                                    </a>
-                                </td>
-                                <td><?php echo $usuario->cpf; ?></td>
-                                <td><?php echo $usuario->telefone; ?></td>
-                                <td><?php echo($usuario->ativo ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-danger">Não</label>'); ?></td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo $usuario->id; ?></td>
+                                    <td>
+                                        <a href="<?php echo site_url("admin/usuarios/show/$usuario->id"); ?>">
+                                            <?php echo $usuario->nome; ?>
+                                        </a>
+                                    </td>
+                                    <td><?php echo formataCpf($usuario->cpf); ?></td>
+                                    <td><?php echo formataTelefone($usuario->telefone); ?></td>
+                                    <td><?php echo ($usuario->ativo ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-danger">Não</label>'); ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

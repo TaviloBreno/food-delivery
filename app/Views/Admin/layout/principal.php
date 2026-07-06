@@ -18,21 +18,71 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="<?php echo site_url('admin/'); ?>images/favicon.png" />
 
+  <style>
+    .alert {
+      position: relative;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert .progress {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 0 0 4px 4px;
+      margin: 8px -16px -16px -16px;
+      overflow: hidden;
+    }
+
+    .alert .progress-bar {
+      height: 3px;
+      border-radius: 0 0 4px 4px;
+      transition: width 20s linear;
+    }
+
+    /* 🔥 CORES PERSONALIZADAS PARA CADA TIPO DE ALERTA */
+    .alert-success .progress-bar {
+      background-color: #28a745 !important;
+    }
+
+    .alert-danger .progress-bar {
+      background-color: #dc3545 !important;
+    }
+
+    .alert-warning .progress-bar {
+      background-color: #ffc107 !important;
+    }
+
+    .alert-info .progress-bar {
+      background-color: #17a2b8 !important;
+    }
+  </style>
+
   <?php echo $this->renderSection('estilos'); ?>
 
 </head>
+
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex justify-content-center">
-        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
-          <a class="navbar-brand brand-logo" href="index.html"><img src="<?php echo site_url('admin/'); ?>images/logo.svg" alt="logo"/></a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?php echo site_url('admin/'); ?>images/logo-mini.svg" alt="logo"/></a>
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+          <a class="navbar-brand brand-logo" href="index.html"><img src="<?php echo site_url('admin/'); ?>images/logo.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?php echo site_url('admin/'); ?>images/logo-mini.svg" alt="logo" /></a>
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="mdi mdi-sort-variant"></span>
           </button>
-        </div>  
+        </div>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav mr-lg-4 w-100">
@@ -57,7 +107,7 @@
               <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
               <a class="dropdown-item">
                 <div class="item-thumbnail">
-                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                  <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="item-content flex-grow">
                   <h6 class="ellipsis font-weight-normal">David Grey
@@ -69,7 +119,7 @@
               </a>
               <a class="dropdown-item">
                 <div class="item-thumbnail">
-                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                  <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="item-content flex-grow">
                   <h6 class="ellipsis font-weight-normal">Tim Cook
@@ -81,7 +131,7 @@
               </a>
               <a class="dropdown-item">
                 <div class="item-thumbnail">
-                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                  <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="item-content flex-grow">
                   <h6 class="ellipsis font-weight-normal"> Johnson
@@ -143,7 +193,7 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile"/>
+              <img src="images/faces/face5.jpg" alt="profile" />
               <span class="nav-profile-name">Louis Barnett</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -239,44 +289,44 @@
       <div class="main-panel">
         <div class="content-wrapper">
 
-        <?php if (session()->has('sucesso')): ?>
+          <?php if (session()->has('sucesso')): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Perfeito!</strong> <?php echo session('sucesso'); ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              <strong>Perfeito!</strong> <?php echo session('sucesso'); ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-        <?php endif; ?>
+          <?php endif; ?>
 
-        <?php if (session()->has('info')): ?>
+          <?php if (session()->has('info')): ?>
             <div class="alert alert-info alert-dismissible fade show" role="alert">
-                <strong>Informação!</strong> <?php echo session('info'); ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              <strong>Informação!</strong> <?php echo session('info'); ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-        <?php endif; ?>
+          <?php endif; ?>
 
-        <?php if (session()->has('atencao')): ?>
+          <?php if (session()->has('atencao')): ?>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Atenção!</strong> <?php echo session('atencao'); ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              <strong>Atenção!</strong> <?php echo session('atencao'); ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-        <?php endif; ?>    
+          <?php endif; ?>
 
-        <?php if (session()->has('erro')): ?>
+          <?php if (session()->has('erro')): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Erro!</strong> <?php echo session('erro'); ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              <strong>Erro!</strong> <?php echo session('erro'); ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-        <?php endif; ?>
-          
+          <?php endif; ?>
 
-          <?php echo $this->renderSection('conteudo'); ?>      
+
+          <?php echo $this->renderSection('conteudo'); ?>
 
         </div>
         <!-- content-wrapper ends -->
@@ -316,9 +366,55 @@
   <!-- End custom js for this page-->
   <script src="<?php echo site_url('admin/'); ?>js/jquery.cookie.js" type="text/javascript"></script>
 
+  <script>
+    $(document).ready(function() {
+      // 🔥 CONFIGURAÇÃO: 20 segundos = 20000 milissegundos
+      var tempoExibicao = 20000; // 20 segundos
+
+      // 🔥 SELECIONA TODOS OS ALERTS
+      $('.alert').each(function() {
+        var $alert = $(this);
+
+        // 🔥 ADICIONA CLASSE PARA ANIMAÇÃO DE SAÍDA
+        $alert.addClass('fade show');
+
+        // 🔥 PROGRESS BAR (OPCIONAL) - MOSTRA O TEMPO RESTANTE
+        var progressBar = $('<div class="progress" style="height: 3px; margin-top: 8px;">' +
+          '<div class="progress-bar bg-' + getAlertColor($alert) + '" ' +
+          'role="progressbar" style="width: 100%; transition: width 20s linear;"></div>' +
+          '</div>');
+        $alert.append(progressBar);
+
+        // 🔥 ANIMA A BARRA DE PROGRESSO
+        setTimeout(function() {
+          progressBar.find('.progress-bar').css('width', '0%');
+        }, 100);
+
+        // 🔥 AGENDA O FECHAMENTO AUTOMÁTICO
+        var timer = setTimeout(function() {
+          $alert.alert('close');
+        }, tempoExibicao);
+
+        // 🔥 PERMITE FECHAR MANUALMENTE (INTERROMPE O TIMER)
+        $alert.on('close.bs.alert', function() {
+          clearTimeout(timer);
+        });
+      });
+
+      // 🔥 FUNÇÃO PARA DEFINIR A COR DA BARRA DE PROGRESSO
+      function getAlertColor($alert) {
+        if ($alert.hasClass('alert-success')) return 'success';
+        if ($alert.hasClass('alert-danger')) return 'danger';
+        if ($alert.hasClass('alert-warning')) return 'warning';
+        if ($alert.hasClass('alert-info')) return 'info';
+        return 'primary';
+      }
+    });
+  </script>
+
+
   <?php echo $this->renderSection('scripts'); ?>
 
 </body>
 
 </html>
-
