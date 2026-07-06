@@ -49,4 +49,39 @@ class Usuarios extends BaseController
 
         return $this->response->setJSON($retorno);
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param integer|null $id
+     * @return object|null
+     */
+    public function show($id = null)
+    {
+        $id = (int) $id;
+
+        $usuario = $this->buscaUsuarioOu404($id);
+
+        $data = [
+            'titulo' => "Detalhando o usuário $usuario->nome",
+            'usuario' => $usuario,
+        ];
+
+        return view("Admin/Usuarios/show", $data);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param integer|null $id
+     * @return object|null
+     */
+    private function buscaUsuarioOu404(int $id = null)
+    {
+        if (!$id || !$usuario = $this->usuarioModel->withDeleted(true)->find($id)) {
+            return redirect()->back()->with('atencao', 'Usuário não encontrado');
+        }
+
+        return $usuario;
+    }
 }
