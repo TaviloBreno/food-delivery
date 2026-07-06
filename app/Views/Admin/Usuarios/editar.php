@@ -4,10 +4,6 @@
 
 <?php echo $this->section('estilos'); ?>
 <style>
-    .masked-input {
-        letter-spacing: 1px;
-    }
-    
     .masked-input:focus {
         background-color: #f8f9fa;
         border-color: #4d83ff;
@@ -42,6 +38,7 @@
                                        name="nome" 
                                        value="<?php echo esc($usuario->nome); ?>"
                                        placeholder="Digite o nome completo"
+                                       autocomplete="off"
                                        required>
                             </div>
 
@@ -53,6 +50,7 @@
                                        name="email" 
                                        value="<?php echo esc($usuario->email); ?>"
                                        placeholder="Digite o email"
+                                       autocomplete="off"
                                        required>
                             </div>
 
@@ -66,9 +64,7 @@
                                        placeholder="Digite o CPF"
                                        autocomplete="off">
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="telefone">Telefone</label>
                                 <input type="text" 
@@ -77,6 +73,29 @@
                                        name="telefone" 
                                        value="<?php echo esc($usuario->telefone); ?>"
                                        placeholder="Digite o telefone"
+                                       autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="senha">Nova senha</label>
+                                <input type="password" 
+                                       class="form-control" 
+                                       id="senha" 
+                                       name="senha" 
+                                       placeholder="Digite a nova senha (opcional)"
+                                       autocomplete="off">
+                                <small class="text-muted">Deixe em branco para manter a senha atual</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="senha_confirmacao">Confirmar nova senha</label>
+                                <input type="password" 
+                                       class="form-control" 
+                                       id="senha_confirmacao" 
+                                       name="senha_confirmacao" 
+                                       placeholder="Confirme a nova senha"
                                        autocomplete="off">
                             </div>
 
@@ -172,38 +191,47 @@
 
 <script>
 $(document).ready(function() {
-    function setupAutoClearMaskedInput(inputId, maskPattern) {
+    function setupAutoClearInput(inputId) {
         var $input = $('#' + inputId);
-        var originalValue = $input.val();
         var isCleared = false;
         
-        // 🔥 AO FOCAR, SELECIONA TODO O TEXTO
         $input.on('focus', function() {
             $(this).select();
-            originalValue = $(this).val();
             isCleared = false;
         });
         
-        // 🔥 AO DIGITAR, LIMPA O CAMPO NA PRIMEIRA TECLA
         $input.on('keydown', function(e) {
-            // Ignora teclas de navegação
-            var navigationKeys = [
-                9, 
-                13,
-                16,
-                17, 
-                18, 
-                20, 
-                27, 
-                35,
-                36, 
-                37, 
-                38, 
-                39, 
-                40, 
-                45, 
-                46  
-            ];
+            var navigationKeys = [9, 13, 16, 17, 18, 20, 27, 35, 36, 37, 38, 39, 40, 45, 46];
+            
+            if (navigationKeys.includes(e.keyCode) || e.ctrlKey || e.metaKey) {
+                return true;
+            }
+            
+            if (!isCleared && $input.val().length > 0) {
+                $input.val('');
+                isCleared = true;
+            }
+        });
+        
+        $input.on('blur', function() {
+            isCleared = false;
+        });
+    }
+    
+    setupAutoClearInput('nome');
+    setupAutoClearInput('email');
+    
+    function setupAutoClearMaskedInput(inputId, maskPattern) {
+        var $input = $('#' + inputId);
+        var isCleared = false;
+        
+        $input.on('focus', function() {
+            $(this).select();
+            isCleared = false;
+        });
+        
+        $input.on('keydown', function(e) {
+            var navigationKeys = [9, 13, 16, 17, 18, 20, 27, 35, 36, 37, 38, 39, 40, 45, 46];
             
             if (navigationKeys.includes(e.keyCode) || e.ctrlKey || e.metaKey) {
                 return true;
@@ -223,7 +251,6 @@ $(document).ready(function() {
             var value = $(this).val().replace(/\D/g, '');
             
             if (value.length > 0) {
-                // Aplica a máscara
                 var masked = '';
                 if (inputId === 'cpf') {
                     masked = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -248,11 +275,28 @@ $(document).ready(function() {
     setupAutoClearMaskedInput('cpf', '000.000.000-00');
     setupAutoClearMaskedInput('telefone', '(00) 00000-0000');
     
+    $('#senha, #senha_confirmacao').on('keyup', function() {
+        var senha = $('#senha').val();
+        var confirmacao = $('#senha_confirmacao').val();
+        
+        if (senha.length > 0 && confirmacao.length > 0) {
+            if (senha === confirmacao) {
+                $('#senha_confirmacao').css('border-color', '#28a745');
+            } else {
+                $('#senha_confirmacao').css('border-color', '#dc3545');
+            }
+        } else {
+            $('#senha_confirmacao').css('border-color', '');
+        }
+    });
+    
     $('form').on('submit', function(e) {
         var nome = $('#nome').val().trim();
         var email = $('#email').val().trim();
         var cpf = $('#cpf').val().trim();
         var telefone = $('#telefone').val().trim();
+        var senha = $('#senha').val();
+        var senhaConfirmacao = $('#senha_confirmacao').val();
         
         if (nome.length < 3) {
             alert('O nome deve ter pelo menos 3 caracteres.');
@@ -279,6 +323,20 @@ $(document).ready(function() {
             var telefoneClean = telefone.replace(/\D/g, '');
             if (telefoneClean.length !== 10 && telefoneClean.length !== 11) {
                 alert('Digite um telefone válido com 10 ou 11 números.');
+                e.preventDefault();
+                return false;
+            }
+        }
+        
+        if (senha.length > 0 || senhaConfirmacao.length > 0) {
+            if (senha.length < 6) {
+                alert('A senha deve ter pelo menos 6 caracteres.');
+                e.preventDefault();
+                return false;
+            }
+            
+            if (senha !== senhaConfirmacao) {
+                alert('As senhas não coincidem.');
                 e.preventDefault();
                 return false;
             }
