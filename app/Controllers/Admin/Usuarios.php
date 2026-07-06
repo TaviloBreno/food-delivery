@@ -76,6 +76,26 @@ class Usuarios extends BaseController
      * @param integer|null $id
      * @return object|null
      */
+    public function editar($id = null)
+    {
+        $id = (int) $id;
+
+        $usuario = $this->buscaUsuarioOu404($id);
+
+        $data = [
+            'titulo' => "Editando o usuário $usuario->nome",
+            'usuario' => $usuario,
+        ];
+
+        return view("Admin/Usuarios/editar", $data);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param integer|null $id
+     * @return object|null
+     */
     private function buscaUsuarioOu404(int $id = null)
     {
         if (!$id || !$usuario = $this->usuarioModel->withDeleted(true)->find($id)) {
