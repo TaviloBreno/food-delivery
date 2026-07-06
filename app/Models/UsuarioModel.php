@@ -18,4 +18,23 @@ class UsuarioModel extends Model
     protected $createdField      = 'criado_em';
     protected $updatedField      = 'atualizado_em';
     protected $deletedField      = 'deletado_em';
+
+    /**
+     * Undocumented function
+     *
+     * @param string $term
+     * @return array
+     */
+    public function procurar(string $term): array
+    {
+        if ($term === null) {
+            return [];
+        }
+
+        return $this->select('id, nome')
+            ->like('nome', $term)
+            ->withDeleted(true)
+            ->get()
+            ->getResult();
+    }
 }
