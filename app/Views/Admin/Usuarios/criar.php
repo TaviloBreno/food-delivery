@@ -15,7 +15,7 @@
             </div>
             
             <div class="card-body">
-                <?php echo view('Admin/Usuarios/form', ['usuario' => $usuario]); ?>
+                <?php echo view('Admin/Usuarios/form', ['usuario' => $usuario ?? null]); ?>
             </div>
         </div>
     </div>
