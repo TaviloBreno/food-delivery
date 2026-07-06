@@ -82,7 +82,6 @@ $(document).ready(function() {
     setupAutoClearMaskedInput('cpf', '000.000.000-00');
     setupAutoClearMaskedInput('telefone', '(00) 00000-0000');
     
-    // Validação de senha em tempo real
     $('#senha, #senha_confirmacao').on('keyup', function() {
         var senha = $('#senha').val();
         var confirmacao = $('#senha_confirmacao').val();
@@ -138,8 +137,8 @@ $(document).ready(function() {
         }
         
         if (!isEdit) {
-            if (senha.length < 6) {
-                alert('A senha deve ter pelo menos 6 caracteres.');
+            if (senha.length < 8) {
+                alert('A senha deve ter pelo menos 8 caracteres.');
                 e.preventDefault();
                 return false;
             }
@@ -151,8 +150,8 @@ $(document).ready(function() {
             }
         } else {
             if (senha.length > 0 || senhaConfirmacao.length > 0) {
-                if (senha.length < 6) {
-                    alert('A senha deve ter pelo menos 6 caracteres.');
+                if (senha.length < 8) {
+                    alert('A senha deve ter pelo menos 8 caracteres.');
                     e.preventDefault();
                     return false;
                 }

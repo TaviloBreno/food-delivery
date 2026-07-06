@@ -105,7 +105,7 @@ $old = session('old') ?? [];
                     placeholder="<?php echo $senhaPlaceholder; ?>"
                     autocomplete="off"
                     <?php echo $senhaRequired; ?>>
-                <small class="text-muted">A senha deve ter no mínimo 6 caracteres</small>
+                <small class="text-muted">A senha deve ter no mínimo 8 caracteres</small>
                 <?php if (isset($errors['senha'])): ?>
                     <div class="invalid-feedback">
                         <?php echo $errors['senha']; ?>
