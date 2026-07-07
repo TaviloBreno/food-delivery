@@ -141,4 +141,15 @@ class UsuarioModel extends Model
         $usuario = $this->find($id);
         return $usuario && $usuario->is_admin == 1;
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $email
+     * @return object
+     */
+    public function buscaUsuarioPorEmail(string $email): object
+    {
+        return $this->where('email', $email)->first();
+    }
 }
