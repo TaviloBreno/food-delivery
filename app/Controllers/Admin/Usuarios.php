@@ -19,10 +19,23 @@ class Usuarios extends BaseController
 
     public function index()
     {
+        $perPage = $this->request->getGet('perPage') ?? 10;
+        $perPage = in_array($perPage, [5, 10, 15]) ? (int) $perPage : 10;
+
+        $page = $this->request->getGet('page');
+        $page = is_numeric($page) ? (int) $page : null;
+
+        $usuarios = $this->usuarioModel->paginate($perPage, 'default', $page);
+
+        $pager = $this->usuarioModel->pager;
+
         $data = [
             'titulo' => 'Listando os usuários',
             'subtitulo' => 'Listagem completa dos usuários cadastrados',
-            'usuarios' => $this->usuarioModel->findAll(),
+            'usuarios' => $usuarios,
+            'pager' => $pager,
+            'perPage' => $perPage,
+            'total' => $this->usuarioModel->countAllResults(),
         ];
 
         return view('Admin/Usuarios/index', $data);
@@ -86,7 +99,6 @@ class Usuarios extends BaseController
         $post['cpf'] = preg_replace('/\D/', '', $post['cpf'] ?? '');
         $post['telefone'] = preg_replace('/\D/', '', $post['telefone'] ?? '');
 
-        // 🔥 VALIDA O CPF MANUALMENTE
         $error = '';
         if (!$this->usuarioModel->validaCpf($post['cpf'], $error)) {
             return redirect()->back()->withInput()->with('erro', $error);
@@ -175,7 +187,6 @@ class Usuarios extends BaseController
         $post['cpf'] = preg_replace('/\D/', '', $post['cpf'] ?? '');
         $post['telefone'] = preg_replace('/\D/', '', $post['telefone'] ?? '');
 
-        // 🔥 VALIDA O CPF MANUALMENTE
         $error = '';
         if (!$this->usuarioModel->validaCpf($post['cpf'], $error)) {
             return redirect()->back()->withInput()->with('erro', $error);
