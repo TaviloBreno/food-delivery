@@ -27,6 +27,34 @@ class Autenticacao
         return true;
     }
 
+    public function logout()
+    {
+        session()->destroy();
+    }
+
+    public function pegaUsuarioLogado()
+    {
+        if ($this->usuario === null) {
+            $this->usuario = $this->pegaUsuarioDaSessao();
+        }
+
+        return $this->usuario;
+    }
+
+    private function pegaUsuarioDaSessao()
+    {
+        if (!session()->has('usuario_id')) {
+            return null;
+        }
+
+        $usuarioModel = new UsuarioModel();
+        $usuario = $usuarioModel->find(session()->get('usuario_id'));
+
+        if ($usuario && $usuario->ativo) {
+            return $usuario;
+        }
+    }
+
     private function logaUsuario(object $usuario)
     {
         $session = session();
