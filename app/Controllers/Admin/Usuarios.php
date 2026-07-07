@@ -86,15 +86,20 @@ class Usuarios extends BaseController
         $post['cpf'] = preg_replace('/\D/', '', $post['cpf'] ?? '');
         $post['telefone'] = preg_replace('/\D/', '', $post['telefone'] ?? '');
 
-        // 🔥 VERIFICA DUPLICIDADE COM MENSAGENS ESPECÍFICAS
+        // 🔥 VALIDA O CPF MANUALMENTE
+        $error = '';
+        if (!$this->usuarioModel->validaCpf($post['cpf'], $error)) {
+            return redirect()->back()->withInput()->with('erro', $error);
+        }
+
         $cpfExiste = $this->usuarioModel->where('cpf', $post['cpf'])->first();
         if ($cpfExiste) {
-            return redirect()->back()->withInput()->with('erro', '❌ O CPF ' . $post['cpf'] . ' já está cadastrado no sistema. Verifique se você já possui cadastro ou digite um CPF diferente.');
+            return redirect()->back()->withInput()->with('erro', 'Este CPF já está cadastrado.');
         }
 
         $emailExiste = $this->usuarioModel->where('email', $post['email'])->first();
         if ($emailExiste) {
-            return redirect()->back()->withInput()->with('erro', '❌ O e-mail ' . $post['email'] . ' já está cadastrado. Use outro e-mail ou faça login.');
+            return redirect()->back()->withInput()->with('erro', 'Este e-mail já está cadastrado.');
         }
 
         $rules = [
@@ -102,16 +107,14 @@ class Usuarios extends BaseController
             'email' => 'required|valid_email',
             'cpf' => 'required|exact_length[11]',
             'telefone' => 'required|exact_length[11]',
-            'senha' => 'required|min_length[6]',
+            'senha' => 'required|min_length[8]',
             'senha_confirmacao' => 'required|matches[senha]',
             'ativo' => 'required|in_list[0,1]',
             'is_admin' => 'required|in_list[0,1]',
         ];
 
-        if (!$this->validate($rules, $this->usuarioModel->getValidationMessages())) {
-            $errors = $this->validator->getErrors();
-            $primeiroErro = reset($errors);
-            return redirect()->back()->withInput()->with('atencao', '⚠️ ' . $primeiroErro);
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('atencao', 'Existem erros no formulário');
         }
 
         $dados = [
@@ -127,10 +130,10 @@ class Usuarios extends BaseController
         $this->usuarioModel->skipValidation(true);
 
         if ($this->usuarioModel->insert($dados)) {
-            return redirect()->to(site_url('admin/usuarios'))->with('sucesso', '✅ Usuário criado com sucesso!');
+            return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Usuário criado com sucesso!');
         }
 
-        return redirect()->back()->with('erro', '❌ Erro ao criar usuário. Tente novamente ou entre em contato com o suporte.');
+        return redirect()->back()->with('atencao', 'Erro ao criar usuário')->withInput();
     }
 
     public function editar($id = null)
@@ -169,6 +172,15 @@ class Usuarios extends BaseController
 
         $post = $this->request->getPost();
 
+        $post['cpf'] = preg_replace('/\D/', '', $post['cpf'] ?? '');
+        $post['telefone'] = preg_replace('/\D/', '', $post['telefone'] ?? '');
+
+        // 🔥 VALIDA O CPF MANUALMENTE
+        $error = '';
+        if (!$this->usuarioModel->validaCpf($post['cpf'], $error)) {
+            return redirect()->back()->withInput()->with('erro', $error);
+        }
+
         $rules = [
             'nome' => 'required|min_length[3]|max_length[120]',
             'email' => 'required|valid_email|is_unique[usuarios.email,id,' . $id . ']',
@@ -194,8 +206,8 @@ class Usuarios extends BaseController
                 return redirect()->back()->with('atencao', 'As senhas não coincidem')->withInput();
             }
 
-            if (strlen($post['senha']) < 6) {
-                return redirect()->back()->with('atencao', 'A senha deve ter pelo menos 6 caracteres')->withInput();
+            if (strlen($post['senha']) < 8) {
+                return redirect()->back()->with('atencao', 'A senha deve ter pelo menos 8 caracteres')->withInput();
             }
 
             $dados['password_hash'] = password_hash($post['senha'], PASSWORD_DEFAULT);

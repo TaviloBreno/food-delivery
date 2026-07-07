@@ -20,7 +20,7 @@ class UsuarioModel extends Model
     protected $validationRules = [
         'nome' => 'required|min_length[3]|max_length[120]',
         'email' => 'required|valid_email|is_unique[usuarios.email,id,{id}]',
-        'cpf' => 'required|exact_length[11]|is_unique[usuarios.cpf,id,{id}]',
+        'cpf' => 'required|exact_length[11]|is_unique[usuarios.cpf,id,{id}]|valid_cpf',
         'telefone' => 'required|exact_length[11]|is_unique[usuarios.telefone,id,{id}]',
         'password_hash' => 'permit_empty',
         'ativo' => 'required|in_list[0,1]',
@@ -42,6 +42,7 @@ class UsuarioModel extends Model
             'required' => 'O campo CPF é obrigatório. Digite seu CPF com 11 números.',
             'exact_length' => 'O CPF deve ter exatamente 11 números. Exemplo: 12345678901',
             'is_unique' => 'Este CPF já está cadastrado. Se você já tem cadastro, faça login. Se não, verifique se digitou corretamente.',
+            'valid_cpf' => 'CPF inválido. Verifique se os números estão corretos.',
         ],
         'telefone' => [
             'required' => 'O campo Telefone é obrigatório. Digite seu telefone com DDD.',
@@ -82,5 +83,34 @@ class UsuarioModel extends Model
     public function validarSenha(string $senha): bool
     {
         return strlen($senha) >= 8;
+    }
+
+    public function validaCpf(string $cpf, string &$error = null): bool
+    {
+        $cpf = str_pad(preg_replace('/[^0-9]/', '', $cpf), 11, '0', STR_PAD_LEFT);
+
+        if (
+            strlen($cpf) != 11 ||
+            $cpf == '00000000000' || $cpf == '11111111111' || $cpf == '22222222222' ||
+            $cpf == '33333333333' || $cpf == '44444444444' || $cpf == '55555555555' ||
+            $cpf == '66666666666' || $cpf == '77777777777' || $cpf == '88888888888' ||
+            $cpf == '99999999999'
+        ) {
+            $error = 'Por favor digite um CPF válido';
+            return false;
+        }
+
+        for ($t = 9; $t < 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf[$c] != $d) {
+                $error = 'Por favor digite um CPF válido';
+                return false;
+            }
+        }
+
+        return true;
     }
 }
