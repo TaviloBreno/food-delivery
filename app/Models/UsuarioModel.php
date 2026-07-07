@@ -10,7 +10,16 @@ class UsuarioModel extends Model
 {
     protected $table            = 'usuarios';
     protected $returnType       = 'App\Entities\Usuario';
-    protected $allowedFields    = ['nome', 'email', 'cpf', 'telefone', 'password_hash', 'ativo', 'is_admin', 'deletado_em'];
+    protected $allowedFields    = [
+        'nome',
+        'email',
+        'cpf',
+        'telefone',
+        'password_hash',
+        'ativo',
+        'is_admin',
+        'deletado_em'
+    ];
 
     protected $useSoftDelete    = true;
 
@@ -125,5 +134,11 @@ class UsuarioModel extends Model
     public function softRestore(int $id): bool
     {
         return $this->update($id, ['deletado_em' => null]);
+    }
+
+    public function isAdmin(int $id): bool
+    {
+        $usuario = $this->find($id);
+        return $usuario && $usuario->is_admin == 1;
     }
 }

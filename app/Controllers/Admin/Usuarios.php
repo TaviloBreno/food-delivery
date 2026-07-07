@@ -247,6 +247,22 @@ class Usuarios extends BaseController
             return redirect()->back()->with('atencao', 'Este usuário já está excluído.');
         }
 
+        $usuarioLogado = $this->usuarioModel->find(session()->get('usuario_id'));
+
+        if (!$usuarioLogado) {
+            return redirect()->back()->with('erro', 'Usuário não autenticado.');
+        }
+
+        if ($usuario->is_admin == 1) {
+            if ($usuarioLogado->is_admin != 1) {
+                return redirect()->back()->with('erro', 'Você não tem permissão para excluir um administrador.');
+            }
+
+            if ($usuarioLogado->id == $id) {
+                return redirect()->back()->with('erro', 'Você não pode excluir a si mesmo.');
+            }
+        }
+
         if ($this->usuarioModel->softDelete($id)) {
             return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Usuário excluído com sucesso!');
         }
@@ -266,6 +282,16 @@ class Usuarios extends BaseController
 
         if ($usuario->deletado_em === null) {
             return redirect()->back()->with('atencao', 'Este usuário não está excluído.');
+        }
+
+        $usuarioLogado = $this->usuarioModel->find(session()->get('usuario_id'));
+
+        if (!$usuarioLogado) {
+            return redirect()->back()->with('erro', 'Usuário não autenticado.');
+        }
+
+        if ($usuario->is_admin == 1 && $usuarioLogado->is_admin != 1) {
+            return redirect()->back()->with('erro', 'Você não tem permissão para restaurar um administrador.');
         }
 
         if ($this->usuarioModel->softRestore($id)) {
