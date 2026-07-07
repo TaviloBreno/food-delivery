@@ -36,13 +36,14 @@
                                 <th>CPF</th>
                                 <th>Telefone</th>
                                 <th>Ativo</th>
+                                <th>Status</th>
                                 <th class="text-center">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($usuarios)): ?>
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-4">
+                                    <td colspan="7" class="text-center text-muted py-4">
                                         <i class="mdi mdi-account-off" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
                                         Nenhum usuário encontrado
                                     </td>
@@ -59,18 +60,36 @@
                                         <td><?php echo formataCpf($usuario->cpf); ?></td>
                                         <td><?php echo formataTelefone($usuario->telefone); ?></td>
                                         <td><?php echo ($usuario->ativo ? '<span class="badge badge-success">Ativo</span>' : '<span class="badge badge-danger">Inativo</span>'); ?></td>
+                                        <td>
+                                            <?php if ($usuario->deletado_em !== null): ?>
+                                                <span class="badge badge-danger">Excluído</span>
+                                            <?php else: ?>
+                                                <span class="badge badge-primary">Ativo</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td class="text-center">
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <a href="<?php echo site_url("admin/usuarios/show/$usuario->id"); ?>" class="btn btn-info" title="Ver">
-                                                    <i class="mdi mdi-eye"></i>
-                                                </a>
-                                                <a href="<?php echo site_url("admin/usuarios/editar/$usuario->id"); ?>" class="btn btn-primary" title="Editar">
-                                                    <i class="mdi mdi-pencil"></i>
-                                                </a>
-                                                <a href="<?php echo site_url("admin/usuarios/excluir/$usuario->id"); ?>" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
-                                                    <i class="mdi mdi-delete"></i>
-                                                </a>
-                                            </div>
+                                            <?php if ($usuario->deletado_em !== null): ?>
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <a href="<?php echo site_url("admin/usuarios/show/$usuario->id"); ?>" class="btn btn-info" title="Ver">
+                                                        <i class="mdi mdi-eye"></i>
+                                                    </a>
+                                                    <a href="<?php echo site_url("admin/usuarios/restaurar/$usuario->id"); ?>" class="btn btn-success" title="Restaurar" onclick="return confirm('Tem certeza que deseja restaurar este usuário?')">
+                                                        <i class="mdi mdi-restore"></i>
+                                                    </a>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <a href="<?php echo site_url("admin/usuarios/show/$usuario->id"); ?>" class="btn btn-info" title="Ver">
+                                                        <i class="mdi mdi-eye"></i>
+                                                    </a>
+                                                    <a href="<?php echo site_url("admin/usuarios/editar/$usuario->id"); ?>" class="btn btn-primary" title="Editar">
+                                                        <i class="mdi mdi-pencil"></i>
+                                                    </a>
+                                                    <a href="<?php echo site_url("admin/usuarios/excluir/$usuario->id"); ?>" class="btn btn-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+                                                        <i class="mdi mdi-delete"></i>
+                                                    </a>
+                                                </div>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

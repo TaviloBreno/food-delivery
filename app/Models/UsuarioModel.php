@@ -10,12 +10,15 @@ class UsuarioModel extends Model
 {
     protected $table            = 'usuarios';
     protected $returnType       = 'App\Entities\Usuario';
-    protected $allowedFields    = ['nome', 'email', 'cpf', 'telefone', 'password_hash', 'ativo', 'is_admin'];
+    protected $allowedFields    = ['nome', 'email', 'cpf', 'telefone', 'password_hash', 'ativo', 'is_admin', 'deletado_em'];
+
     protected $useSoftDelete    = true;
+
     protected $useTimestamps    = true;
     protected $createdField     = 'criado_em';
     protected $updatedField     = 'atualizado_em';
     protected $deletedField     = 'deletado_em';
+    protected $dateFormat       = 'datetime';
 
     protected $validationRules = [
         'nome' => 'required|min_length[3]|max_length[120]',
@@ -112,5 +115,15 @@ class UsuarioModel extends Model
         }
 
         return true;
+    }
+
+    public function softDelete(int $id): bool
+    {
+        return $this->update($id, ['deletado_em' => date('Y-m-d H:i:s')]);
+    }
+
+    public function softRestore(int $id): bool
+    {
+        return $this->update($id, ['deletado_em' => null]);
     }
 }

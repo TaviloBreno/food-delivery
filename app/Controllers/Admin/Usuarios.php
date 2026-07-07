@@ -25,7 +25,7 @@ class Usuarios extends BaseController
         $page = $this->request->getGet('page');
         $page = is_numeric($page) ? (int) $page : null;
 
-        $usuarios = $this->usuarioModel->paginate($perPage, 'default', $page);
+        $usuarios = $this->usuarioModel->withDeleted(true)->paginate($perPage, 'default', $page);
 
         $pager = $this->usuarioModel->pager;
 
@@ -35,7 +35,7 @@ class Usuarios extends BaseController
             'usuarios' => $usuarios,
             'pager' => $pager,
             'perPage' => $perPage,
-            'total' => $this->usuarioModel->countAllResults(),
+            'total' => $this->usuarioModel->withDeleted(true)->countAllResults(),
         ];
 
         return view('Admin/Usuarios/index', $data);
@@ -104,12 +104,12 @@ class Usuarios extends BaseController
             return redirect()->back()->withInput()->with('erro', $error);
         }
 
-        $cpfExiste = $this->usuarioModel->where('cpf', $post['cpf'])->first();
+        $cpfExiste = $this->usuarioModel->where('cpf', $post['cpf'])->withDeleted(true)->first();
         if ($cpfExiste) {
             return redirect()->back()->withInput()->with('erro', 'Este CPF já está cadastrado.');
         }
 
-        $emailExiste = $this->usuarioModel->where('email', $post['email'])->first();
+        $emailExiste = $this->usuarioModel->where('email', $post['email'])->withDeleted(true)->first();
         if ($emailExiste) {
             return redirect()->back()->withInput()->with('erro', 'Este e-mail já está cadastrado.');
         }
@@ -236,13 +236,18 @@ class Usuarios extends BaseController
     public function excluir($id = null)
     {
         $id = (int) $id;
+
         $usuario = $this->buscaUsuarioOu404($id);
 
         if ($usuario instanceof RedirectResponse) {
             return $usuario;
         }
 
-        if ($this->usuarioModel->delete($id)) {
+        if ($usuario->deletado_em !== null) {
+            return redirect()->back()->with('atencao', 'Este usuário já está excluído.');
+        }
+
+        if ($this->usuarioModel->softDelete($id)) {
             return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Usuário excluído com sucesso!');
         }
 
@@ -252,13 +257,18 @@ class Usuarios extends BaseController
     public function restaurar($id = null)
     {
         $id = (int) $id;
+
         $usuario = $this->buscaUsuarioOu404($id);
 
         if ($usuario instanceof RedirectResponse) {
             return $usuario;
         }
 
-        if ($this->usuarioModel->delete($id, true)) {
+        if ($usuario->deletado_em === null) {
+            return redirect()->back()->with('atencao', 'Este usuário não está excluído.');
+        }
+
+        if ($this->usuarioModel->softRestore($id)) {
             return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Usuário restaurado com sucesso!');
         }
 
