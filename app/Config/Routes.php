@@ -72,4 +72,14 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->get('produtos/medidas/criar/(:num)', 'ProdutosMedidas::criar/$1');
     $routes->post('produtos/medidas/salvar', 'ProdutosMedidas::salvar');
     $routes->get('produtos/medidas/excluir/(:num)', 'ProdutosMedidas::excluir/$1');
+
+    // 🔥 ROTAS DE FORMAS DE PAGAMENTO
+    $routes->get('formas-pagamento', 'FormasPagamento::index');
+    $routes->get('formas-pagamento/criar', 'FormasPagamento::criar');
+    $routes->post('formas-pagamento/salvar', 'FormasPagamento::salvar');
+    $routes->get('formas-pagamento/show/(:num)', 'FormasPagamento::show/$1');
+    $routes->get('formas-pagamento/editar/(:num)', 'FormasPagamento::editar/$1');
+    $routes->post('formas-pagamento/atualizar/(:num)', 'FormasPagamento::atualizar/$1');
+    $routes->get('formas-pagamento/excluir/(:num)', 'FormasPagamento::excluir/$1');
+    $routes->get('formas-pagamento/restaurar/(:num)', 'FormasPagamento::restaurar/$1');
 });
