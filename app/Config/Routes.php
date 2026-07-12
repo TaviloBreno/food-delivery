@@ -41,4 +41,17 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->post('categorias/atualizar/(:num)', 'Categorias::atualizar/$1');
     $routes->get('categorias/excluir/(:num)', 'Categorias::excluir/$1');
     $routes->get('categorias/restaurar/(:num)', 'Categorias::restaurar/$1');
+
+    // 🔥 ROTAS DE PRODUTOS
+    $routes->get('produtos', 'Produtos::index');
+    $routes->get('produtos/procurar', 'Produtos::procurar');
+    $routes->get('produtos/criar', 'Produtos::criar');
+    $routes->post('produtos/salvar', 'Produtos::salvar');
+    $routes->get('produtos/show/(:num)', 'Produtos::show/$1');
+    $routes->get('produtos/editar/(:num)', 'Produtos::editar/$1');
+    $routes->post('produtos/atualizar/(:num)', 'Produtos::atualizar/$1');
+    $routes->get('produtos/excluir/(:num)', 'Produtos::excluir/$1');
+    $routes->get('produtos/restaurar/(:num)', 'Produtos::restaurar/$1');
+    $routes->get('produtos/upload-imagem/(:num)', 'Produtos::uploadImagem/$1');
+    $routes->post('produtos/salvar-imagem/(:num)', 'Produtos::salvarImagem/$1');
 });
