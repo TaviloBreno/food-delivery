@@ -5,9 +5,13 @@ use CodeIgniter\Router\RouteCollection;
 /** @var RouteCollection $routes */
 $routes->get('/', 'Home::index');
 
+$routes->get('login/novo', 'Login::novo');
+$routes->post('login/autenticar', 'Login::autenticar');
+$routes->get('login/logout', 'Login::logout');
+
 // 🔥 ROTAS DO ADMIN
-$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
-    
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+
     $routes->get('usuarios', 'Usuarios::index');
     $routes->get('usuarios/procurar', 'Usuarios::procurar');
     $routes->get('usuarios/criar', 'Usuarios::criar');
