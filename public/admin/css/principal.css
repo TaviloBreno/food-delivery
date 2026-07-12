@@ -122,9 +122,9 @@
     min-height: calc(100vh - 70px) !important;
 }
 
-/* 🔥 CONTENT WRAPPER - ESPAÇO MÍNIMO */
+/* 🔥 CONTENT WRAPPER - ESPAÇO AJUSTADO */
 .content-wrapper {
-    padding: 0 25px 5px 25px !important;  /* 🔥 remove padding-top */
+    padding: 20px 15px 5px 30px !important;  /* 🔥 AUMENTADO DE 0px para 10px */
     margin-top: 70px !important;
     background: #f5f7fa !important;
     flex: 1 !important;
@@ -162,7 +162,7 @@
     font-size: 1rem !important;
 }
 
-/* 🔥 FOOTER - ENCOSTA NO FINAL */
+/* 🔥 FOOTER */
 .footer {
     background: #fff !important;
     padding: 8px 25px !important;
@@ -289,7 +289,7 @@
     }
 
     .content-wrapper {
-        padding: 0 15px 5px 15px !important;
+        padding: 8px 15px 5px 15px !important; 
     }
 
     .footer {
@@ -307,7 +307,7 @@
 
 @media (max-width: 576px) {
     .content-wrapper {
-        padding: 0 10px 5px 10px !important;
+        padding: 5px 10px 5px 10px !important;  
     }
 
     .card-body {
