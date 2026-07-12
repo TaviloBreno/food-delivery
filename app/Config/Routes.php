@@ -106,4 +106,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->post('bairros-atendidos/atualizar/(:num)', 'BairrosAtendidos::atualizar/$1');
     $routes->get('bairros-atendidos/excluir/(:num)', 'BairrosAtendidos::excluir/$1');
     $routes->get('bairros-atendidos/restaurar/(:num)', 'BairrosAtendidos::restaurar/$1');
+
+    // 🔥 ROTAS DE EXPEDIENTES
+    $routes->get('expedientes', 'Expedientes::index');
+    $routes->post('expedientes/salvar', 'Expedientes::salvar');
 });
