@@ -8,6 +8,7 @@ $isProdutos = strpos($currentUri, 'produtos') !== false;
 $isFormasPagamento = strpos($currentUri, 'formas-pagamento') !== false;
 $isEntregadores = strpos($currentUri, 'entregadores') !== false;
 $isBairrosAtendidos = strpos($currentUri, 'bairros-atendidos') !== false;
+$isExpedientes = strpos($currentUri, 'expedientes') !== false;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -207,6 +208,12 @@ $isBairrosAtendidos = strpos($currentUri, 'bairros-atendidos') !== false;
             <a class="nav-link" href="<?php echo site_url('admin/bairros-atendidos'); ?>">
               <i class="mdi mdi-map-marker menu-icon"></i>
               <span class="menu-title">Bairros Atendidos</span>
+            </a>
+          </li>
+          <li class="nav-item <?php echo $isExpedientes ? 'active' : ''; ?>">
+            <a class="nav-link" href="<?php echo site_url('admin/expedientes'); ?>">
+              <i class="mdi mdi-clock menu-icon"></i>
+              <span class="menu-title">Expediente</span>
             </a>
           </li>
           <li class="nav-item">
