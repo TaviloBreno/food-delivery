@@ -9,9 +9,12 @@ $senhaHelp = $isEdit ? '<small class="text-muted">Deixe em branco para manter a 
 $buttonText = $isEdit ? 'Salvar alterações' : 'Criar usuário';
 $buttonIcon = $isEdit ? 'mdi-content-save' : 'mdi-account-plus';
 
-// 🔥 PEGA OS ERROS DA SESSÃO
 $errors = session('errors') ?? [];
 $old = session('old') ?? [];
+
+// 🔥 DETERMINA OS VALORES CORRETOS PARA OS RADIOS
+$ativoValue = old('ativo') !== null ? old('ativo') : ($usuario->ativo ?? 1);
+$isAdminValue = old('is_admin') !== null ? old('is_admin') : ($usuario->is_admin ?? 0);
 ?>
 
 <form class="forms-sample" action="<?php echo $action; ?>" method="POST" novalidate>
@@ -35,9 +38,7 @@ $old = session('old') ?? [];
                     autocomplete="off"
                     required>
                 <?php if (isset($errors['nome'])): ?>
-                    <div class="invalid-feedback">
-                        <?php echo $errors['nome']; ?>
-                    </div>
+                    <div class="invalid-feedback"><?php echo $errors['nome']; ?></div>
                 <?php endif; ?>
             </div>
 
@@ -52,9 +53,7 @@ $old = session('old') ?? [];
                     autocomplete="off"
                     required>
                 <?php if (isset($errors['email'])): ?>
-                    <div class="invalid-feedback">
-                        <?php echo $errors['email']; ?>
-                    </div>
+                    <div class="invalid-feedback"><?php echo $errors['email']; ?></div>
                 <?php endif; ?>
             </div>
 
@@ -70,9 +69,7 @@ $old = session('old') ?? [];
                     required>
                 <small class="text-muted">Digite apenas os 11 números do CPF. Exemplo: 12345678901</small>
                 <?php if (isset($errors['cpf'])): ?>
-                    <div class="invalid-feedback">
-                        <?php echo $errors['cpf']; ?>
-                    </div>
+                    <div class="invalid-feedback"><?php echo $errors['cpf']; ?></div>
                 <?php endif; ?>
             </div>
 
@@ -88,9 +85,7 @@ $old = session('old') ?? [];
                     required>
                 <small class="text-muted">Digite o DDD + número. Exemplo: 11988887777</small>
                 <?php if (isset($errors['telefone'])): ?>
-                    <div class="invalid-feedback">
-                        <?php echo $errors['telefone']; ?>
-                    </div>
+                    <div class="invalid-feedback"><?php echo $errors['telefone']; ?></div>
                 <?php endif; ?>
             </div>
         </div>
@@ -107,9 +102,7 @@ $old = session('old') ?? [];
                     <?php echo $senhaRequired; ?>>
                 <small class="text-muted">A senha deve ter no mínimo 8 caracteres</small>
                 <?php if (isset($errors['senha'])): ?>
-                    <div class="invalid-feedback">
-                        <?php echo $errors['senha']; ?>
-                    </div>
+                    <div class="invalid-feedback"><?php echo $errors['senha']; ?></div>
                 <?php endif; ?>
                 <?php echo $senhaHelp; ?>
             </div>
@@ -124,9 +117,7 @@ $old = session('old') ?? [];
                     autocomplete="off"
                     <?php echo $senhaRequired; ?>>
                 <?php if (isset($errors['senha_confirmacao'])): ?>
-                    <div class="invalid-feedback">
-                        <?php echo $errors['senha_confirmacao']; ?>
-                    </div>
+                    <div class="invalid-feedback"><?php echo $errors['senha_confirmacao']; ?></div>
                 <?php endif; ?>
             </div>
 
@@ -141,7 +132,7 @@ $old = session('old') ?? [];
                                     name="ativo"
                                     id="ativoSim"
                                     value="1"
-                                    <?php echo (old('ativo') == 1 || (isset($usuario->ativo) && $usuario->ativo == 1) || (!old('ativo') && !$isEdit)) ? 'checked' : ''; ?>>
+                                    <?php echo $ativoValue == 1 ? 'checked' : ''; ?>>
                                 Ativo
                             </label>
                         </div>
@@ -154,16 +145,14 @@ $old = session('old') ?? [];
                                     name="ativo"
                                     id="ativoNao"
                                     value="0"
-                                    <?php echo (old('ativo') == 0 || (isset($usuario->ativo) && $usuario->ativo == 0)) ? 'checked' : ''; ?>>
+                                    <?php echo $ativoValue == 0 ? 'checked' : ''; ?>>
                                 Inativo
                             </label>
                         </div>
                     </div>
                 </div>
                 <?php if (isset($errors['ativo'])): ?>
-                    <div class="invalid-feedback d-block">
-                        <?php echo $errors['ativo']; ?>
-                    </div>
+                    <div class="invalid-feedback d-block"><?php echo $errors['ativo']; ?></div>
                 <?php endif; ?>
             </div>
 
@@ -178,7 +167,7 @@ $old = session('old') ?? [];
                                     name="is_admin"
                                     id="isAdminSim"
                                     value="1"
-                                    <?php echo (old('is_admin') == 1 || (isset($usuario->is_admin) && $usuario->is_admin == 1)) ? 'checked' : ''; ?>>
+                                    <?php echo $isAdminValue == 1 ? 'checked' : ''; ?>>
                                 Administrador
                             </label>
                         </div>
@@ -191,16 +180,14 @@ $old = session('old') ?? [];
                                     name="is_admin"
                                     id="isAdminNao"
                                     value="0"
-                                    <?php echo (old('is_admin') == 0 || (isset($usuario->is_admin) && $usuario->is_admin == 0) || (!old('is_admin') && !$isEdit)) ? 'checked' : ''; ?>>
+                                    <?php echo $isAdminValue == 0 ? 'checked' : ''; ?>>
                                 Usuário comum
                             </label>
                         </div>
                     </div>
                 </div>
                 <?php if (isset($errors['is_admin'])): ?>
-                    <div class="invalid-feedback d-block">
-                        <?php echo $errors['is_admin']; ?>
-                    </div>
+                    <div class="invalid-feedback d-block"><?php echo $errors['is_admin']; ?></div>
                 <?php endif; ?>
             </div>
         </div>
