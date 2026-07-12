@@ -82,4 +82,17 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->post('formas-pagamento/atualizar/(:num)', 'FormasPagamento::atualizar/$1');
     $routes->get('formas-pagamento/excluir/(:num)', 'FormasPagamento::excluir/$1');
     $routes->get('formas-pagamento/restaurar/(:num)', 'FormasPagamento::restaurar/$1');
+
+    // 🔥 ROTAS DE ENTREGADORES
+    $routes->get('entregadores', 'Entregadores::index');
+    $routes->get('entregadores/procurar', 'Entregadores::procurar');
+    $routes->get('entregadores/criar', 'Entregadores::criar');
+    $routes->post('entregadores/salvar', 'Entregadores::salvar');
+    $routes->get('entregadores/show/(:num)', 'Entregadores::show/$1');
+    $routes->get('entregadores/editar/(:num)', 'Entregadores::editar/$1');
+    $routes->post('entregadores/atualizar/(:num)', 'Entregadores::atualizar/$1');
+    $routes->get('entregadores/excluir/(:num)', 'Entregadores::excluir/$1');
+    $routes->get('entregadores/restaurar/(:num)', 'Entregadores::restaurar/$1');
+    $routes->get('entregadores/upload-foto/(:num)', 'Entregadores::uploadFoto/$1');
+    $routes->post('entregadores/salvar-foto/(:num)', 'Entregadores::salvarFoto/$1');
 });
