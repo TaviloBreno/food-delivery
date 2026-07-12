@@ -45,11 +45,19 @@
                         </p>
                         <p class="card-text">
                             <span class="font-weight-bold">Criado em: </span>
-                            <?php echo esc($categoria->criado_em->humanize()); ?>
+                            <?php if ($categoria->criado_em): ?>
+                                <?php echo esc($categoria->criado_em->humanize()); ?>
+                            <?php else: ?>
+                                <span class="text-muted">Não informado</span>
+                            <?php endif; ?>
                         </p>
                         <p class="card-text">
                             <span class="font-weight-bold">Última atualização: </span>
-                            <?php echo esc($categoria->atualizado_em->humanize()); ?>
+                            <?php if ($categoria->atualizado_em): ?>
+                                <?php echo esc($categoria->atualizado_em->humanize()); ?>
+                            <?php else: ?>
+                                <span class="text-muted">Não informado</span>
+                            <?php endif; ?>
                         </p>
                     </div>
                 </div>
