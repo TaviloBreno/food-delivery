@@ -7,24 +7,25 @@ namespace App\Repositories;
 use App\DTOs\UsuarioDTO;
 use App\Interfaces\UsuarioRepositoryInterface;
 use App\Models\UsuarioModel;
+use App\Traits\RepositoryTrait;
+use CodeIgniter\Model;
 
 class UsuarioRepository implements UsuarioRepositoryInterface
 {
-    private UsuarioModel $model;
+    use RepositoryTrait;
+
+    protected Model $model;
 
     public function __construct(UsuarioModel $model)
     {
         $this->model = $model;
     }
 
-    public function findAll(int $perPage, ?int $page): array
+    public function countDeletados(): int
     {
-        return $this->model->withDeleted(true)->paginate($perPage, 'default', $page);
-    }
-
-    public function findById(int $id): ?object
-    {
-        return $this->model->withDeleted(true)->find($id);
+        return $this->model->withDeleted()
+            ->where('deletado_em IS NOT NULL')
+            ->countAllResults();
     }
 
     public function findByEmail(string $email): ?object
@@ -75,11 +76,6 @@ class UsuarioRepository implements UsuarioRepositoryInterface
     public function softRestore(int $id): bool
     {
         return (bool) $this->model->update($id, ['deletado_em' => null]);
-    }
-
-    public function countAll(): int
-    {
-        return $this->model->withDeleted(true)->countAllResults();
     }
 
     public function getPager(): object
