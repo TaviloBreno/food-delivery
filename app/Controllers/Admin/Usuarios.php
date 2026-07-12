@@ -5,37 +5,40 @@ declare(strict_types=1);
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\UsuarioModel;
-use CodeIgniter\HTTP\RedirectResponse;
+use App\DTOs\UsuarioDTO;
+use App\Exceptions\UsuarioException;
+use App\Interfaces\UsuarioServiceInterface;
+use App\Traits\PaginacaoTrait;
+use App\Traits\RespostasTrait;
+use App\Helpers\ValidacaoHelper;
+use Config\Services;
 
 class Usuarios extends BaseController
 {
-    private UsuarioModel $usuarioModel;
+    use PaginacaoTrait;
+    use RespostasTrait;
+
+    private UsuarioServiceInterface $usuarioService;
 
     public function __construct()
     {
-        $this->usuarioModel = new UsuarioModel();
+        $this->usuarioService = Services::usuarioService();
     }
 
     public function index()
     {
-        $perPage = $this->request->getGet('perPage') ?? 10;
-        $perPage = in_array($perPage, [5, 10, 15]) ? (int) $perPage : 10;
+        $perPage = $this->getPerPage($this->request);
+        $page = $this->getPage($this->request);
 
-        $page = $this->request->getGet('page');
-        $page = is_numeric($page) ? (int) $page : null;
-
-        $usuarios = $this->usuarioModel->withDeleted(true)->paginate($perPage, 'default', $page);
-
-        $pager = $this->usuarioModel->pager;
+        $resultado = $this->usuarioService->listar($perPage, $page);
 
         $data = [
             'titulo' => 'Listando os usuários',
             'subtitulo' => 'Listagem completa dos usuários cadastrados',
-            'usuarios' => $usuarios,
-            'pager' => $pager,
-            'perPage' => $perPage,
-            'total' => $this->usuarioModel->withDeleted(true)->countAllResults(),
+            'usuarios' => $resultado['usuarios'],
+            'pager' => $resultado['pager'],
+            'perPage' => $resultado['perPage'],
+            'total' => $resultado['total'],
         ];
 
         return view('Admin/Usuarios/index', $data);
@@ -44,39 +47,34 @@ class Usuarios extends BaseController
     public function procurar()
     {
         if (!$this->request->isAJAX()) {
-            return redirect()->back();
+            return $this->atencao('Requisição inválida.');
         }
 
-        $usuarios = $this->usuarioModel->procurar($this->request->getGet('term'));
+        $term = $this->request->getGet('term');
+        $usuarios = $this->usuarioService->procurar($term);
 
-        $retorno = [];
-
-        foreach ($usuarios as $usuario) {
-            $retorno[] = [
-                'id' => $usuario->id,
-                'value' => $usuario->nome,
-            ];
-        }
+        $retorno = array_map(
+            fn($usuario) => ['id' => $usuario->id, 'value' => $usuario->nome],
+            $usuarios
+        );
 
         return $this->response->setJSON($retorno);
     }
 
     public function show($id = null)
     {
-        $id = (int) $id;
+        try {
+            $usuario = $this->usuarioService->buscar((int) $id);
 
-        $usuario = $this->buscaUsuarioOu404($id);
+            $data = [
+                'titulo' => "Detalhando o usuário {$usuario->nome}",
+                'usuario' => $usuario,
+            ];
 
-        if ($usuario instanceof RedirectResponse) {
-            return $usuario;
+            return view('Admin/Usuarios/show', $data);
+        } catch (UsuarioException $e) {
+            return $this->atencao($e->getMessage());
         }
-
-        $data = [
-            'titulo' => "Detalhando o usuário {$usuario->nome}",
-            'usuario' => $usuario,
-        ];
-
-        return view("Admin/Usuarios/show", $data);
     }
 
     public function criar()
@@ -91,222 +89,107 @@ class Usuarios extends BaseController
     public function salvar()
     {
         if (!$this->request->is('post')) {
-            return redirect()->back();
+            return $this->atencao('Método inválido.');
         }
 
-        $post = $this->request->getPost();
+        try {
+            $post = $this->request->getPost();
 
-        $post['cpf'] = preg_replace('/\D/', '', $post['cpf'] ?? '');
-        $post['telefone'] = preg_replace('/\D/', '', $post['telefone'] ?? '');
+            $post['cpf'] = ValidacaoHelper::limparCpf($post['cpf'] ?? '');
+            $post['telefone'] = ValidacaoHelper::limparTelefone($post['telefone'] ?? '');
 
-        $error = '';
-        if (!$this->usuarioModel->validaCpf($post['cpf'], $error)) {
-            return redirect()->back()->withInput()->with('erro', $error);
+            $dto = UsuarioDTO::fromArray($post);
+
+            $this->validate($this->getValidationRules());
+            $this->usuarioService->criar($dto);
+
+            return $this->sucesso('Usuário criado com sucesso!', site_url('admin/usuarios'));
+        } catch (UsuarioException $e) {
+            return $this->erro($e->getMessage())->withInput();
         }
-
-        $cpfExiste = $this->usuarioModel->where('cpf', $post['cpf'])->withDeleted(true)->first();
-        if ($cpfExiste) {
-            return redirect()->back()->withInput()->with('erro', 'Este CPF já está cadastrado.');
-        }
-
-        $emailExiste = $this->usuarioModel->where('email', $post['email'])->withDeleted(true)->first();
-        if ($emailExiste) {
-            return redirect()->back()->withInput()->with('erro', 'Este e-mail já está cadastrado.');
-        }
-
-        $rules = [
-            'nome' => 'required|min_length[3]|max_length[120]',
-            'email' => 'required|valid_email',
-            'cpf' => 'required|exact_length[11]',
-            'telefone' => 'required|exact_length[11]',
-            'senha' => 'required|min_length[8]',
-            'senha_confirmacao' => 'required|matches[senha]',
-            'ativo' => 'required|in_list[0,1]',
-            'is_admin' => 'required|in_list[0,1]',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('atencao', 'Existem erros no formulário');
-        }
-
-        $dados = [
-            'nome' => $post['nome'],
-            'email' => $post['email'],
-            'cpf' => $post['cpf'],
-            'telefone' => $post['telefone'],
-            'password_hash' => password_hash($post['senha'], PASSWORD_DEFAULT),
-            'ativo' => isset($post['ativo']) ? (int) $post['ativo'] : 1,
-            'is_admin' => isset($post['is_admin']) ? (int) $post['is_admin'] : 0,
-        ];
-
-        $this->usuarioModel->skipValidation(true);
-
-        if ($this->usuarioModel->insert($dados)) {
-            return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Usuário criado com sucesso!');
-        }
-
-        return redirect()->back()->with('atencao', 'Erro ao criar usuário')->withInput();
     }
 
     public function editar($id = null)
     {
-        $id = (int) $id;
+        try {
+            $usuario = $this->usuarioService->buscar((int) $id);
 
-        $usuario = $this->buscaUsuarioOu404($id);
+            $data = [
+                'titulo' => "Editando o usuário {$usuario->nome}",
+                'usuario' => $usuario,
+            ];
 
-        if ($usuario instanceof RedirectResponse) {
-            return $usuario;
+            return view('Admin/Usuarios/editar', $data);
+        } catch (UsuarioException $e) {
+            return $this->atencao($e->getMessage());
         }
-
-        $data = [
-            'titulo' => "Editando o usuário {$usuario->nome}",
-            'usuario' => $usuario,
-        ];
-
-        return view("Admin/Usuarios/editar", $data);
     }
 
     public function atualizar($id = null)
     {
         $method = strtolower($this->request->getMethod());
 
-        if ($method !== 'post' && $method !== 'put') {
-            return redirect()->back();
+        if (!in_array($method, ['post', 'put'])) {
+            return $this->atencao('Método inválido.');
         }
 
-        $id = (int) ($id ?: $this->request->getPost('id'));
+        try {
+            $post = $this->request->getPost();
 
-        $usuario = $this->buscaUsuarioOu404($id);
+            $post['cpf'] = ValidacaoHelper::limparCpf($post['cpf'] ?? '');
+            $post['telefone'] = ValidacaoHelper::limparTelefone($post['telefone'] ?? '');
 
-        if ($usuario instanceof RedirectResponse) {
-            return $usuario;
+            $dto = UsuarioDTO::fromArray($post);
+
+            $this->validate($this->getValidationRules((int) $id));
+            $this->usuarioService->atualizar((int) $id, $dto);
+
+            return $this->sucesso('Usuário atualizado com sucesso!', site_url("admin/usuarios/show/{$id}"));
+        } catch (UsuarioException $e) {
+            return $this->erro($e->getMessage())->withInput();
         }
-
-        $post = $this->request->getPost();
-
-        $post['cpf'] = preg_replace('/\D/', '', $post['cpf'] ?? '');
-        $post['telefone'] = preg_replace('/\D/', '', $post['telefone'] ?? '');
-
-        $error = '';
-        if (!$this->usuarioModel->validaCpf($post['cpf'], $error)) {
-            return redirect()->back()->withInput()->with('erro', $error);
-        }
-
-        $rules = [
-            'nome' => 'required|min_length[3]|max_length[120]',
-            'email' => 'required|valid_email|is_unique[usuarios.email,id,' . $id . ']',
-            'cpf' => 'required|exact_length[11]|is_unique[usuarios.cpf,id,' . $id . ']',
-            'telefone' => 'required|exact_length[11]|is_unique[usuarios.telefone,id,' . $id . ']',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('atencao', 'Existem erros no formulário');
-        }
-
-        $dados = [
-            'nome' => $post['nome'],
-            'email' => $post['email'],
-            'cpf' => $post['cpf'],
-            'telefone' => $post['telefone'],
-            'ativo' => isset($post['ativo']) ? (int) $post['ativo'] : 1,
-            'is_admin' => isset($post['is_admin']) ? (int) $post['is_admin'] : 0,
-        ];
-
-        if (!empty($post['senha'])) {
-            if ($post['senha'] !== $post['senha_confirmacao']) {
-                return redirect()->back()->with('atencao', 'As senhas não coincidem')->withInput();
-            }
-
-            if (strlen($post['senha']) < 8) {
-                return redirect()->back()->with('atencao', 'A senha deve ter pelo menos 8 caracteres')->withInput();
-            }
-
-            $dados['password_hash'] = password_hash($post['senha'], PASSWORD_DEFAULT);
-        }
-
-        $this->usuarioModel->skipValidation(true);
-
-        if ($this->usuarioModel->update($id, $dados)) {
-            return redirect()->to(site_url("admin/usuarios/show/$id"))->with('sucesso', 'Usuário atualizado com sucesso!');
-        }
-
-        return redirect()->back()->with('atencao', 'Erro ao atualizar usuário')->withInput();
     }
 
     public function excluir($id = null)
     {
-        $id = (int) $id;
+        try {
+            $usuarioLogadoId = (int) session()->get('usuario_id');
+            $this->usuarioService->excluir((int) $id, $usuarioLogadoId);
 
-        $usuario = $this->buscaUsuarioOu404($id);
-
-        if ($usuario instanceof RedirectResponse) {
-            return $usuario;
+            return $this->sucesso('Usuário excluído com sucesso!', site_url('admin/usuarios'));
+        } catch (UsuarioException $e) {
+            return $this->erro($e->getMessage());
         }
-
-        if ($usuario->deletado_em !== null) {
-            return redirect()->back()->with('atencao', 'Este usuário já está excluído.');
-        }
-
-        $usuarioLogado = $this->usuarioModel->find(session()->get('usuario_id'));
-
-        if (!$usuarioLogado) {
-            return redirect()->back()->with('erro', 'Usuário não autenticado.');
-        }
-
-        if ($usuario->is_admin == 1) {
-            if ($usuarioLogado->is_admin != 1) {
-                return redirect()->back()->with('erro', 'Você não tem permissão para excluir um administrador.');
-            }
-
-            if ($usuarioLogado->id == $id) {
-                return redirect()->back()->with('erro', 'Você não pode excluir a si mesmo.');
-            }
-        }
-
-        if ($this->usuarioModel->softDelete($id)) {
-            return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Usuário excluído com sucesso!');
-        }
-
-        return redirect()->back()->with('atencao', 'Erro ao excluir usuário');
     }
 
     public function restaurar($id = null)
     {
-        $id = (int) $id;
+        try {
+            $usuarioLogadoId = (int) session()->get('usuario_id');
+            $this->usuarioService->restaurar((int) $id, $usuarioLogadoId);
 
-        $usuario = $this->buscaUsuarioOu404($id);
-
-        if ($usuario instanceof RedirectResponse) {
-            return $usuario;
+            return $this->sucesso('Usuário restaurado com sucesso!', site_url('admin/usuarios'));
+        } catch (UsuarioException $e) {
+            return $this->erro($e->getMessage());
         }
-
-        if ($usuario->deletado_em === null) {
-            return redirect()->back()->with('atencao', 'Este usuário não está excluído.');
-        }
-
-        $usuarioLogado = $this->usuarioModel->find(session()->get('usuario_id'));
-
-        if (!$usuarioLogado) {
-            return redirect()->back()->with('erro', 'Usuário não autenticado.');
-        }
-
-        if ($usuario->is_admin == 1 && $usuarioLogado->is_admin != 1) {
-            return redirect()->back()->with('erro', 'Você não tem permissão para restaurar um administrador.');
-        }
-
-        if ($this->usuarioModel->softRestore($id)) {
-            return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Usuário restaurado com sucesso!');
-        }
-
-        return redirect()->back()->with('atencao', 'Erro ao restaurar usuário');
     }
 
-    private function buscaUsuarioOu404(?int $id = null)
+    private function getValidationRules(?int $id = null): array
     {
-        if (!$id || !$usuario = $this->usuarioModel->withDeleted(true)->find($id)) {
-            return redirect()->back()->with('atencao', 'Usuário não encontrado');
+        $rules = [
+            'nome' => 'required|min_length[3]|max_length[120]',
+            'email' => 'required|valid_email',
+            'cpf' => 'required|exact_length[11]',
+            'telefone' => 'required|exact_length[11]',
+            'ativo' => 'required|in_list[0,1]',
+            'is_admin' => 'required|in_list[0,1]',
+        ];
+
+        if (!$id) {
+            $rules['senha'] = 'required|min_length[8]';
+            $rules['senha_confirmacao'] = 'required|matches[senha]';
         }
 
-        return $usuario;
+        return $rules;
     }
 }
