@@ -35,7 +35,6 @@
                                 <th>Nome</th>
                                 <th>CPF</th>
                                 <th>Telefone</th>
-                                <th>Ativo</th>
                                 <th>Status</th>
                                 <th class="text-center">Ações</th>
                             </tr>
@@ -43,7 +42,7 @@
                         <tbody>
                             <?php if (empty($usuarios)): ?>
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted py-4">
+                                    <td colspan="6" class="text-center text-muted py-4">
                                         <i class="mdi mdi-account-off" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
                                         Nenhum usuário encontrado
                                     </td>
@@ -59,12 +58,13 @@
                                         </td>
                                         <td><?php echo formataCpf($usuario->cpf); ?></td>
                                         <td><?php echo formataTelefone($usuario->telefone); ?></td>
-                                        <td><?php echo ($usuario->ativo ? '<span class="badge badge-success">Ativo</span>' : '<span class="badge badge-danger">Inativo</span>'); ?></td>
                                         <td>
                                             <?php if ($usuario->deletado_em !== null): ?>
                                                 <span class="badge badge-danger">Excluído</span>
+                                            <?php elseif ($usuario->ativo == 1): ?>
+                                                <span class="badge badge-success">Ativo</span>
                                             <?php else: ?>
-                                                <span class="badge badge-primary">Ativo</span>
+                                                <span class="badge badge-warning">Inativo</span>
                                             <?php endif; ?>
                                         </td>
                                         <td class="text-center">
