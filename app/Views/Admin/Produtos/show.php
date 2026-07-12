@@ -12,6 +12,18 @@
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
+
+    .btn-purple {
+        background: #6f42c1;
+        border-color: #6f42c1;
+        color: #fff;
+    }
+
+    .btn-purple:hover {
+        background: #5a32a3;
+        border-color: #5a32a3;
+        color: #fff;
+    }
 </style>
 <?php echo $this->endSection(); ?>
 
@@ -106,6 +118,9 @@
                     </a>
                     <a href="<?php echo site_url('admin/produtos/especificacoes/' . $produto->id); ?>" class="btn btn-warning btn-sm">
                         <i class="mdi mdi-list-box"></i> Especificações
+                    </a>
+                    <a href="<?php echo site_url('admin/produtos/medidas/' . $produto->id); ?>" class="btn btn-purple btn-sm">
+                        <i class="mdi mdi-ruler"></i> Medidas
                     </a>
                     <?php if ($produto->deletado_em === null): ?>
                         <a href="<?php echo site_url('admin/produtos/excluir/' . $produto->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
