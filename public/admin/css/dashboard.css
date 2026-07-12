@@ -1,0 +1,132 @@
+/* 🔥 DASHBOARD - ESTILOS */
+
+/* Cards Estatísticos */
+.stat-card {
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card .stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.6;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.stat-card .stat-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.stat-card .stat-change {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+/* Cores dos Cards */
+.stat-primary { background: linear-gradient(135deg, #4d83ff, #6c5ce7); }
+.stat-success { background: linear-gradient(135deg, #00b894, #00cec9); }
+.stat-danger { background: linear-gradient(135deg, #fd79a8, #e17055); }
+.stat-warning { background: linear-gradient(135deg, #fdcb6e, #f39c12); }
+.stat-info { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+.stat-purple { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+.stat-pink { background: linear-gradient(135deg, #fd79a8, #e84393); }
+.stat-orange { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+
+/* Cabeçalho */
+.dashboard-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c2c2c;
+    margin-bottom: 5px;
+}
+
+.dashboard-subtitle {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.welcome-text .user-name {
+    color: #4d83ff;
+    font-weight: 600;
+}
+
+/* Seções */
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin: 25px 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.section-title .mdi {
+    margin-right: 8px;
+    color: #4d83ff;
+}
+
+/* Tabela Últimos Registros */
+.table-ultimos td,
+.table-ultimos th {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+}
+
+.table-ultimos .badge-status {
+    font-size: 11px !important;
+    padding: 3px 10px !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .stat-card .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card .stat-icon {
+        font-size: 2rem;
+        right: 10px;
+        top: 10px;
+    }
+    
+    .dashboard-title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-card .stat-number {
+        font-size: 1.2rem;
+    }
+    
+    .stat-card .stat-icon {
+        font-size: 1.5rem;
+        right: 8px;
+        top: 8px;
+    }
+}

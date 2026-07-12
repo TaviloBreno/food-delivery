@@ -1,125 +1,11 @@
 <?php echo $this->extend('Admin/layout/principal'); ?>
 
-<?php echo $this->section('titulo'); ?> <?php echo $titulo; ?> <?php echo $this->endSection(); ?>
+<?php echo $this->section('titulo'); ?>
+<?php echo $titulo; ?>
+<?php echo $this->endSection(); ?>
 
 <?php echo $this->section('estilos'); ?>
-<style>
-    .stat-card {
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-        color: #fff;
-        transition: transform 0.3s, box-shadow 0.3s;
-        cursor: default;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    .stat-card .stat-icon {
-        font-size: 2.5rem;
-        opacity: 0.6;
-        position: absolute;
-        right: 15px;
-        top: 15px;
-    }
-
-    .stat-card .stat-number {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 2px;
-    }
-
-    .stat-card .stat-label {
-        font-size: 0.85rem;
-        opacity: 0.9;
-    }
-
-    .stat-card .stat-change {
-        font-size: 0.75rem;
-        opacity: 0.8;
-        margin-top: 5px;
-    }
-
-    .stat-primary {
-        background: linear-gradient(135deg, #4d83ff, #6c5ce7);
-    }
-
-    .stat-success {
-        background: linear-gradient(135deg, #00b894, #00cec9);
-    }
-
-    .stat-danger {
-        background: linear-gradient(135deg, #fd79a8, #e17055);
-    }
-
-    .stat-warning {
-        background: linear-gradient(135deg, #fdcb6e, #f39c12);
-    }
-
-    .stat-info {
-        background: linear-gradient(135deg, #74b9ff, #0984e3);
-    }
-
-    .stat-purple {
-        background: linear-gradient(135deg, #a29bfe, #6c5ce7);
-    }
-
-    .stat-pink {
-        background: linear-gradient(135deg, #fd79a8, #e84393);
-    }
-
-    .stat-orange {
-        background: linear-gradient(135deg, #fdcb6e, #e17055);
-    }
-
-    .dashboard-title {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #2c2c2c;
-        margin-bottom: 5px;
-    }
-
-    .dashboard-subtitle {
-        color: #6c757d;
-        margin-bottom: 25px;
-        font-size: 1rem;
-    }
-
-    .welcome-text .user-name {
-        color: #4d83ff;
-        font-weight: 600;
-    }
-
-    .section-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #2c2c2c;
-        margin: 25px 0 15px 0;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #e9ecef;
-    }
-
-    .section-title .mdi {
-        margin-right: 8px;
-        color: #4d83ff;
-    }
-
-    .table-ultimos td,
-    .table-ultimos th {
-        padding: 8px 12px !important;
-        font-size: 13px !important;
-    }
-
-    .table-ultimos .badge-status {
-        font-size: 11px !important;
-        padding: 3px 10px !important;
-    }
-</style>
+<link rel="stylesheet" href="<?php echo site_url('admin/css/dashboard.css'); ?>">
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('conteudo'); ?>
@@ -354,25 +240,5 @@
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.stat-number').forEach(function(el) {
-            const text = el.textContent;
-            el.textContent = '0';
-            let current = 0;
-            const target = parseInt(text);
-            if (isNaN(target) || target === 0) return;
-
-            const step = Math.max(1, Math.floor(target / 30));
-            const interval = setInterval(function() {
-                current += step;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(interval);
-                }
-                el.textContent = current;
-            }, 50);
-        });
-    });
-</script>
+<script src="<?php echo site_url('admin/js/dashboard.js'); ?>"></script>
 <?php echo $this->endSection(); ?>
