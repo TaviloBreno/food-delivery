@@ -162,6 +162,7 @@
           $isDashboard = strpos($currentUri, 'dashboard') !== false;
           $isUsuarios = strpos($currentUri, 'usuarios') !== false;
           $isCategorias = strpos($currentUri, 'categorias') !== false;
+          $isProdutos = strpos($currentUri, 'produtos') !== false;
           ?>
           <li class="nav-item <?php echo $isDashboard ? 'active' : ''; ?>">
             <a class="nav-link" href="<?php echo site_url('admin/dashboard'); ?>">
@@ -179,6 +180,12 @@
             <a class="nav-link" href="<?php echo site_url('admin/categorias'); ?>">
               <i class="mdi mdi-folder-outline menu-icon"></i>
               <span class="menu-title">Categorias</span>
+            </a>
+          </li>
+          <li class="nav-item <?php echo $isProdutos ? 'active' : ''; ?>">
+            <a class="nav-link" href="<?php echo site_url('admin/produtos'); ?>">
+              <i class="mdi mdi-food menu-icon"></i>
+              <span class="menu-title">Produtos</span>
             </a>
           </li>
           <li class="nav-item">
