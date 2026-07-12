@@ -30,7 +30,6 @@ class Categorias extends BaseController
 
         $data = [
             'titulo' => 'Listando as categorias',
-            'subtitulo' => 'Listagem completa das categorias cadastradas',
             'categorias' => $categorias,
             'pager' => $pager,
             'perPage' => $perPage,
@@ -196,6 +195,36 @@ class Categorias extends BaseController
         }
 
         return redirect()->back()->with('atencao', 'Erro ao restaurar categoria');
+    }
+
+    public function procurar()
+    {
+        if (!$this->request->isAJAX()) {
+            return redirect()->back();
+        }
+
+        $term = $this->request->getGet('term');
+
+        if (empty($term)) {
+            return $this->response->setJSON([]);
+        }
+
+        $categorias = $this->categoriaModel
+            ->select('id, nome')
+            ->like('nome', $term)
+            ->withDeleted(true)
+            ->get()
+            ->getResult();
+
+        $retorno = [];
+        foreach ($categorias as $categoria) {
+            $retorno[] = [
+                'id' => $categoria->id,
+                'value' => $categoria->nome,
+            ];
+        }
+
+        return $this->response->setJSON($retorno);
     }
 
     private function buscaCategoriaOu404(?int $id = null)
