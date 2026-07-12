@@ -63,4 +63,15 @@ class Services extends BaseService
             $formaPagamentoRepository,
         );
     }
+
+    public static function categoriaService($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('categoriaService');
+        }
+
+        $model = new \App\Models\CategoriaModel();
+        $repository = new \App\Repositories\CategoriaRepository($model);
+        return new \App\Services\CategoriaService($repository);
+    }
 }
