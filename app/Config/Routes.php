@@ -66,4 +66,10 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->get('produtos/especificacoes/criar/(:num)', 'ProdutosEspecificacoes::criar/$1');
     $routes->post('produtos/especificacoes/salvar', 'ProdutosEspecificacoes::salvar');
     $routes->get('produtos/especificacoes/excluir/(:num)', 'ProdutosEspecificacoes::excluir/$1');
+
+    // 🔥 ROTAS DE MEDIDAS
+    $routes->get('produtos/medidas/(:num)', 'ProdutosMedidas::index/$1');
+    $routes->get('produtos/medidas/criar/(:num)', 'ProdutosMedidas::criar/$1');
+    $routes->post('produtos/medidas/salvar', 'ProdutosMedidas::salvar');
+    $routes->get('produtos/medidas/excluir/(:num)', 'ProdutosMedidas::excluir/$1');
 });
