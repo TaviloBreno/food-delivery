@@ -487,7 +487,7 @@
                         Lembrar-me
                       </label>
                     </div>
-                    <a href="#" class="auth-link">Esqueceu a senha?</a>
+                    <a href="<?php echo site_url('login/esqueci'); ?>" class="auth-link">Esqueceu a senha?</a>
                   </div>
 
                   <button type="submit" class="btn btn-login">
