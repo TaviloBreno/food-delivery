@@ -6,6 +6,7 @@ $isUsuarios = strpos($currentUri, 'usuarios') !== false;
 $isCategorias = strpos($currentUri, 'categorias') !== false;
 $isProdutos = strpos($currentUri, 'produtos') !== false;
 $isFormasPagamento = strpos($currentUri, 'formas-pagamento') !== false;
+$isEntregadores = strpos($currentUri, 'entregadores') !== false;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -193,6 +194,12 @@ $isFormasPagamento = strpos($currentUri, 'formas-pagamento') !== false;
             <a class="nav-link" href="<?php echo site_url('admin/formas-pagamento'); ?>">
               <i class="mdi mdi-credit-card menu-icon"></i>
               <span class="menu-title">Formas de Pagamento</span>
+            </a>
+          </li>
+          <li class="nav-item <?php echo $isEntregadores ? 'active' : ''; ?>">
+            <a class="nav-link" href="<?php echo site_url('admin/entregadores'); ?>">
+              <i class="mdi mdi-motorbike menu-icon"></i>
+              <span class="menu-title">Entregadores</span>
             </a>
           </li>
           <li class="nav-item">
