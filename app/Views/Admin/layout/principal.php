@@ -1,3 +1,16 @@
+<?php
+// 🔥 DEFINE A FUNÇÃO DIRETAMENTE NA VIEW
+if (!function_exists('asset_version')) {
+  function asset_version($path)
+  {
+    $fullPath = FCPATH . $path;
+    if (file_exists($fullPath)) {
+      return site_url($path) . '?v=' . filemtime($fullPath);
+    }
+    return site_url($path);
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +19,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Food Delivery | <?php echo $this->renderSection('titulo'); ?></title>
 
-  <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>vendors/base/vendor.bundle.base.css">
-  <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>css/style.css">
-  <link rel="stylesheet" href="<?php echo site_url('admin/'); ?>css/alertas.css">
+  <!-- 🔥 CSS COM VERSÃO AUTOMÁTICA -->
+  <link rel="stylesheet" href="<?php echo asset_version('admin/vendors/mdi/css/materialdesignicons.min.css'); ?>">
+  <link rel="stylesheet" href="<?php echo asset_version('admin/vendors/base/vendor.bundle.base.css'); ?>">
+  <link rel="stylesheet" href="<?php echo asset_version('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css'); ?>">
+  <link rel="stylesheet" href="<?php echo asset_version('admin/css/style.css'); ?>">
+  <link rel="stylesheet" href="<?php echo asset_version('admin/css/alertas.css'); ?>">
   <link rel="shortcut icon" href="<?php echo site_url('admin/'); ?>images/favicon.png" />
 
   <?php echo $this->renderSection('estilos'); ?>
@@ -263,19 +277,20 @@
     </div>
   </div>
 
-  <script src="<?php echo site_url('admin/'); ?>vendors/base/vendor.bundle.base.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>vendors/chart.js/Chart.min.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>vendors/datatables.net/jquery.dataTables.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/off-canvas.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/hoverable-collapse.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/template.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/dashboard.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/data-table.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/jquery.dataTables.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/dataTables.bootstrap4.js"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/jquery.cookie.js" type="text/javascript"></script>
-  <script src="<?php echo site_url('admin/'); ?>js/alertas.js"></script>
+  <!-- 🔥 JS COM VERSÃO AUTOMÁTICA -->
+  <script src="<?php echo asset_version('admin/vendors/base/vendor.bundle.base.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/vendors/chart.js/Chart.min.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/vendors/datatables.net/jquery.dataTables.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/off-canvas.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/hoverable-collapse.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/template.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/dashboard.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/data-table.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/jquery.dataTables.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/dataTables.bootstrap4.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/jquery.cookie.js'); ?>"></script>
+  <script src="<?php echo asset_version('admin/js/alertas.js'); ?>"></script>
 
   <?php echo $this->renderSection('scripts'); ?>
 </body>
