@@ -15,6 +15,7 @@
   <link rel="shortcut icon" href="<?php echo site_url('admin/'); ?>images/favicon.png" />
   <link rel="stylesheet" href="<?php echo asset_version('admin/css/usuarios.css'); ?>">
   <link rel="stylesheet" href="<?php echo asset_version('admin/css/categorias.css'); ?>">
+  <link rel="stylesheet" href="<?php echo asset_version('admin/css/principal.css'); ?>">
 
   <?php echo $this->renderSection('estilos'); ?>
 </head>
@@ -156,19 +157,25 @@
     <div class="container-fluid page-body-wrapper">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
+          <?php
+          $currentUri = current_url();
+          $isDashboard = strpos($currentUri, 'dashboard') !== false;
+          $isUsuarios = strpos($currentUri, 'usuarios') !== false;
+          $isCategorias = strpos($currentUri, 'categorias') !== false;
+          ?>
+          <li class="nav-item <?php echo $isDashboard ? 'active' : ''; ?>">
+            <a class="nav-link" href="<?php echo site_url('admin/dashboard'); ?>">
               <i class="mdi mdi-view-dashboard menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php echo $isUsuarios ? 'active' : ''; ?>">
             <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
               <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Usuários</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php echo $isCategorias ? 'active' : ''; ?>">
             <a class="nav-link" href="<?php echo site_url('admin/categorias'); ?>">
               <i class="mdi mdi-folder-outline menu-icon"></i>
               <span class="menu-title">Categorias</span>
@@ -186,36 +193,36 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <?php if (session()->has('sucesso')): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px 20px; border-radius: 8px;">
               <strong>Perfeito!</strong> <?php echo session('sucesso'); ?>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="top: 50%; transform: translateY(-50%);">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
           <?php endif; ?>
 
           <?php if (session()->has('info')): ?>
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <div class="alert alert-info alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px 20px; border-radius: 8px;">
               <strong>Informação!</strong> <?php echo session('info'); ?>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="top: 50%; transform: translateY(-50%);">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
           <?php endif; ?>
 
           <?php if (session()->has('atencao')): ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px 20px; border-radius: 8px;">
               <strong>Atenção!</strong> <?php echo session('atencao'); ?>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="top: 50%; transform: translateY(-50%);">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
           <?php endif; ?>
 
           <?php if (session()->has('erro')): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px 20px; border-radius: 8px;">
               <strong>Erro!</strong> <?php echo session('erro'); ?>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="top: 50%; transform: translateY(-50%);">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
