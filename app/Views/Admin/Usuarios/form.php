@@ -12,7 +12,6 @@ $buttonIcon = $isEdit ? 'mdi-content-save' : 'mdi-account-plus';
 $errors = session('errors') ?? [];
 $old = session('old') ?? [];
 
-// 🔥 DETERMINA OS VALORES CORRETOS PARA OS RADIOS
 $ativoValue = old('ativo') !== null ? old('ativo') : ($usuario->ativo ?? 1);
 $isAdminValue = old('is_admin') !== null ? old('is_admin') : ($usuario->is_admin ?? 0);
 ?>

@@ -13,7 +13,6 @@
             <div class="card-body bg-primary pb-0 pt-4">
                 <h4 class="card-title text-white"><?php echo esc($titulo); ?></h4>
             </div>
-
             <div class="card-body">
                 <?php echo view('Admin/Usuarios/form', ['usuario' => $usuario ?? null]); ?>
             </div>
