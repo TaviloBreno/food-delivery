@@ -43,7 +43,7 @@ class Login extends BaseController
 
         if ($this->auth->login($email, $password)) {
             $usuario = $this->auth->pegaUsuarioLogado();
-            return redirect()->to(site_url('admin/usuarios'))->with('sucesso', 'Bem-vindo, ' . $usuario->nome . '!');
+            return redirect()->to(site_url('admin/dashboard'))->with('sucesso', 'Bem-vindo, ' . $usuario->nome . '!');
         }
 
         return redirect()->back()->with('erro', 'E-mail ou senha inválidos.')->withInput();

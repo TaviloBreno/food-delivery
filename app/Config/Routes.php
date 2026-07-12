@@ -16,6 +16,9 @@ $routes->get('login/redefinir/(:any)', 'Login::redefinir/$1');
 $routes->post('login/salvar-nova-senha', 'Login::salvarNovaSenha');
 
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth'], function ($routes) {
+    // 🔥 DASHBOARD
+    $routes->get('dashboard', 'Dashboard::index');
+    $routes->get('/', 'Dashboard::index');
 
     // 🔥 ROTAS DE USUÁRIOS
     $routes->get('usuarios', 'Usuarios::index');
