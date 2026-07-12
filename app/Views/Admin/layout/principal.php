@@ -136,15 +136,24 @@ if (!function_exists('asset_version')) {
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile" />
-              <span class="nav-profile-name">Louis Barnett</span>
+              <img src="<?php echo site_url('admin/images/faces/face5.jpg'); ?>" alt="profile" />
+              <span class="nav-profile-name">
+                <?php echo session('usuario_nome') ?? 'Usuário'; ?>
+              </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="mdi mdi-settings text-primary"></i> Settings
+              <a class="dropdown-item" href="<?php echo site_url('admin/usuarios/editar/' . session('usuario_id')); ?>">
+                <i class="mdi mdi-account text-primary"></i> Meu Perfil
               </a>
-              <a class="dropdown-item">
-                <i class="mdi mdi-logout text-primary"></i> Logout
+              <a class="dropdown-item" href="<?php echo site_url('admin/usuarios'); ?>">
+                <i class="mdi mdi-account-multiple text-primary"></i> Usuários
+              </a>
+              <a class="dropdown-item" href="<?php echo site_url('admin/categorias'); ?>">
+                <i class="mdi mdi-folder-menu text-primary"></i> Categorias
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="<?php echo site_url('login/logout'); ?>">
+                <i class="mdi mdi-logout text-danger"></i> Sair
               </a>
             </div>
           </li>
@@ -158,12 +167,31 @@ if (!function_exists('asset_version')) {
     <div class="container-fluid page-body-wrapper">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+          <!-- Dashboard -->
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
+
+          <!-- 🔥 USUÁRIOS -->
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
+              <i class="mdi mdi-account-multiple menu-icon"></i>
+              <span class="menu-title">Usuários</span>
+            </a>
+          </li>
+
+          <!-- 🔥 CATEGORIAS -->
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo site_url('admin/categorias'); ?>">
+              <i class="mdi mdi-folder-menu menu-icon"></i>
+              <span class="menu-title">Categorias</span>
+            </a>
+          </li>
+
+          <!-- UI Elements -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-circle-outline menu-icon"></i>
@@ -177,30 +205,40 @@ if (!function_exists('asset_version')) {
               </ul>
             </div>
           </li>
+
+          <!-- Form elements -->
           <li class="nav-item">
             <a class="nav-link" href="pages/forms/basic_elements.html">
               <i class="mdi mdi-view-headline menu-icon"></i>
               <span class="menu-title">Form elements</span>
             </a>
           </li>
+
+          <!-- Charts -->
           <li class="nav-item">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <i class="mdi mdi-chart-pie menu-icon"></i>
               <span class="menu-title">Charts</span>
             </a>
           </li>
+
+          <!-- Tables -->
           <li class="nav-item">
             <a class="nav-link" href="pages/tables/basic-table.html">
               <i class="mdi mdi-grid-large menu-icon"></i>
               <span class="menu-title">Tables</span>
             </a>
           </li>
+
+          <!-- Icons -->
           <li class="nav-item">
             <a class="nav-link" href="pages/icons/mdi.html">
               <i class="mdi mdi-emoticon menu-icon"></i>
               <span class="menu-title">Icons</span>
             </a>
           </li>
+
+          <!-- User Pages -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="mdi mdi-account menu-icon"></i>
@@ -217,6 +255,8 @@ if (!function_exists('asset_version')) {
               </ul>
             </div>
           </li>
+
+          <!-- Documentation -->
           <li class="nav-item">
             <a class="nav-link" href="documentation/documentation.html">
               <i class="mdi mdi-file-document-box-outline menu-icon"></i>
