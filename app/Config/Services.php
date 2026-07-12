@@ -4,6 +4,9 @@ namespace Config;
 
 use CodeIgniter\Config\BaseService;
 use App\Libraries\Autenticacao;
+use App\Services\UsuarioService;
+use App\Repositories\UsuarioRepository;
+use App\Models\UsuarioModel;
 
 /**
  * Services Configuration file.
@@ -14,13 +17,10 @@ use App\Libraries\Autenticacao;
  * the rest of your application.
  *
  * This file holds any application-specific services, or service overrides
- * that you might need. An example has been included with the general
- * method format you should use for your service methods. For more examples,
- * see the core Services file at system/Config/Services.php.
+ * that you might need. For more examples, see the core Services file at system/Config/Services.php.
  */
 class Services extends BaseService
 {
-
     public static function autenticacao($getShared = true)
     {
         if ($getShared) {
@@ -28,5 +28,16 @@ class Services extends BaseService
         }
 
         return new Autenticacao();
+    }
+
+    public static function usuarioService($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('usuarioService');
+        }
+
+        $model = new UsuarioModel();
+        $repository = new UsuarioRepository($model);
+        return new UsuarioService($repository);
     }
 }
