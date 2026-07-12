@@ -95,4 +95,15 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->get('entregadores/restaurar/(:num)', 'Entregadores::restaurar/$1');
     $routes->get('entregadores/upload-foto/(:num)', 'Entregadores::uploadFoto/$1');
     $routes->post('entregadores/salvar-foto/(:num)', 'Entregadores::salvarFoto/$1');
+
+    // 🔥 ROTAS DE BAIRROS ATENDIDOS
+    $routes->get('bairros-atendidos', 'BairrosAtendidos::index');
+    $routes->get('bairros-atendidos/procurar', 'BairrosAtendidos::procurar');
+    $routes->get('bairros-atendidos/criar', 'BairrosAtendidos::criar');
+    $routes->post('bairros-atendidos/salvar', 'BairrosAtendidos::salvar');
+    $routes->get('bairros-atendidos/show/(:num)', 'BairrosAtendidos::show/$1');
+    $routes->get('bairros-atendidos/editar/(:num)', 'BairrosAtendidos::editar/$1');
+    $routes->post('bairros-atendidos/atualizar/(:num)', 'BairrosAtendidos::atualizar/$1');
+    $routes->get('bairros-atendidos/excluir/(:num)', 'BairrosAtendidos::excluir/$1');
+    $routes->get('bairros-atendidos/restaurar/(:num)', 'BairrosAtendidos::restaurar/$1');
 });
