@@ -9,9 +9,13 @@ $routes->get('login/novo', 'Login::novo');
 $routes->post('login/autenticar', 'Login::autenticar');
 $routes->get('login/logout', 'Login::logout');
 
-// 🔥 ROTAS DO ADMIN
-$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+// 🔥 ROTAS DE RESET DE SENHA
+$routes->get('login/esqueci', 'Login::esqueci');
+$routes->post('login/solicitar-reset', 'Login::solicitarReset');
+$routes->get('login/redefinir/(:any)', 'Login::redefinir/$1');
+$routes->post('login/salvar-nova-senha', 'Login::salvarNovaSenha');
 
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth'], function ($routes) {
     $routes->get('usuarios', 'Usuarios::index');
     $routes->get('usuarios/procurar', 'Usuarios::procurar');
     $routes->get('usuarios/criar', 'Usuarios::criar');
