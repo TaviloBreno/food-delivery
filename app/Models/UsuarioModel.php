@@ -18,7 +18,9 @@ class UsuarioModel extends Model
         'password_hash',
         'ativo',
         'is_admin',
-        'deletado_em'
+        'deletado_em',
+        'reset_hash',
+        'reset_expira_em',
     ];
 
     protected $useSoftDelete    = true;
@@ -151,5 +153,93 @@ class UsuarioModel extends Model
     public function buscaUsuarioPorEmail(string $email): object
     {
         return $this->where('email', $email)->first();
+    }
+
+    /**
+     * Gera um token de reset de senha
+     *
+     * @param string $email
+     * @return string|null
+     */
+    public function gerarTokenReset(string $email): ?string
+    {
+        $usuario = $this->where('email', $email)->first();
+
+        if (!$usuario) {
+            return null;
+        }
+
+        $token = bin2hex(random_bytes(32));
+        $expiraEm = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+        $this->update($usuario->id, [
+            'reset_hash' => $token,
+            'reset_expira_em' => $expiraEm,
+        ]);
+
+        return $token;
+    }
+
+    /**
+     * Valida o token de reset
+     *
+     * @param string $token
+     * @return object|null
+     */
+    public function validarTokenReset(string $token): ?object
+    {
+        $usuario = $this->where('reset_hash', $token)
+            ->where('reset_expira_em >=', date('Y-m-d H:i:s'))
+            ->first();
+
+        return $usuario;
+    }
+
+    /**
+     * Redefine a senha do usuário
+     *
+     * @param string $token
+     * @param string $novaSenha
+     * @return bool
+     */
+    public function redefinirSenha(string $token, string $novaSenha): bool
+    {
+        $usuario = $this->validarTokenReset($token);
+
+        if (!$usuario) {
+            return false;
+        }
+
+        $this->update($usuario->id, [
+            'password_hash' => password_hash($novaSenha, PASSWORD_DEFAULT),
+            'reset_hash' => null,
+            'reset_expira_em' => null,
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Verifica se o token é válido e não expirou
+     *
+     * @param string $token
+     * @return bool
+     */
+    public function tokenValido(string $token): bool
+    {
+        return $this->where('reset_hash', $token)
+            ->where('reset_expira_em >=', date('Y-m-d H:i:s'))
+            ->first() !== null;
+    }
+
+    /**
+     * Busca usuário pelo token de reset
+     *
+     * @param string $token
+     * @return object|null
+     */
+    public function buscaPorTokenReset(string $token): ?object
+    {
+        return $this->where('reset_hash', $token)->first();
     }
 }
