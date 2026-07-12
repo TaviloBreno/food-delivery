@@ -91,34 +91,43 @@
     color: #495057 !important;
 }
 
-/* 🔥 REMOVER BARRA BRANCA - CONTAINER PRINCIPAL */
+/* 🔥 CONTAINER PRINCIPAL */
 .container-scroller {
     padding: 0 !important;
     margin: 0 !important;
     background: #f5f7fa !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .page-body-wrapper {
     padding: 0 !important;
     margin: 0 !important;
     background: #f5f7fa !important;
+    flex: 1 !important;
+    display: flex !important;
+    min-height: calc(100vh - 70px) !important;
 }
 
-/* 🔥 MAIN PANEL - CORRIGIDO PARA NÃO FICAR ATRÁS DA NAVBAR */
+/* 🔥 MAIN PANEL */
 .main-panel {
     margin-left: 238px !important;
     padding: 0 !important;
     margin-top: 0 !important;
-    min-height: 100vh !important;
     background: #f5f7fa !important;
-    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-height: calc(100vh - 70px) !important;
 }
 
+/* 🔥 CONTENT WRAPPER - ESPAÇO MÍNIMO */
 .content-wrapper {
-    padding: 90px 25px 20px 25px !important;  /* 🔥 90px = altura da navbar (70px) + espaçamento */
-    margin-top: 0 !important;
-    min-height: calc(100vh - 70px) !important;
+    padding: 0 25px 5px 25px !important;  /* 🔥 remove padding-top */
+    margin-top: 70px !important;
     background: #f5f7fa !important;
+    flex: 1 !important;
 }
 
 /* 🔥 NAVBAR */
@@ -140,24 +149,108 @@
     border-radius: 12px !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
     border: none !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 10px !important;
     background: #fff !important;
 }
 
 .card-body {
-    padding: 25px !important;
+    padding: 15px 20px !important;
 }
 
-/* 🔥 FOOTER */
+.card-title {
+    margin-bottom: 6px !important;
+    font-size: 1rem !important;
+}
+
+/* 🔥 FOOTER - ENCOSTA NO FINAL */
 .footer {
     background: #fff !important;
-    padding: 15px 25px !important;
+    padding: 8px 25px !important;
     border-top: 1px solid #e9ecef !important;
-    margin-top: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
 }
 
+.footer .text-muted {
+    color: #6c757d !important;
+    font-size: 12px !important;
+}
+
+.footer a {
+    color: #4d83ff !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.footer a:hover {
+    color: #3a6fd6 !important;
+    text-decoration: underline !important;
+}
+
+.footer .mdi-heart {
+    color: #dc3545 !important;
+}
+
+/* 🔥 ALERTAS */
 .alert {
-    margin-bottom: 20px !important;
+    margin-bottom: 8px !important;
+    padding: 8px 15px !important;
+    font-size: 13px !important;
+}
+
+/* 🔥 INPUT DE PESQUISA */
+.form-control.bg-light {
+    padding: 5px 12px !important;
+    margin-bottom: 10px !important;
+    font-size: 13px !important;
+}
+
+/* 🔥 TABELA */
+.table td, .table th {
+    padding: 5px 10px !important;
+    font-size: 13px !important;
+}
+
+.table thead th {
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* 🔥 BADGES */
+.badge {
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+}
+
+/* 🔥 BOTÕES DE AÇÃO */
+.btn-group-sm .btn {
+    padding: 0.1rem 0.3rem !important;
+    font-size: 0.6rem !important;
+    min-width: 20px !important;
+    height: 20px !important;
+}
+
+.btn-group-sm .btn .mdi {
+    font-size: 12px !important;
+}
+
+/* 🔥 PAGINAÇÃO */
+.pagination-container {
+    margin-top: 5px !important;
+    padding-top: 5px !important;
+}
+
+.pagination-custom .page-link {
+    min-width: 26px !important;
+    height: 26px !important;
+    font-size: 12px !important;
+    padding: 0 4px !important;
+}
+
+.pagination-info {
+    font-size: 12px !important;
 }
 
 /* 🔥 RESPONSIVIDADE */
@@ -178,6 +271,7 @@
 
     .main-panel {
         margin-left: 0 !important;
+        min-height: calc(100vh - 70px) !important;
     }
 
     .sidebar {
@@ -195,20 +289,62 @@
     }
 
     .content-wrapper {
-        padding: 80px 15px 15px 15px !important;
+        padding: 0 15px 5px 15px !important;
+    }
+
+    .footer {
+        padding: 6px 15px !important;
+    }
+
+    .card-body {
+        padding: 12px 15px !important;
+    }
+
+    .table td, .table th {
+        padding: 4px 8px !important;
     }
 }
 
 @media (max-width: 576px) {
     .content-wrapper {
-        padding: 75px 10px 10px 10px !important;
+        padding: 0 10px 5px 10px !important;
     }
 
     .card-body {
-        padding: 15px !important;
+        padding: 10px 12px !important;
     }
 
     .navbar {
         padding: 0 10px !important;
+    }
+
+    .footer {
+        padding: 5px 10px !important;
+    }
+
+    .footer .d-sm-flex {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+
+    .footer .float-none {
+        float: none !important;
+        margin-top: 5px !important;
+    }
+
+    .table td, .table th {
+        padding: 3px 5px !important;
+        font-size: 11px !important;
+    }
+
+    .pagination-custom .page-link {
+        min-width: 22px !important;
+        height: 22px !important;
+        font-size: 10px !important;
+        padding: 0 2px !important;
+    }
+
+    .card-title {
+        font-size: 0.9rem !important;
     }
 }

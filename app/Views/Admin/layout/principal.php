@@ -233,8 +233,16 @@
 
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
+              &copy; <?php echo date('Y'); ?> <strong>B-Web</strong> - Soluções em Tecnologia
+            </span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+              <a href="#" target="_blank">Política de Privacidade</a>
+              <span class="mx-1">|</span>
+              <a href="#" target="_blank">Termos de Uso</a>
+              <span class="mx-1">|</span>
+              <span>Versão 1.0.0</span>
+            </span>
           </div>
         </footer>
       </div>

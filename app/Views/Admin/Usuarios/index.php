@@ -12,7 +12,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="card-title mb-0"><?php echo $titulo; ?></h4>
                     <a href="<?php echo site_url('admin/usuarios/criar'); ?>" class="btn btn-success btn-sm">
                         <i class="mdi mdi-plus"></i> Novo usuário
@@ -20,11 +20,11 @@
                 </div>
 
                 <div class="ui-widget">
-                    <input id="query" name="query" placeholder="Pesquise por um usuário" class="form-control bg-light mb-5">
+                    <input id="query" name="query" placeholder="Pesquise por um usuário" class="form-control bg-light">
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">Total de usuários: <strong><?php echo $total ?? 0; ?></strong></span>
+                <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                    <span class="text-muted" style="font-size: 13px;">Total de usuários: <strong><?php echo $total ?? 0; ?></strong></span>
                 </div>
 
                 <div class="table-responsive">
@@ -42,8 +42,8 @@
                         <tbody>
                             <?php if (empty($usuarios)): ?>
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-4">
-                                        <i class="mdi mdi-account-off" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                                    <td colspan="6" class="text-center text-muted py-3">
+                                        <i class="mdi mdi-account-off" style="font-size: 1.5rem; display: block; margin-bottom: 5px;"></i>
                                         Nenhum usuário encontrado
                                     </td>
                                 </tr>
@@ -118,7 +118,7 @@
                             <nav aria-label="Navegação de páginas">
                                 <ul class="pagination-custom">
                                     <li class="page-item <?php echo $details['previous'] === null ? 'disabled' : ''; ?>">
-                                        <a class="page-link" href="<?php echo $details['previous'] !== null ? site_url('admin/usuarios?page=' . $details['previous'] . '&perPage=' . ($perPage ?? 10)) : '#'; ?>" aria-label="Anterior">
+                                        <a class="page-link" href="<?php echo $details['previous'] !== null ? site_url('admin/usuarios?page=' . $details['previous'] . '&perPage=' . ($perPage ?? 10)) : '#'; ?>">
                                             <i class="mdi mdi-chevron-left"></i>
                                         </a>
                                     </li>
@@ -162,7 +162,7 @@
                                     <?php endif; ?>
 
                                     <li class="page-item <?php echo $details['next'] === null ? 'disabled' : ''; ?>">
-                                        <a class="page-link" href="<?php echo $details['next'] !== null ? site_url('admin/usuarios?page=' . $details['next'] . '&perPage=' . ($perPage ?? 10)) : '#'; ?>" aria-label="Próximo">
+                                        <a class="page-link" href="<?php echo $details['next'] !== null ? site_url('admin/usuarios?page=' . $details['next'] . '&perPage=' . ($perPage ?? 10)) : '#'; ?>">
                                             <i class="mdi mdi-chevron-right"></i>
                                         </a>
                                     </li>
