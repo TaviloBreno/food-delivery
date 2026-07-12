@@ -75,9 +75,13 @@ class Produtos extends BaseController
             return $produto;
         }
 
+        $categoria = $this->categoriaModel->find($produto->categoria_id);
+        $categoriaNome = $categoria ? $categoria->nome : 'N/A';
+
         $data = [
             'titulo' => "Detalhando o produto {$produto->nome}",
             'produto' => $produto,
+            'categoria_nome' => $categoriaNome,
         ];
 
         return view('Admin/Produtos/show', $data);

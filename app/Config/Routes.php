@@ -54,4 +54,16 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->get('produtos/restaurar/(:num)', 'Produtos::restaurar/$1');
     $routes->get('produtos/upload-imagem/(:num)', 'Produtos::uploadImagem/$1');
     $routes->post('produtos/salvar-imagem/(:num)', 'Produtos::salvarImagem/$1');
+
+    // 🔥 ROTAS DE EXTRAS
+    $routes->get('produtos/extras/(:num)', 'ProdutosExtras::index/$1');
+    $routes->get('produtos/extras/criar/(:num)', 'ProdutosExtras::criar/$1');
+    $routes->post('produtos/extras/salvar', 'ProdutosExtras::salvar');
+    $routes->get('produtos/extras/excluir/(:num)', 'ProdutosExtras::excluir/$1');
+
+    // 🔥 ROTAS DE ESPECIFICAÇÕES
+    $routes->get('produtos/especificacoes/(:num)', 'ProdutosEspecificacoes::index/$1');
+    $routes->get('produtos/especificacoes/criar/(:num)', 'ProdutosEspecificacoes::criar/$1');
+    $routes->post('produtos/especificacoes/salvar', 'ProdutosEspecificacoes::salvar');
+    $routes->get('produtos/especificacoes/excluir/(:num)', 'ProdutosEspecificacoes::excluir/$1');
 });
