@@ -5,6 +5,15 @@
 <?php echo $this->section('estilos'); ?>
 <link rel="stylesheet" href="<?php echo site_url('admin/vendors/auto-complete/jquery-ui.css'); ?>">
 <link rel="stylesheet" href="<?php echo site_url('admin/css/usuarios.css'); ?>">
+<style>
+    .produto-imagem-thumb {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid #e9ecef;
+    }
+</style>
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('conteudo'); ?>
@@ -53,7 +62,9 @@
                                     <tr>
                                         <td><?php echo $produto->id; ?></td>
                                         <td>
-                                            <img src="<?php echo $produto->getImagemUrl(); ?>" alt="<?php echo $produto->nome; ?>" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                            <img src="<?php echo $produto->getImagemThumb(); ?>"
+                                                alt="<?php echo $produto->nome; ?>"
+                                                class="produto-imagem-thumb">
                                         </td>
                                         <td>
                                             <a href="<?php echo site_url("admin/produtos/show/{$produto->id}"); ?>">

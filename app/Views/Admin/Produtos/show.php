@@ -35,7 +35,7 @@
                     <div class="col-md-8">
                         <p class="card-text">
                             <span class="font-weight-bold">Categoria: </span>
-                            <?php echo $produto->categoria_nome ?? $this->produtoModel->getCategoriaNome($produto->categoria_id); ?>
+                            <?php echo $categoria_nome ?? 'N/A'; ?>
                         </p>
                         <p class="card-text">
                             <span class="font-weight-bold">Nome: </span>
@@ -76,11 +76,19 @@
                         </p>
                         <p class="card-text">
                             <span class="font-weight-bold">Criado em: </span>
-                            <?php echo esc($produto->criado_em->humanize()); ?>
+                            <?php if ($produto->criado_em): ?>
+                                <?php echo esc($produto->criado_em->humanize()); ?>
+                            <?php else: ?>
+                                <span class="text-muted">Não informado</span>
+                            <?php endif; ?>
                         </p>
                         <p class="card-text">
                             <span class="font-weight-bold">Última atualização: </span>
-                            <?php echo esc($produto->atualizado_em->humanize()); ?>
+                            <?php if ($produto->atualizado_em): ?>
+                                <?php echo esc($produto->atualizado_em->humanize()); ?>
+                            <?php else: ?>
+                                <span class="text-muted">Não informado</span>
+                            <?php endif; ?>
                         </p>
                     </div>
                 </div>
