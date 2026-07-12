@@ -5,6 +5,8 @@ $buttonText = $isEdit ? 'Salvar alterações' : 'Criar forma de pagamento';
 $buttonIcon = $isEdit ? 'mdi-content-save' : 'mdi-plus';
 
 $errors = session('errors') ?? [];
+$old = session('old') ?? [];
+
 $ativoValue = old('ativo') !== null ? old('ativo') : ($forma->ativo ?? 1);
 ?>
 
