@@ -1,3 +1,12 @@
+<?php
+// 🔥 DEFINE AS VARIÁVEIS DE ROTA NO TOPO DO ARQUIVO
+$currentUri = current_url();
+$isDashboard = strpos($currentUri, 'dashboard') !== false;
+$isUsuarios = strpos($currentUri, 'usuarios') !== false;
+$isCategorias = strpos($currentUri, 'categorias') !== false;
+$isProdutos = strpos($currentUri, 'produtos') !== false;
+$isFormasPagamento = strpos($currentUri, 'formas-pagamento') !== false;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +15,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Food Delivery | <?php echo $this->renderSection('titulo'); ?></title>
 
-  <!-- 🔥 CSS COM VERSÃO AUTOMÁTICA -->
   <link rel="stylesheet" href="<?php echo asset_version('admin/vendors/mdi/css/materialdesignicons.min.css'); ?>">
   <link rel="stylesheet" href="<?php echo asset_version('admin/vendors/base/vendor.bundle.base.css'); ?>">
   <link rel="stylesheet" href="<?php echo asset_version('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css'); ?>">
@@ -157,13 +165,6 @@
     <div class="container-fluid page-body-wrapper">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <?php
-          $currentUri = current_url();
-          $isDashboard = strpos($currentUri, 'dashboard') !== false;
-          $isUsuarios = strpos($currentUri, 'usuarios') !== false;
-          $isCategorias = strpos($currentUri, 'categorias') !== false;
-          $isProdutos = strpos($currentUri, 'produtos') !== false;
-          ?>
           <li class="nav-item <?php echo $isDashboard ? 'active' : ''; ?>">
             <a class="nav-link" href="<?php echo site_url('admin/dashboard'); ?>">
               <i class="mdi mdi-view-dashboard menu-icon"></i>
@@ -186,6 +187,12 @@
             <a class="nav-link" href="<?php echo site_url('admin/produtos'); ?>">
               <i class="mdi mdi-food menu-icon"></i>
               <span class="menu-title">Produtos</span>
+            </a>
+          </li>
+          <li class="nav-item <?php echo $isFormasPagamento ? 'active' : ''; ?>">
+            <a class="nav-link" href="<?php echo site_url('admin/formas-pagamento'); ?>">
+              <i class="mdi mdi-credit-card menu-icon"></i>
+              <span class="menu-title">Formas de Pagamento</span>
             </a>
           </li>
           <li class="nav-item">
@@ -256,7 +263,6 @@
     </div>
   </div>
 
-  <!-- 🔥 JS COM VERSÃO AUTOMÁTICA -->
   <script src="<?php echo asset_version('admin/vendors/base/vendor.bundle.base.js'); ?>"></script>
   <script src="<?php echo asset_version('admin/vendors/chart.js/Chart.min.js'); ?>"></script>
   <script src="<?php echo asset_version('admin/vendors/datatables.net/jquery.dataTables.js'); ?>"></script>
