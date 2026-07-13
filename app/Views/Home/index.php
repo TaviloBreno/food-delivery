@@ -1,1092 +1,513 @@
-<!DOCTYPE html>
-<html lang="zxx" dir="ltr">
+<?php echo $this->extend('Web/layout/principal'); ?>
 
-<!-- BEGIN head -->
+<?php echo $this->section('titulo'); ?>
+<?php echo $titulo ?? 'Food Delivery'; ?>
+<?php echo $this->endSection(); ?>
 
+<?php echo $this->section('estilos'); ?>
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/bootstrap.min.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/bootstrap-theme.min.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/fonts.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/font-awesome.min.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/slick.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/slick-theme.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/aos.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/scrolling-nav.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/bootstrap-datepicker.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/bootstrap-datetimepicker.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/touch-sideswipe.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/jquery.fancybox.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/main.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/src/assets/css/responsive.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('web/css/delivery-custom.css'); ?>">
+<?php echo $this->endSection(); ?>
 
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<?php echo $this->section('conteudo'); ?>
 
-<head>
+<!-- BEGIN body-wrapper -->
+<div class="body-wrapper">
 
-    <!-- Meta tags -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Butazzo Pizza - Restaurant, Cafe, Fast Food business HTML5 Responsive, CSS3 One Page Template</title>
+    <!-- HEADER -->
+    <header id="header">
 
-    <!-- Stylesheets -->
-    <link href="src/assets/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="all" />
-    <link href="src/assets/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" media="all" />
-    <link href="src/assets/css/fonts.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/slick.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/slick-theme.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/aos.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/scrolling-nav.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/bootstrap-datetimepicker.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/touch-sideswipe.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/main.css" type="text/css" rel="stylesheet" />
-    <link href="src/assets/css/responsive.css" type="text/css" rel="stylesheet" />
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="src/assets/img/favicon/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="256x256" href="src/assets/img/favicon/android-chrome-256x256.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="src/assets/img/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="src/assets/img/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="src/assets/img/favicon/favicon-16x16.png" />
-    <link rel="icon" type="image/png" href="src/assets/img/favicon/favicon.ico" />
-    <link rel="manifest" href="src/assets/img/site.html" />
-    <link rel="mask-icon" href="src/assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5" />
-    <meta name="msapplication-TileColor" content="#990100" />
-    <meta name="theme-color" content="#ffffff" />
-
-</head>
-<!-- END head -->
-
-<!-- BEGIN body -->
-
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
-
-    <!-- BEGIN  Loading Section -->
-    <div class="loading-overlay">
-        <div class="spinner">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-    <!-- END Loading Section -->
-
-    <!-- BEGIN body wrapper -->
-    <div class="body-wrapper">
-
-        <!-- Begin header-->
-        <header id="header">
-
-            <!-- BEGIN carousel -->
-            <div id="main-carousel" class="carousel slide" data-ride="carousel">
-                <div class="container pos_rel">
-
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
+        <!-- CAROUSEL -->
+        <div id="main-carousel" class="carousel slide" data-ride="carousel">
+            <div class="container pos_rel">
+                <ol class="carousel-indicators">
+                    <?php if (!empty($destaques)): ?>
+                        <?php foreach ($destaques as $key => $item): ?>
+                            <li data-target="#main-carousel" data-slide-to="<?php echo $key; ?>" class="<?php echo $key === 0 ? 'active' : ''; ?>"></li>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#main-carousel" data-slide-to="1"></li>
-                        <li data-target="#main-carousel" data-slide-to="2"></li>
-                        <li data-target="#main-carousel" data-slide-to="3"></li>
-                        <li data-target="#main-carousel" data-slide-to="4"></li>
-                    </ol>
+                    <?php endif; ?>
+                </ol>
 
-                    <!-- Controls -->
-                    <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    </a>
-                    <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
+                <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                </a>
+                <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
 
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox">
-
-                        <!-- Carousel items   -->
+                <div class="carousel-inner" role="listbox">
+                    <?php if (!empty($destaques)): ?>
+                        <?php foreach ($destaques as $key => $item): ?>
+                            <div class="item <?php echo $key === 0 ? 'active' : ''; ?>">
+                                <div class="carousel-caption">
+                                    <div class="fadeUp item_img">
+                                        <img src="<?php echo base_url('web/src/assets/img/photos/' . ($item->imagem ?? 'pizza.png')); ?>" alt="<?php echo esc($item->nome ?? 'Produto'); ?>" />
+                                        <?php if (isset($item->desconto) && $item->desconto > 0): ?>
+                                            <div class="item_badge">
+                                                <span class="badge_btext"><?php echo $item->desconto; ?>%</span>
+                                                <span class="badge_stext">OFF</span>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="fadeUp fade-slow item_details">
+                                        <h4 class="item_name"><?php echo esc($item->nome ?? 'Delicious Food'); ?></h4>
+                                        <p class="item_info"><?php echo esc($item->descricao_curta ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'); ?></p>
+                                        <div class="item_link_box">
+                                            <a href="#menu" class="item_link page-scroll">Ver Cardápio</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <div class="item active">
                             <div class="carousel-caption">
                                 <div class="fadeUp item_img">
-                                    <img src="src/assets/img/photos/pizza.png" alt="sample" />
+                                    <img src="<?php echo base_url('web/src/assets/img/photos/pizza.png'); ?>" alt="Pizza" />
                                     <div class="item_badge">
                                         <span class="badge_btext">20%</span>
                                         <span class="badge_stext">OFF</span>
                                     </div>
                                 </div>
                                 <div class="fadeUp fade-slow item_details">
-                                    <h4 class="item_name">Delicious Food</h4>
-                                    <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <h4 class="item_name">Bem-vindo ao Food Delivery</h4>
+                                    <p class="item_info">Os melhores pratos preparados com ingredientes frescos e selecionados.</p>
                                     <div class="item_link_box">
-                                        <a href="#reservation" class="item_link page-scroll">Make Reservation</a>
+                                        <a href="#menu" class="item_link page-scroll">Ver Cardápio</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="item">
-                            <div class="carousel-caption">
-                                <div class="fadeUp item_img">
-                                    <img src="src/assets/img/photos/tortilla.png" alt="sample" />
-                                    <div class="item_badge">
-                                        <span class="badge_btext">20%</span>
-                                        <span class="badge_stext">OFF</span>
-                                    </div>
-                                </div>
-                                <div class="fadeUp fade-slow item_details">
-                                    <h4 class="item_name">Delicious Food</h4>
-                                    <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <div class="item_link_box">
-                                        <a href="#reservation" class="item_link page-scroll">Make Reservation</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="carousel-caption">
-                                <div class="fadeUp item_img">
-                                    <img src="src/assets/img/photos/burger.png" alt="sample" />
-                                    <div class="item_badge">
-                                        <span class="badge_btext">20%</span>
-                                        <span class="badge_stext">OFF</span>
-                                    </div>
-                                </div>
-                                <div class="fadeUp fade-slow item_details">
-                                    <h4 class="item_name">Delicious Food</h4>
-                                    <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <div class="item_link_box">
-                                        <a href="#reservation" class="item_link page-scroll">Make Reservation</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="carousel-caption">
-                                <div class="fadeUp item_img">
-                                    <img src="src/assets/img/photos/pizza.png" alt="sample" />
-                                    <div class="item_badge">
-                                        <span class="badge_btext">20%</span>
-                                        <span class="badge_stext">OFF</span>
-                                    </div>
-                                </div>
-                                <div class="fadeUp fade-slow item_details">
-                                    <h4 class="item_name">Delicious Food</h4>
-                                    <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <div class="item_link_box">
-                                        <a href="#reservation" class="item_link page-scroll">Make Reservation</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="carousel-caption">
-                                <div class="fadeUp item_img">
-                                    <img src="src/assets/img/photos/burger.png" alt="sample" />
-                                    <div class="item_badge">
-                                        <span class="badge_btext">20%</span>
-                                        <span class="badge_stext">OFF</span>
-                                    </div>
-                                </div>
-                                <div class="fadeUp fade-slow item_details">
-                                    <h4 class="item_name">Delicious Food</h4>
-                                    <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <div class="item_link_box">
-                                        <a href="#reservation" class="item_link page-scroll">Make Reservation</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container -->
-            </div>
-            <!-- END carousel -->
-
-            <!-- BEGIN navigation -->
-            <div class="navigation">
-
-                <div class="navbar-container" data-spy="affix" data-offset-top="400">
-                    <div class="container">
-
-                        <div class="navbar_top hidden-xs">
-                            <div class="top_addr">
-                                <span><i class="fa fa-map-marker" aria-hidden="true"></i> Your country, your city, 12345</span>
-                                <span><i class="fa fa-phone" aria-hidden="true"></i> 123 456 789</span>
-                                <span><i class="fa fa-clock-o" aria-hidden="true"></i> 11:00 - 21:00</span>
-                                <div class="pull-right search-block">
-                                    <i class="fa fa-search" id="search" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div id="navbar_search">
-                                <form method="post">
-                                    <input type="text" name="q" class="form-control pull-left" value="" placeholder="Search anything">
-                                    <button type="submit" class="pull-right close" id="search_close"><i class="fa fa-close"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- /.navbar_top -->
-
-                        <!-- BEGIN navbar -->
-                        <nav class="navbar">
-                            <div id="navbar_content">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                    <a class="navbar-brand" href="#">
-                                        <img src="src/assets/img/logo.png" alt="logo" />
-                                    </a>
-                                    <a href="#cd-nav" class="cd-nav-trigger right_menu_icon">
-                                        <span><i class="fa fa-bars" aria-hidden="true"></i></span>
-                                    </a>
-                                </div>
-
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse" id="navbar">
-                                    <div class="navbar-right">
-                                        <ul class="nav navbar-nav">
-                                            <li><a class="page-scroll" href="#header">Home</a></li>
-                                            <li><a class="page-scroll" href="#about_us">About</a></li>
-                                            <li><a class="page-scroll" href="#menu">Menus</a></li>
-                                            <li><a class="page-scroll" href="#gallery">Gallery</a></li>
-                                            <li><a class="page-scroll" href="#reservation">Reservation</a></li>
-                                            <li><a class="page-scroll" href="#footer">Contact</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- /.navbar-collapse -->
-                            </div>
-                        </nav>
-                    </div>
-                    <!-- END navbar -->
-                </div>
-                <!-- /.navbar-container -->
-            </div>
-            <!-- END navigation -->
-
-        </header>
-        <!-- End header -->
-
-        <!-- Begin Sections-->
-
-        <!--    About Us    -->
-        <div class="container section" id="about_us">
-            <div class="col-sm-12 d-flex flex-xs-column">
-                <div class="col-sm-6 d-flex align-items-center padd_lr0" data-aos="fade-up">
-                    <div class="content">
-                        <h1 class="section-title title_sty1">about us</h1>
-                        <p class="short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 img text-center padd_lr0" data-aos="fade-down">
-                    <div class="border_on">
-                        <img src="src/assets/img/photos/about-us.jpg" alt="sample" class="about_img" />
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
 
-        <!--    Menus   -->
-        <div class="container section" id="menu" data-aos="fade-up">
-            <div class="title-block">
-                <h1 class="section-title">Our Menus</h1>
-            </div>
-
-            <!--    Menus filter    -->
-            <div class="menu_filter text-center">
-                <ul class="list-unstyled list-inline d-inline-block">
-                    <li class="item active">
-                        <a href="javascript:;" class="filter-button" data-filter="burger">Burger</a>
-                    </li>
-                    <li class="item">
-                        <a href="javascript:;" class="filter-button" data-filter="pizza">Pizza</a>
-                    </li>
-                    <li class="item">
-                        <a href="javascript:;" class="filter-button" data-filter="salad">Salad</a>
-                    </li>
-                    <li class="item">
-                        <a href="javascript:;" class="filter-button" data-filter="frices">Frices</a>
-                    </li>
-                    <li class="item">
-                        <a href="javascript:;" class="filter-button" data-filter="drinks">Drinks</a>
-                    </li>
-                </ul>
-            </div>
-
-            <!--    Menus items     -->
-            <div id="menu_items">
-
-                <div class="filtr-item image filter burger active">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-1.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Margherita</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$10.00</span>
-                                    </div>
-                                </div>
-                            </a>
+        <!-- NAVIGATION -->
+        <div class="navigation">
+            <div class="navbar-container" data-spy="affix" data-offset-top="400">
+                <div class="container">
+                    <div class="navbar_top hidden-xs">
+                        <div class="top_addr">
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo esc($configuracao->cidade ?? 'Sua Cidade'); ?>, <?php echo esc($configuracao->endereco ?? 'Seu Endereço'); ?></span>
+                            <span><i class="fa fa-phone" aria-hidden="true"></i> <?php echo esc($configuracao->telefone ?? '(00) 0000-0000'); ?></span>
+                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo esc($configuracao->horarioFuncionamento ?? '11:00 - 23:00'); ?></span>
+                            <div class="pull-right search-block">
+                                <i class="fa fa-search" id="search" aria-hidden="true"></i>
+                            </div>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-2.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Greece</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$7.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-3.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Pepperoni</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$8.50</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-4.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Chicken lovers</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$8.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-5.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Italiano</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$11.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-6.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Pepper beef</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$9.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-7.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Hawai</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$11.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-8.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Caesar</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$9.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="filtr-item image filter pizza">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-6.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Pepper beef</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$9.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-8.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Caesar</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$9.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-7.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Hawai</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$11.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-5.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Italiano</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$11.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="filtr-item image filter salad">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-3.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Pepperoni</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$8.50</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-2.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Greece</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$7.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-4.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Chicken lovers</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$8.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-1.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Margherita</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$10.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="filtr-item image filter frices">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-8.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Caesar</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$9.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-7.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Hawai</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$11.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-6.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Pepper beef</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$9.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-2.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Greece</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$7.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="filtr-item image filter drinks">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-1.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Margherita</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$10.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-5.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Italiano</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$11.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-3.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Pepperoni</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$8.50</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                                <div class="content">
-                                    <div class="filter_item_img">
-                                        <i class="fa fa-search-plus"></i>
-                                        <img src="src/assets/img/photos/food-4.jpg" alt="sample" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="name">Chicken lovers</div>
-                                        <div class="short">Classic marinara sauce, authentic pepperoni</div>
-                                        <span class="filter_item_price">$8.00</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <!-- BEGIN pagination -->
-                    <ul class="pagination">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                    </ul>
-                    <!-- END pagination -->
-                </div>
-
-            </div>
-        </div>
-
-        <!--    Reservation    -->
-
-        <div class="fixed_layer section" id="reservation">
-            <div class="fixed_layer_padd container">
-                <div class="row">
-                    <div class="col-md-offset-6 col-md-6" data-aos="fade-down">
-                        <div class="reserv_box">
-                            <h1 class="section-title title_sty1">online reservation</h1>
-                            <p class="short">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                            <form id="reserv_form" method="post">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form_pos">
-                                            <input type="text" name="name" required="" placeholder="Your name" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your name'" />
-                                            <span class="form_icon"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group form_pos">
-                                            <input type="email" name="email" required="" placeholder="Your email" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email'" />
-                                            <span class="form_icon"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group form_pos">
-                                            <input type="text" name="phone" required="" placeholder="Phone" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" />
-                                            <span class="form_icon"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group form_pos">
-                                            <input type="text" name="date" required="" placeholder="Date" class="form-control" id="reserv_date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Date'" />
-                                            <span class="form_icon"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group form_pos">
-                                            <input type="text" name="time" required="" placeholder="Time" class="form-control" id="reserv_time" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Time'" />
-                                            <span class="form_icon"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <textarea rows="3" name="message" placeholder="Message" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'"></textarea>
-                                </div>
-                                <input type="submit" name="send" value="book now" class="btn btn-block" />
+                        <div id="navbar_search">
+                            <form method="get" action="<?php echo base_url('busca'); ?>">
+                                <input type="text" name="q" class="form-control pull-left" value="" placeholder="Buscar produtos...">
+                                <button type="submit" class="pull-right close" id="search_close"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
+                    <nav class="navbar">
+                        <div id="navbar_content">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="<?php echo base_url(); ?>">
+                                    <img src="<?php echo base_url('web/src/assets/img/logo.png'); ?>" alt="Food Delivery" />
+                                </a>
+                                <a href="#cd-nav" class="cd-nav-trigger right_menu_icon">
+                                    <span><i class="fa fa-bars" aria-hidden="true"></i></span>
+                                </a>
+                            </div>
 
-        <!--    Gallery    -->
-        <div class="container section" id="gallery" data-aos="fade-up">
-            <div class="title-block">
-                <h1 class="section-title">Gallery</h1>
-            </div>
-            <div id="photo_gallery" class="list1">
-                <div class="row loadMore">
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-1.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-2.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-3.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-4.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-5.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-6.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-7.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-8.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-1.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-2.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-3.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <a href="src/assets/img/photos/gallery-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
-                            <div class="content">
-                                <img src="src/assets/img/photos/gallery-4.jpg" alt="sample" />
-                                <div class="zoom">
-                                    <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- End Sections -->
-
-        <!--  Begin Footer  -->
-        <footer id="footer">
-
-            <!--    Contact    -->
-
-            <!--    Google map, Social links    -->
-            <div class="section" id="contact">
-                <div id="googleMap"></div>
-                <div class="footer_pos">
-                    <div class="container">
-                        <div class="footer_content">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-4">
-                                    <h4 class="footer_ttl footer_ttl_padd">about us</h4>
-                                    <p class="footer_txt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries but also the leap into electronic typesetting. </p>
-                                </div>
-                                <div class="col-sm-6 col-md-5">
-                                    <h4 class="footer_ttl footer_ttl_padd">working hours</h4>
-                                    <div class="footer_border">
-                                        <div class="week_row clearfix">
-                                            <div class="week_day">Monday</div>
-                                            <div class="week_time text-right">Closed</div>
-                                        </div>
-                                        <div class="week_row clearfix">
-                                            <div class="week_day">Tuesday</div>
-                                            <div class="week_time">
-                                                <span class="week_time_start">10 am</span>
-                                                <span class="week_time_node">-</span>
-                                                <span class="week_time_end">12 am</span>
-                                            </div>
-                                        </div>
-                                        <div class="week_row clearfix">
-                                            <div class="week_day">Wednsday</div>
-                                            <div class="week_time">
-                                                <span class="week_time_start">10 am</span>
-                                                <span class="week_time_node">-</span>
-                                                <span class="week_time_end">12 am</span>
-                                            </div>
-
-                                        </div>
-                                        <div class="week_row clearfix">
-                                            <div class="week_day">Thursday</div>
-                                            <div class="week_time">
-                                                <span class="week_time_start">10 am</span>
-                                                <span class="week_time_node">-</span>
-                                                <span class="week_time_end">12 am</span>
-                                            </div>
-
-                                        </div>
-                                        <div class="week_row clearfix">
-                                            <div class="week_day">Friday</div>
-                                            <div class="week_time">
-                                                <span class="week_time_start">10 am</span>
-                                                <span class="week_time_node">-</span>
-                                                <span class="week_time_end">12 am</span>
-                                            </div>
-
-                                        </div>
-                                        <div class="week_row clearfix">
-                                            <div class="week_day">Saturday</div>
-                                            <div class="week_time">
-                                                <span class="week_time_start">7 am</span>
-                                                <span class="week_time_node">-</span>
-                                                <span class="week_time_end">1 am</span>
-                                            </div>
-                                        </div>
-                                        <div class="week_row clearfix">
-                                            <div class="week_day">Sunday</div>
-                                            <div class="week_time">
-                                                <span class="week_time_start">7 am</span>
-                                                <span class="week_time_node">-</span>
-                                                <span class="week_time_end">1 am</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-3">
-                                    <h4 class="footer_ttl footer_ttl_padd">contact us</h4>
-                                    <div class="footer_border">
-                                        <div class="footer_cnt">
-                                            <i class="fa fa-map-marker"></i>
-                                            <span>Your City, Your streert, 18765, 100 Tenth Avenue, New York City, NY 1001</span>
-                                        </div>
-                                        <div class="footer_cnt">
-                                            <i class="fa fa-phone"></i>
-                                            <span>(457) 570 5682; (385) 620 756</span>
-                                        </div>
-                                        <div class="footer_cnt">
-                                            <i class="fa fa-envelope"></i>
-                                            <span>info@butazzopizza.net</span>
-                                        </div>
-                                    </div>
+                            <div class="collapse navbar-collapse" id="navbar">
+                                <div class="navbar-right">
+                                    <ul class="nav navbar-nav">
+                                        <li><a class="page-scroll" href="#header">Home</a></li>
+                                        <li><a class="page-scroll" href="#about_us">Sobre</a></li>
+                                        <li><a class="page-scroll" href="#menu">Cardápio</a></li>
+                                        <li><a class="page-scroll" href="#gallery">Galeria</a></li>
+                                        <li><a class="page-scroll" href="#reservation">Reserva</a></li>
+                                        <li><a class="page-scroll" href="#footer">Contato</a></li>
+                                        <?php if ($isLoggedIn ?? false): ?>
+                                            <li><a href="<?php echo base_url('admin'); ?>"><i class="fa fa-dashboard"></i> Painel</a></li>
+                                            <li><a href="<?php echo base_url('logout'); ?>"><i class="fa fa-sign-out"></i> Sair</a></li>
+                                        <?php else: ?>
+                                            <li><a href="<?php echo base_url('login'); ?>"><i class="fa fa-user"></i> Entrar</a></li>
+                                        <?php endif; ?>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="copyright">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="copy_text">
-                                        <a target="_blank" href="https://www.templateshub.net">Templates Hub</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="social-links">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="javascript:;" title="">
-                                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:;" title="">
-                                                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:;" title="">
-                                                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:;" title="">
-                                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD STATS -->
+    <div class="container section" style="padding: 40px 0;">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title title_sty1 text-center">📊 Dashboard do Sistema</h2>
+                <p class="short">Bem-vindo, <?php echo esc($usuario_nome ?? 'Visitante'); ?>! Gerencie seu delivery com facilidade.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <?php
+            $cards = [
+                ['class' => 'primary', 'icon' => 'users', 'number' => $totalUsuarios ?? 0, 'label' => 'Total de Usuários', 'change' => ($totalUsuariosAtivos ?? 0) . ' ativos'],
+                ['class' => 'success', 'icon' => 'cutlery', 'number' => $totalProdutos ?? 0, 'label' => 'Total de Produtos', 'change' => ($totalProdutosDestaque ?? 0) . ' em destaque'],
+                ['class' => 'warning', 'icon' => 'motorcycle', 'number' => $totalEntregadores ?? 0, 'label' => 'Total de Entregadores', 'change' => ($totalEntregadoresDisponiveis ?? 0) . ' disponíveis'],
+                ['class' => 'info', 'icon' => 'map-marker', 'number' => $totalBairros ?? 0, 'label' => 'Bairros Atendidos', 'change' => ($totalBairrosAtivos ?? 0) . ' ativos'],
+                ['class' => 'danger', 'icon' => 'user-times', 'number' => $totalUsuariosInativos ?? 0, 'label' => 'Usuários Inativos', 'change' => ($totalUsuariosDeletados ?? 0) . ' excluídos'],
+                ['class' => 'pink', 'icon' => 'folder-open', 'number' => $totalCategorias ?? 0, 'label' => 'Total de Categorias', 'change' => ($totalCategoriasAtivas ?? 0) . ' ativas'],
+                ['class' => 'orange', 'icon' => 'credit-card', 'number' => $totalFormasPagamento ?? 0, 'label' => 'Formas de Pagamento', 'change' => ($totalFormasPagamentoAtivas ?? 0) . ' ativas'],
+                ['class' => 'purple', 'icon' => 'package', 'number' => $totalProdutosInativos ?? 0, 'label' => 'Produtos Inativos', 'change' => 'Aguardando ativação']
+            ];
+            ?>
+            <?php foreach ($cards as $card): ?>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="stat-card stat-<?php echo $card['class']; ?>">
+                        <div class="stat-icon"><i class="fa fa-<?php echo $card['icon']; ?>"></i></div>
+                        <div class="stat-number"><?php echo $card['number']; ?></div>
+                        <div class="stat-label"><?php echo $card['label']; ?></div>
+                        <div class="stat-change">
+                            <i class="fa fa-check-circle"></i> <?php echo $card['change']; ?>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
-
-        <!-- End Footer -->
-
+            <?php endforeach; ?>
+        </div>
     </div>
-    <!-- END body-wrapper -->
 
+    <!-- ABOUT US -->
+    <div class="container section" id="about_us">
+        <div class="col-sm-12 d-flex flex-xs-column">
+            <div class="col-sm-6 d-flex align-items-center padd_lr0" data-aos="fade-up">
+                <div class="content">
+                    <h1 class="section-title title_sty1">Sobre Nós</h1>
+                    <p class="short"><?php echo esc($configuracao->sobre ?? 'Bem-vindo ao Food Delivery! Oferecemos os melhores pratos preparados com ingredientes frescos e selecionados.'); ?></p>
+                    <p class="short"><?php echo esc($configuracao->sobreExtra ?? 'Trabalhamos com os melhores chefs e ingredientes para garantir qualidade e sabor em cada pedido.'); ?></p>
+                </div>
+            </div>
+            <div class="col-sm-6 img text-center padd_lr0" data-aos="fade-down">
+                <div class="border_on">
+                    <img src="<?php echo base_url('web/src/assets/img/photos/about-us.jpg'); ?>" alt="Sobre nós" class="about_img" />
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- START mobile right burger menu -->
+    <!-- MENU -->
+    <div class="container section" id="menu" data-aos="fade-up">
+        <div class="title-block text-center">
+            <h1 class="section-title title_sty1">Nosso Cardápio</h1>
+        </div>
 
+        <div class="menu_filter text-center">
+            <ul class="list-unstyled list-inline d-inline-block" id="menuFilter">
+                <li class="item active">
+                    <a href="javascript:;" class="filter-button" data-filter="all">Todos</a>
+                </li>
+                <?php if (!empty($categoriasMenu)): ?>
+                    <?php foreach ($categoriasMenu as $categoria): ?>
+                        <li class="item">
+                            <a href="javascript:;" class="filter-button" data-filter="<?php echo $categoria->slug; ?>">
+                                <?php echo esc($categoria->nome); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <div id="menu_items">
+            <?php if (!empty($categoriasMenu) && !empty($produtosPorCategoria)): ?>
+                <?php foreach ($categoriasMenu as $categoria): ?>
+                    <div class="filtr-item image filter <?php echo $categoria->slug; ?>">
+                        <div class="row">
+                            <?php
+                            $produtos = $produtosPorCategoria[$categoria->id] ?? [];
+                            foreach ($produtos as $produto):
+                            ?>
+                                <div class="col-sm-6 col-md-4">
+                                    <a href="<?php echo base_url('produto/' . $produto->slug); ?>" class="block fancybox" data-fancybox-group="fancybox">
+                                        <div class="content">
+                                            <div class="filter_item_img">
+                                                <i class="fa fa-search-plus"></i>
+                                                <img src="<?php echo base_url('web/src/assets/img/photos/' . ($produto->imagem ?? 'food-1.jpg')); ?>" alt="<?php echo esc($produto->nome); ?>" />
+                                            </div>
+                                            <div class="info text-center">
+                                                <div class="name"><?php echo esc($produto->nome); ?></div>
+                                                <div class="short"><?php echo esc($produto->descricao_curta ?? ''); ?></div>
+                                                <span class="filter_item_price">R$ <?php echo number_format($produto->preco, 2, ',', '.'); ?></span>
+                                                <?php if ($produto->destaque): ?>
+                                                    <span class="badge badge-warning" style="margin-left: 10px;">Destaque</span>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="text-center">
+                    <p class="alert alert-info">Nenhum produto encontrado no momento.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- RESERVATION -->
+    <div class="fixed_layer section" id="reservation">
+        <div class="fixed_layer_padd container">
+            <div class="row">
+                <div class="col-md-offset-6 col-md-6" data-aos="fade-down">
+                    <div class="reserv_box">
+                        <h1 class="section-title title_sty1">Reserva Online</h1>
+                        <p class="short">Faça sua reserva e garanta uma mesa em nosso restaurante.</p>
+                        <form id="reserv_form" method="post" action="<?php echo base_url('reserva/salvar'); ?>">
+                            <?php echo csrf_field(); ?>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form_pos">
+                                        <input type="text" name="nome" required="" placeholder="Seu nome" class="form-control" />
+                                        <span class="form_icon"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form_pos">
+                                        <input type="email" name="email" required="" placeholder="Seu email" class="form-control" />
+                                        <span class="form_icon"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group form_pos">
+                                        <input type="text" name="telefone" required="" placeholder="Telefone" class="form-control" />
+                                        <span class="form_icon"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form_pos">
+                                        <input type="text" name="data" required="" placeholder="Data" class="form-control" id="reserv_date" />
+                                        <span class="form_icon"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form_pos">
+                                        <input type="text" name="hora" required="" placeholder="Hora" class="form-control" id="reserv_time" />
+                                        <span class="form_icon"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group form_pos">
+                                        <input type="number" name="pessoas" required="" placeholder="Número de pessoas" class="form-control" min="1" max="20" />
+                                        <span class="form_icon"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea rows="3" name="mensagem" placeholder="Mensagem (opcional)" class="form-control"></textarea>
+                            </div>
+                            <input type="submit" name="send" value="Reservar Agora" class="btn btn-block" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="container section" id="gallery" data-aos="fade-up">
+        <div class="title-block text-center">
+            <h1 class="section-title title_sty1">Galeria</h1>
+        </div>
+        <div id="photo_gallery" class="list1">
+            <div class="row loadMore">
+                <?php if (!empty($galeria)): ?>
+                    <?php foreach ($galeria as $foto): ?>
+                        <div class="col-sm-4 col-md-3 item">
+                            <a href="<?php echo base_url('web/src/assets/img/photos/' . $foto); ?>" class="block fancybox" data-fancybox-group="fancybox">
+                                <div class="content">
+                                    <img src="<?php echo base_url('web/src/assets/img/photos/' . $foto); ?>" alt="Galeria" />
+                                    <div class="zoom">
+                                        <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12 text-center">
+                        <p class="alert alert-info">Nenhuma foto na galeria.</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="section" id="contact">
+            <div id="googleMap"></div>
+            <div class="footer_pos">
+                <div class="container">
+                    <div class="footer_content">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <h4 class="footer_ttl footer_ttl_padd">Sobre Nós</h4>
+                                <p class="footer_txt"><?php echo esc($configuracao->sobreFooter ?? 'Food Delivery - Entregamos sabor e qualidade diretamente na sua casa.'); ?></p>
+                            </div>
+                            <div class="col-sm-6 col-md-5">
+                                <h4 class="footer_ttl footer_ttl_padd">Horário de Funcionamento</h4>
+                                <div class="footer_border">
+                                    <?php if (!empty($horariosFuncionamento)): ?>
+                                        <?php foreach ($horariosFuncionamento as $dia => $horario): ?>
+                                            <div class="week_row clearfix">
+                                                <div class="week_day"><?php echo $dia; ?></div>
+                                                <div class="week_time text-right">
+                                                    <?php if ($horario['fechado'] ?? false): ?>
+                                                        Fechado
+                                                    <?php else: ?>
+                                                        <span class="week_time_start"><?php echo $horario['abertura'] ?? '--:--'; ?></span>
+                                                        <span class="week_time_node">-</span>
+                                                        <span class="week_time_end"><?php echo $horario['fechamento'] ?? '--:--'; ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <p class="text-muted">Horários não disponíveis</p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <h4 class="footer_ttl footer_ttl_padd">Contato</h4>
+                                <div class="footer_border">
+                                    <div class="footer_cnt">
+                                        <i class="fa fa-map-marker"></i>
+                                        <span><?php echo esc($configuracao->enderecoCompleto ?? 'Seu endereço aqui'); ?></span>
+                                    </div>
+                                    <div class="footer_cnt">
+                                        <i class="fa fa-phone"></i>
+                                        <span><?php echo esc($configuracao->telefone ?? '(00) 0000-0000'); ?></span>
+                                    </div>
+                                    <div class="footer_cnt">
+                                        <i class="fa fa-envelope"></i>
+                                        <span><?php echo esc($configuracao->email ?? 'contato@fooddelivery.com'); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="copy_text">
+                                    &copy; <?php echo date('Y'); ?> <a href="<?php echo base_url(); ?>">Food Delivery</a> - Todos os direitos reservados.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="social-links">
+                                    <ul class="list-inline">
+                                        <?php if (!empty($redesSociais)): ?>
+                                            <?php foreach ($redesSociais as $rede): ?>
+                                                <li class="list-inline-item">
+                                                    <a href="<?php echo $rede['url'] ?? '#'; ?>" target="_blank" title="<?php echo $rede['nome'] ?? ''; ?>">
+                                                        <i class="fa fa-<?php echo $rede['icone'] ?? 'globe'; ?>" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <li class="list-inline-item">
+                                                <a href="#" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+                                            </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MOBILE MENU -->
     <nav class="cd-nav-container right_menu" id="cd-nav">
         <div class="header__open_menu">
-            <a href="index-2.html" class="rmenu_logo" title="yagmurmebel.az">
-                <img src="src/assets/img/logo.png" alt="logo" />
+            <a href="<?php echo base_url(); ?>" class="rmenu_logo">
+                <img src="<?php echo base_url('web/src/assets/img/logo.png'); ?>" alt="logo" />
             </a>
         </div>
         <div class="right_menu_search">
-            <form method="post">
-                <input type="text" name="q" class="form-control search_input" value="" placeholder="Search anything">
+            <form method="get" action="<?php echo base_url('busca'); ?>">
+                <input type="text" name="q" class="form-control search_input" value="" placeholder="Buscar...">
                 <button type="submit" class="search_icon"><i class="fa fa-search"></i></button>
             </form>
         </div>
         <ul class="rmenu_list">
             <li><a class="page-scroll" href="#header">Home</a></li>
-            <li><a class="page-scroll" href="#about_us">About</a></li>
-            <li><a class="page-scroll" href="#menu">Menus</a></li>
-            <li><a class="page-scroll" href="#gallery">Gallery</a></li>
-            <li><a class="page-scroll" href="#reservation">Reservation</a></li>
-            <li><a class="page-scroll" href="#footer">Contact</a></li>
+            <li><a class="page-scroll" href="#about_us">Sobre</a></li>
+            <li><a class="page-scroll" href="#menu">Cardápio</a></li>
+            <li><a class="page-scroll" href="#gallery">Galeria</a></li>
+            <li><a class="page-scroll" href="#reservation">Reserva</a></li>
+            <li><a class="page-scroll" href="#footer">Contato</a></li>
         </ul>
         <div class="right_menu_addr top_addr">
-            <span><i class="fa fa-map-marker" aria-hidden="true"></i> Your country, your city, 12345</span>
-            <span><i class="fa fa-phone" aria-hidden="true"></i> 123 456 789</span>
-            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 11:00 - 21:00</span>
+            <span><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo esc($configuracao->cidade ?? 'Sua Cidade'); ?></span>
+            <span><i class="fa fa-phone" aria-hidden="true"></i> <?php echo esc($configuracao->telefone ?? '(00) 0000-0000'); ?></span>
+            <span><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo esc($configuracao->horarioFuncionamento ?? '11:00 - 23:00'); ?></span>
         </div>
     </nav>
-
     <div class="cd-overlay"></div>
-    <!-- /.cd-overlay -->
 
+</div>
+<!-- END body-wrapper -->
 
-    <!-- END mobile right burger menu -->
+<?php echo $this->endSection(); ?>
 
-    <!-- JavaScript -->
-    <script src="src/assets/js/jquery-2.1.1.min.js"></script>
-    <script src="src/assets/js/bootstrap.min.js"></script>
-    <script src="src/assets/js/jquery.mousewheel.min.js"></script>
-    <script src="src/assets/js/jquery.easing.min.js"></script>
-    <script src="src/assets/js/scrolling-nav.js"></script>
-    <script src="src/assets/js/aos.js"></script>
-    <script src="src/assets/js/slick.min.js"></script>
-    <script src="src/assets/js/jquery.touchSwipe.min.js"></script>
-    <script src="src/assets/js/moment.js"></script>
-    <script src="src/assets/js/bootstrap-datepicker.js"></script>
-    <script src="src/assets/js/bootstrap-datetimepicker.js"></script>
-    <script src="src/assets/js/jquery.fancybox.js"></script>
-    <script src="src/assets/js/loadMoreResults.js"></script>
-    <script src="src/assets/js/main.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcg5Y2D1fpGI12T8wcbtPIsyGdw-_NV1Y&amp;callback=myMap"></script>
-
-</body>
-
-</html>
+<?php echo $this->section('scripts'); ?>
+<script src="<?php echo base_url('web/src/assets/js/jquery-2.1.1.min.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/bootstrap.min.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/jquery.mousewheel.min.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/jquery.easing.min.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/scrolling-nav.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/aos.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/slick.min.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/jquery.touchSwipe.min.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/moment.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/bootstrap-datepicker.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/bootstrap-datetimepicker.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/jquery.fancybox.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/loadMoreResults.js'); ?>"></script>
+<script src="<?php echo base_url('web/src/assets/js/main.js'); ?>"></script>
+<script src="<?php echo base_url('web/js/delivery-custom.js'); ?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $configuracao->googleMapsApiKey ?? 'AIzaSyBcg5Y2D1fpGI12T8wcbtPIsyGdw-_NV1Y'; ?>&amp;callback=myMap"></script>
+<?php echo $this->endSection(); ?>
