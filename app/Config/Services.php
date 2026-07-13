@@ -74,4 +74,15 @@ class Services extends BaseService
         $repository = new \App\Repositories\CategoriaRepository($model);
         return new \App\Services\CategoriaService($repository);
     }
+
+    public static function produtoService($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('produtoService');
+        }
+
+        $model = new \App\Models\ProdutoModel();
+        $repository = new \App\Repositories\ProdutoRepository($model);
+        return new \App\Services\ProdutoService($repository);
+    }
 }
