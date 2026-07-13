@@ -33,7 +33,7 @@ class DashboardService implements DashboardServiceInterface
             totalUsuarios: $this->usuarioRepository->countAll(),
             totalUsuariosAtivos: $this->usuarioRepository->countWhere(['ativo' => 1]),
             totalUsuariosInativos: $this->usuarioRepository->countWhere(['ativo' => 0]),
-            totalUsuariosDeletados: $this->contarUsuariosDeletados(), // 🔥 MÉTODO ESPECÍFICO
+            totalUsuariosDeletados: $this->contarUsuariosDeletados(),
             // Categorias
             totalCategorias: $this->categoriaRepository->countAll(),
             totalCategoriasAtivas: $this->categoriaRepository->countAtivas(),
@@ -60,6 +60,6 @@ class DashboardService implements DashboardServiceInterface
 
     private function contarUsuariosDeletados(): int
     {
-        return $this->usuarioRepository->countWhere(['deletado_em IS NOT NULL' => null]);
+        return $this->usuarioRepository->countDeletados();
     }
 }

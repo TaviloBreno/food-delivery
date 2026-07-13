@@ -28,7 +28,7 @@ trait RepositoryTrait
         $model = $this->model;
 
         foreach ($conditions as $key => $value) {
-            // 🔥 Verifica se a chave contém operadores especiais
+            // Verifica se a chave contém operadores especiais
             if (strpos($key, 'IS NOT NULL') !== false || strpos($key, 'IS NULL') !== false) {
                 $model = $model->where($key, null, false);
             } else {
@@ -42,5 +42,10 @@ trait RepositoryTrait
     public function getLatest(int $limit = 5): array
     {
         return $this->model->orderBy('id', 'DESC')->findAll($limit);
+    }
+
+    public function getPager(): object
+    {
+        return $this->model->pager;
     }
 }
