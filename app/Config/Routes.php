@@ -17,7 +17,13 @@ $routes->post('login/solicitar-reset', 'Login::solicitarReset');
 $routes->get('login/redefinir/(:any)', 'Login::redefinir/$1');
 $routes->post('login/salvar-nova-senha', 'Login::salvarNovaSenha');
 
+$routes->get('carrinho', 'Web\Carrinho::index');
+$routes->get('carrinho/adicionar', 'Web\Carrinho::adicionar');
+$routes->post('carrinho/atualizar', 'Web\Carrinho::atualizar');
+$routes->post('carrinho/remover', 'Web\Carrinho::remover');
 $routes->get('checkout', 'Web\Checkout::index');
+$routes->post('checkout/finalizar', 'Web\Checkout::finalizar');
+$routes->get('checkout/sucesso', 'Web\Checkout::sucesso');
 
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth'], function ($routes) {
     // 🔥 DASHBOARD

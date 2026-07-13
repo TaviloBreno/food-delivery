@@ -164,6 +164,12 @@ class Login extends BaseController
     private function redirecionarUsuarioLogado(?object $usuario = null)
     {
         $usuarioLogado = $usuario ?? $this->auth->pegaUsuarioLogado();
+        $redirectTo = session('redirect_to');
+
+        if (!empty($redirectTo)) {
+            session()->remove('redirect_to');
+            return redirect()->to($redirectTo)->with('sucesso', 'Bem-vindo, ' . ($usuarioLogado->nome ?? 'usuário') . '!');
+        }
 
         if ($usuarioLogado && !empty($usuarioLogado->is_admin)) {
             return redirect()->to(site_url('admin/funcionarios'))->with('sucesso', 'Bem-vindo, ' . ($usuarioLogado->nome ?? 'funcionário') . '!');
