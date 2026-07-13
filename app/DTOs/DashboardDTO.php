@@ -38,7 +38,6 @@ class DashboardDTO
     public function toArray(): array
     {
         return [
-            'titulo' => 'Dashboard',
             'totalUsuarios' => $this->totalUsuarios,
             'totalUsuariosAtivos' => $this->totalUsuariosAtivos,
             'totalUsuariosInativos' => $this->totalUsuariosInativos,
