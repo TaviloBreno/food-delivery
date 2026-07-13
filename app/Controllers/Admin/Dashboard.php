@@ -22,6 +22,9 @@ class Dashboard extends BaseController
         $dto = $this->dashboardService->getDados();
         $data = $dto->toArray();
 
+        // Adicionar o título
+        $data['titulo'] = 'Dashboard - Food Delivery';
+
         return view('Admin/Dashboard/index', $data);
     }
 }

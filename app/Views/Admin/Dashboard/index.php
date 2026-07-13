@@ -1,7 +1,7 @@
 <?php echo $this->extend('Admin/layout/principal'); ?>
 
 <?php echo $this->section('titulo'); ?>
-<?php echo $titulo; ?>
+<?php echo $titulo ?? 'Dashboard - Food Delivery'; ?>
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('estilos'); ?>
@@ -25,10 +25,10 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-primary">
             <div class="stat-icon"><i class="mdi mdi-account-multiple"></i></div>
-            <div class="stat-number"><?php echo $totalUsuarios; ?></div>
+            <div class="stat-number"><?php echo $totalUsuarios ?? 0; ?></div>
             <div class="stat-label">Total de Usuários</div>
             <div class="stat-change">
-                <i class="mdi mdi-account-check"></i> <?php echo $totalUsuariosAtivos; ?> ativos
+                <i class="mdi mdi-account-check"></i> <?php echo $totalUsuariosAtivos ?? 0; ?> ativos
             </div>
         </div>
     </div>
@@ -36,10 +36,10 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-success">
             <div class="stat-icon"><i class="mdi mdi-food"></i></div>
-            <div class="stat-number"><?php echo $totalProdutos; ?></div>
+            <div class="stat-number"><?php echo $totalProdutos ?? 0; ?></div>
             <div class="stat-label">Total de Produtos</div>
             <div class="stat-change">
-                <i class="mdi mdi-star"></i> <?php echo $totalProdutosDestaque; ?> em destaque
+                <i class="mdi mdi-star"></i> <?php echo $totalProdutosDestaque ?? 0; ?> em destaque
             </div>
         </div>
     </div>
@@ -47,10 +47,10 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-warning">
             <div class="stat-icon"><i class="mdi mdi-motorbike"></i></div>
-            <div class="stat-number"><?php echo $totalEntregadores; ?></div>
+            <div class="stat-number"><?php echo $totalEntregadores ?? 0; ?></div>
             <div class="stat-label">Total de Entregadores</div>
             <div class="stat-change">
-                <i class="mdi mdi-check-circle"></i> <?php echo $totalEntregadoresDisponiveis; ?> disponíveis
+                <i class="mdi mdi-check-circle"></i> <?php echo $totalEntregadoresDisponiveis ?? 0; ?> disponíveis
             </div>
         </div>
     </div>
@@ -58,10 +58,10 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-info">
             <div class="stat-icon"><i class="mdi mdi-map-marker"></i></div>
-            <div class="stat-number"><?php echo $totalBairros; ?></div>
+            <div class="stat-number"><?php echo $totalBairros ?? 0; ?></div>
             <div class="stat-label">Bairros Atendidos</div>
             <div class="stat-change">
-                <i class="mdi mdi-check-circle"></i> <?php echo $totalBairrosAtivos; ?> ativos
+                <i class="mdi mdi-check-circle"></i> <?php echo $totalBairrosAtivos ?? 0; ?> ativos
             </div>
         </div>
     </div>
@@ -72,10 +72,10 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-danger">
             <div class="stat-icon"><i class="mdi mdi-account-off"></i></div>
-            <div class="stat-number"><?php echo $totalUsuariosInativos; ?></div>
+            <div class="stat-number"><?php echo $totalUsuariosInativos ?? 0; ?></div>
             <div class="stat-label">Usuários Inativos</div>
             <div class="stat-change">
-                <i class="mdi mdi-delete"></i> <?php echo $totalUsuariosDeletados; ?> excluídos
+                <i class="mdi mdi-delete"></i> <?php echo $totalUsuariosDeletados ?? 0; ?> excluídos
             </div>
         </div>
     </div>
@@ -83,10 +83,10 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-pink">
             <div class="stat-icon"><i class="mdi mdi-folder-outline"></i></div>
-            <div class="stat-number"><?php echo $totalCategorias; ?></div>
+            <div class="stat-number"><?php echo $totalCategorias ?? 0; ?></div>
             <div class="stat-label">Total de Categorias</div>
             <div class="stat-change">
-                <i class="mdi mdi-check-circle"></i> <?php echo $totalCategoriasAtivas; ?> ativas
+                <i class="mdi mdi-check-circle"></i> <?php echo $totalCategoriasAtivas ?? 0; ?> ativas
             </div>
         </div>
     </div>
@@ -94,10 +94,10 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-orange">
             <div class="stat-icon"><i class="mdi mdi-credit-card"></i></div>
-            <div class="stat-number"><?php echo $totalFormasPagamento; ?></div>
+            <div class="stat-number"><?php echo $totalFormasPagamento ?? 0; ?></div>
             <div class="stat-label">Formas de Pagamento</div>
             <div class="stat-change">
-                <i class="mdi mdi-check-circle"></i> <?php echo $totalFormasPagamentoAtivas; ?> ativas
+                <i class="mdi mdi-check-circle"></i> <?php echo $totalFormasPagamentoAtivas ?? 0; ?> ativas
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="stat-card stat-purple">
             <div class="stat-icon"><i class="mdi mdi-package"></i></div>
-            <div class="stat-number"><?php echo $totalProdutosInativos; ?></div>
+            <div class="stat-number"><?php echo $totalProdutosInativos ?? 0; ?></div>
             <div class="stat-label">Produtos Inativos</div>
             <div class="stat-change">
                 <i class="mdi mdi-food-off"></i> Aguardando ativação
@@ -224,7 +224,7 @@
                                 <td><strong>Total de Registros</strong></td>
                                 <td>
                                     <?php
-                                    $totalRegistros = $totalUsuarios + $totalProdutos + $totalCategorias + $totalEntregadores + $totalBairros + $totalFormasPagamento;
+                                    $totalRegistros = ($totalUsuarios ?? 0) + ($totalProdutos ?? 0) + ($totalCategorias ?? 0) + ($totalEntregadores ?? 0) + ($totalBairros ?? 0) + ($totalFormasPagamento ?? 0);
                                     echo $totalRegistros;
                                     ?>
                                 </td>
