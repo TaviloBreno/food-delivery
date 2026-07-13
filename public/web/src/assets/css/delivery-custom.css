@@ -1,0 +1,372 @@
+/* ============================================
+   DELIVERY CUSTOM CSS - Butazzo Pizza Template
+   ============================================ */
+
+/* -------- AJUSTES GERAIS -------- */
+.body-wrapper {
+    padding-top: 0;
+}
+
+.navbar-container {
+    background: rgba(0, 0, 0, 0.85) !important;
+}
+
+.navbar-brand img {
+    max-height: 50px;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+/* -------- CARDS DASHBOARD -------- */
+.stat-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    border-left: 4px solid #e74c3c;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #e74c3c;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+}
+
+.stat-label {
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.stat-change {
+    font-size: 12px;
+    color: #27ae60;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.stat-primary { border-left-color: #3498db; }
+.stat-primary .stat-icon { color: #3498db; }
+.stat-success { border-left-color: #2ecc71; }
+.stat-success .stat-icon { color: #2ecc71; }
+.stat-warning { border-left-color: #f39c12; }
+.stat-warning .stat-icon { color: #f39c12; }
+.stat-info { border-left-color: #1abc9c; }
+.stat-info .stat-icon { color: #1abc9c; }
+.stat-danger { border-left-color: #e74c3c; }
+.stat-danger .stat-icon { color: #e74c3c; }
+.stat-pink { border-left-color: #e84393; }
+.stat-pink .stat-icon { color: #e84393; }
+.stat-orange { border-left-color: #e67e22; }
+.stat-orange .stat-icon { color: #e67e22; }
+.stat-purple { border-left-color: #9b59b6; }
+.stat-purple .stat-icon { color: #9b59b6; }
+
+/* -------- TÍTULOS -------- */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+}
+
+.title_sty1 {
+    color: #e74c3c;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.title_sty1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #e74c3c;
+}
+
+.text-center .title_sty1:after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* -------- MENU FILTER -------- */
+.menu_filter .item.active a {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.menu_filter .item a {
+    display: inline-block;
+    padding: 8px 25px;
+    border-radius: 30px;
+    background: transparent;
+    color: #333;
+    border: 2px solid #e74c3c;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.menu_filter .item a:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.filter_item_price {
+    color: #e74c3c;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* -------- BOTÕES -------- */
+.btn-block {
+    background: #e74c3c;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-block:hover {
+    background: #c0392b;
+    color: #fff;
+}
+
+/* -------- BADGES -------- */
+.badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+.badge-success { background: #2ecc71; color: #fff; }
+.badge-danger { background: #e74c3c; color: #fff; }
+.badge-warning { background: #f39c12; color: #fff; }
+
+/* -------- RESERVATION -------- */
+.fixed_layer {
+    background: rgba(0, 0, 0, 0.7);
+    background-image: url('../src/assets/img/photos/reservation-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.reserv_box {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 40px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.reserv_box .section-title { color: #fff; }
+.reserv_box .short { color: rgba(255, 255, 255, 0.7); }
+.reserv_box .form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 30px;
+    padding: 12px 20px;
+    height: auto;
+}
+.reserv_box .form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #e74c3c;
+    box-shadow: none;
+}
+.reserv_box .form-control::placeholder { color: rgba(255, 255, 255, 0.5); }
+.reserv_box textarea.form-control { border-radius: 20px; resize: none; }
+
+/* -------- CAROUSEL -------- */
+.carousel-caption {
+    text-align: left;
+    padding: 60px 0;
+}
+
+.carousel-caption .item_name {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+}
+
+.carousel-caption .item_info {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    max-width: 500px;
+    margin: 20px 0;
+}
+
+.item_link {
+    display: inline-block;
+    padding: 12px 35px;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.item_link:hover {
+    background: #c0392b;
+    color: #fff;
+}
+
+.item_badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #e74c3c;
+    padding: 10px 20px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+}
+
+.badge_btext { font-size: 24px; font-weight: 700; display: block; }
+.badge_stext { font-size: 12px; display: block; }
+
+/* -------- GALLERY -------- */
+.fancybox img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.zoom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(231, 76, 60, 0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.block:hover .zoom { opacity: 1; }
+.zoom_icon { color: #fff; font-size: 30px; }
+
+/* -------- FOOTER -------- */
+.footer_pos {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 60px 0 0;
+}
+
+.footer_ttl {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.footer_txt { color: #aaa; font-size: 14px; line-height: 1.8; }
+
+.week_row {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.week_day { float: left; color: #aaa; }
+.week_time { float: right; color: #fff; }
+
+.footer_cnt {
+    margin-bottom: 15px;
+    color: #aaa;
+}
+
+.footer_cnt i {
+    color: #e74c3c;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.footer_cnt span { font-size: 14px; }
+
+.copyright {
+    background: #111;
+    padding: 20px 0;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.copy_text { color: #777; font-size: 14px; }
+.copy_text a { color: #e74c3c; text-decoration: none; }
+
+.social-links ul { margin: 0; padding: 0; text-align: right; }
+.social-links ul li { display: inline-block; margin-left: 10px; }
+
+.social-links ul li a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    color: #aaa;
+    transition: all 0.3s ease;
+}
+
+.social-links ul li a:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+/* -------- MOBILE -------- */
+.cd-nav-container { background: #1a1a1a; }
+.rmenu_logo img { max-height: 40px; }
+
+.right_menu_addr { padding: 20px; color: #aaa; }
+.right_menu_addr span { display: block; margin-bottom: 10px; }
+.right_menu_addr i {
+    color: #e74c3c;
+    margin-right: 10px;
+    width: 20px;
+}
+
+/* -------- RESPONSIVO -------- */
+@media (max-width: 768px) {
+    .carousel-caption .item_name { font-size: 28px; }
+    .carousel-caption { text-align: center; padding: 30px 0; }
+    .carousel-caption .item_info { max-width: 100%; }
+    .reserv_box { padding: 20px; margin: 20px; }
+    .social-links ul { text-align: center; margin-top: 15px; }
+    .section { padding: 40px 0; }
+    .section-title { font-size: 28px; }
+    .stat-number { font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand img { max-height: 35px; }
+    .carousel-caption .item_name { font-size: 22px; }
+    .item_badge { padding: 5px 12px; }
+    .badge_btext { font-size: 16px; }
+}
