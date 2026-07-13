@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Web\Site::index');
 $routes->get('busca', 'Web\Site::busca');
 
-$routes->get('login/novo', 'Login::novo');
+$routes->get('login', 'Login::novo');
 $routes->post('login/autenticar', 'Login::autenticar');
 $routes->get('login/logout', 'Login::logout');
 
