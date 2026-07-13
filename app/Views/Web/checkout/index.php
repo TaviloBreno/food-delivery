@@ -73,31 +73,32 @@
             <div class="row">
                 <div class="col-lg-7">
                     <h4 class="mb-3">Dados de entrega</h4>
-                    <form>
+                    <form action="<?php echo site_url('checkout/finalizar'); ?>" method="post">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nome</label>
-                                <input type="text" class="form-control" placeholder="Seu nome" value="<?php echo esc($usuario_nome); ?>">
+                                <input type="text" class="form-control" name="nome" placeholder="Seu nome" value="<?php echo esc($usuario_nome); ?>" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Telefone</label>
-                                <input type="text" class="form-control" placeholder="(88) 99999-9999">
+                                <input type="text" class="form-control" name="telefone" placeholder="(88) 99999-9999" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Endereço</label>
-                            <input type="text" class="form-control" placeholder="Rua, número, complemento">
+                            <input type="text" class="form-control" name="endereco" placeholder="Rua, número, complemento" required>
                         </div>
                         <div class="form-group">
                             <label>Observações</label>
-                            <textarea class="form-control" rows="4" placeholder="Alguma observação para o entregador?"></textarea>
+                            <textarea class="form-control" name="observacoes" rows="4" placeholder="Alguma observação para o entregador?"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Forma de pagamento</label>
-                            <select class="form-control">
-                                <option>Cartão de crédito</option>
-                                <option>Pix</option>
-                                <option>Dinheiro</option>
+                            <select class="form-control" name="pagamento" required>
+                                <option value="">Selecione</option>
+                                <option value="Cartão de crédito">Cartão de crédito</option>
+                                <option value="Pix">Pix</option>
+                                <option value="Dinheiro">Dinheiro</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-pay"><i class="fa fa-check"></i> Confirmar pedido</button>
@@ -106,10 +107,14 @@
                 <div class="col-lg-5">
                     <div class="summary-box">
                         <h4 class="mb-3">Resumo do pedido</h4>
-                        <div class="d-flex justify-content-between mb-2"><span>Pizza Margherita</span><strong>R$ 39,90</strong></div>
-                        <div class="d-flex justify-content-between mb-2"><span>Delivery</span><strong>R$ 5,00</strong></div>
+                        <?php foreach ($itens as $item): ?>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span><?php echo esc($item['nome']); ?> × <?php echo (int) ($item['quantidade'] ?? 1); ?></span>
+                                <strong>R$ <?php echo number_format(((float) ($item['preco'] ?? 0)) * ((int) ($item['quantidade'] ?? 1)), 2, ',', '.'); ?></strong>
+                            </div>
+                        <?php endforeach; ?>
                         <hr>
-                        <div class="d-flex justify-content-between mb-3"><strong>Total</strong><strong>R$ 44,90</strong></div>
+                        <div class="d-flex justify-content-between mb-3"><strong>Total</strong><strong>R$ <?php echo number_format((float) $total, 2, ',', '.'); ?></strong></div>
                         <p class="text-muted mb-0">Entrega estimada em 35-45 minutos.</p>
                     </div>
                 </div>

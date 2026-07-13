@@ -55,9 +55,10 @@
                     <li><a href="#about">Sobre</a></li>
                     <li><a href="#menu">Cardápio</a></li>
                     <li><a href="#contact">Contato</a></li>
+                    <li><a href="<?php echo base_url('carrinho'); ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
                     <?php if ($isLoggedIn ?? false): ?>
                         <li><a href="<?php echo base_url('admin'); ?>"><i class="fa fa-dashboard"></i> Painel</a></li>
-                        <li><a href="<?php echo base_url('logout'); ?>"><i class="fa fa-sign-out"></i> Sair</a></li>
+                        <li><a href="<?php echo base_url('login/logout'); ?>"><i class="fa fa-sign-out"></i> Sair</a></li>
                     <?php else: ?>
                         <li><a href="<?php echo base_url('login'); ?>"><i class="fa fa-user"></i> Entrar</a></li>
                     <?php endif; ?>
@@ -229,7 +230,7 @@
                                         <p><?php echo esc($produto->descricao_curta ?? 'Deliciosa opção do nosso cardápio.'); ?></p>
                                         <div class="menu-footer">
                                             <span class="price">R$ <?php echo number_format($produto->preco, 2, ',', '.'); ?></span>
-                                            <a href="<?php echo base_url('checkout'); ?>" class="btn-order">
+                                            <a href="<?php echo base_url('carrinho/adicionar?produto_id=' . $produto->id . '&nome=' . urlencode($produto->nome) . '&preco=' . urlencode((string) $produto->preco)); ?>" class="btn-order">
                                                 <i class="fa fa-shopping-cart"></i> Pedir
                                             </a>
                                         </div>
