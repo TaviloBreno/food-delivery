@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\DTOs\CategoriaDTO;
 use App\Exceptions\CategoriaException;
 use App\Interfaces\CategoriaServiceInterface;
 use App\Traits\PaginacaoTrait;
@@ -76,7 +77,9 @@ class Categorias extends BaseController
             $post = $this->request->getPost();
 
             $this->validate($this->getValidationRules());
-            $this->categoriaService->criar($post);
+
+            $dto = CategoriaDTO::fromArray($post);
+            $this->categoriaService->criar($dto);
 
             return $this->sucesso('Categoria criada com sucesso!', site_url('admin/categorias'));
         } catch (CategoriaException $e) {
@@ -112,7 +115,9 @@ class Categorias extends BaseController
             $post = $this->request->getPost();
 
             $this->validate($this->getValidationRules((int) $id));
-            $this->categoriaService->atualizar((int) $id, $post);
+
+            $dto = CategoriaDTO::fromArray($post);
+            $this->categoriaService->atualizar((int) $id, $dto);
 
             return $this->sucesso('Categoria atualizada com sucesso!', site_url("admin/categorias/show/{$id}"));
         } catch (CategoriaException $e) {
