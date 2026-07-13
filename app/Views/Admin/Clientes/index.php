@@ -23,28 +23,31 @@
         <div class="stat-card stat-primary">
             <div class="stat-icon"><i class="mdi mdi-account-multiple"></i></div>
             <div class="stat-number"><?php echo $totalClientes ?? 0; ?></div>
-            <div class="stat-label">Total de clientes</div>
+            <div class="stat-label">Usuários comuns</div>
+            <div class="stat-change"><i class="mdi mdi-account-outline"></i> Perfil não administrador</div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="stat-card stat-success">
             <div class="stat-icon"><i class="mdi mdi-account-check"></i></div>
             <div class="stat-number"><?php echo $clientesAtivos ?? 0; ?></div>
-            <div class="stat-label">Ativos</div>
+            <div class="stat-label">Clientes ativos</div>
+            <div class="stat-change"><i class="mdi mdi-check-circle"></i> Liberados para compras</div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="stat-card stat-danger">
             <div class="stat-icon"><i class="mdi mdi-account-off"></i></div>
             <div class="stat-number"><?php echo $clientesInativos ?? 0; ?></div>
-            <div class="stat-label">Inativos</div>
+            <div class="stat-label">Clientes inativos</div>
+            <div class="stat-change"><i class="mdi mdi-alert-circle"></i> Aguardando revisão</div>
         </div>
     </div>
 </div>
 
 <div class="card mt-4">
     <div class="card-body">
-        <h4 class="section-title"><i class="mdi mdi-account-group"></i> Últimos clientes</h4>
+        <h4 class="section-title"><i class="mdi mdi-account-group"></i> Últimos usuários comuns</h4>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
@@ -65,6 +68,7 @@
                                 <td><?php echo esc($cliente->nome); ?></td>
                                 <td><?php echo esc($cliente->email); ?></td>
                                 <td>
+                                    <span class="badge badge-info">Cliente</span>
                                     <?php if (!empty($cliente->ativo)): ?>
                                         <span class="badge badge-success">Ativo</span>
                                     <?php else: ?>
