@@ -49,7 +49,7 @@ class Carrinho extends BaseController
 
         session()->set('carrinho', $carrinho);
 
-        return redirect()->to(site_url('carrinho'))->with('sucesso', 'Produto adicionado ao carrinho.');
+        return redirect()->back()->with('sucesso', 'Produto adicionado ao carrinho.');
     }
 
     public function atualizar()

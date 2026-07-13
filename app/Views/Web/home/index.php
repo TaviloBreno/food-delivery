@@ -55,7 +55,22 @@
                     <li><a href="#about">Sobre</a></li>
                     <li><a href="#menu">Cardápio</a></li>
                     <li><a href="#contact">Contato</a></li>
-                    <li><a href="<?php echo base_url('carrinho'); ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+                    <?php
+                    $itensCarrinho = session('carrinho') ?? [];
+                    $quantidadeTotalItens = 0;
+                    foreach ($itensCarrinho as $item) {
+                        $quantidadeTotalItens += (int) ($item['quantidade'] ?? 1);
+                    }
+                    $textoBadgeCarrinho = $quantidadeTotalItens > 9 ? '9+' : (string) $quantidadeTotalItens;
+                    ?>
+                    <li class="nav-cart-link">
+                        <a href="<?php echo base_url('carrinho'); ?>">
+                            <i class="fa fa-shopping-cart"></i> Carrinho
+                            <?php if ($quantidadeTotalItens > 0): ?>
+                                <span class="cart-badge"><?php echo esc($textoBadgeCarrinho); ?></span>
+                            <?php endif; ?>
+                        </a>
+                    </li>
                     <?php if ($isLoggedIn ?? false): ?>
                         <li><a href="<?php echo base_url('admin'); ?>"><i class="fa fa-dashboard"></i> Painel</a></li>
                         <li><a href="<?php echo base_url('login/logout'); ?>"><i class="fa fa-sign-out"></i> Sair</a></li>
@@ -231,7 +246,7 @@
                                         <div class="menu-footer">
                                             <span class="price">R$ <?php echo number_format($produto->preco, 2, ',', '.'); ?></span>
                                             <a href="<?php echo base_url('carrinho/adicionar?produto_id=' . $produto->id . '&nome=' . urlencode($produto->nome) . '&preco=' . urlencode((string) $produto->preco)); ?>" class="btn-order">
-                                                <i class="fa fa-shopping-cart"></i> Pedir
+                                                <i class="fa fa-shopping-cart"></i> Adicionar
                                             </a>
                                         </div>
                                     </div>
