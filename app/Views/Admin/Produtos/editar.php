@@ -1,9 +1,11 @@
 <?php echo $this->extend('Admin/layout/principal'); ?>
 
-<?php echo $this->section('titulo'); ?> <?php echo esc($titulo); ?> <?php echo $this->endSection(); ?>
+<?php echo $this->section('titulo'); ?>
+<?php echo esc($titulo); ?>
+<?php echo $this->endSection(); ?>
 
 <?php echo $this->section('estilos'); ?>
-<link rel="stylesheet" href="<?php echo site_url('admin/css/usuarios.css'); ?>">
+<link rel="stylesheet" href="<?php echo site_url('admin/css/produtos.css'); ?>">
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('conteudo'); ?>
@@ -22,10 +24,6 @@
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo site_url('admin/js/usuarios-form.js'); ?>"></script>
-<script>
-    $('#preco, #preco_promocional').mask('000.000.000.000.000,00', {
-        reverse: true
-    });
-</script>
+<script src="<?php echo site_url('admin/js/jquery.mask.min.js'); ?>"></script>
+<script src="<?php echo site_url('admin/js/produtos.js'); ?>"></script>
 <?php echo $this->endSection(); ?>
