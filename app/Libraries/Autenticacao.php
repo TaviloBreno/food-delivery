@@ -72,6 +72,7 @@ class Autenticacao
         $session->set('usuario_id', $usuario->id);
         $session->set('usuario_nome', $usuario->nome);
         $session->set('is_admin', $usuario->is_admin);
+        $session->set('perfil_slug', $usuario->is_admin == 1 ? 'admin' : 'cliente');
         $session->set('isLoggedIn', true);
     }
 }
