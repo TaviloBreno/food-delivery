@@ -13,3 +13,54 @@
  *
  * @see: https://codeigniter.com/user_guide/extending/common.html
  */
+
+if (!function_exists('perfilUsuarioLogado')) {
+    function perfilUsuarioLogado(): string
+    {
+        $session = session();
+        $perfil = $session->get('perfil_slug');
+
+        if (!empty($perfil)) {
+            return strtolower((string) $perfil);
+        }
+
+        return ((int) $session->get('is_admin') === 1) ? 'admin' : 'cliente';
+    }
+}
+
+if (!function_exists('podeAcessarModulo')) {
+    function podeAcessarModulo(string $slug): bool
+    {
+        $perfil = perfilUsuarioLogado();
+
+        $permissoesPorPerfil = [
+            'admin' => [
+                'dashboard.ver',
+                'usuarios.ver',
+                'clientes.ver',
+                'funcionarios.ver',
+                'categorias.ver',
+                'produtos.ver',
+                'pagamentos.ver',
+                'entregadores.ver',
+                'bairros.ver',
+                'expediente.ver',
+            ],
+            'funcionario' => [
+                'dashboard.ver',
+                'categorias.ver',
+                'produtos.ver',
+                'pedidos.ver',
+                'perfil.ver',
+            ],
+            'cliente' => [
+                'produtos.ver',
+                'categorias.ver',
+                'pedidos.ver',
+                'perfil.ver',
+            ],
+        ];
+
+        return in_array($slug, $permissoesPorPerfil[$perfil] ?? [], true);
+    }
+}
