@@ -1,49 +1,11 @@
 <?php echo $this->extend('Admin/layout/principal'); ?>
 
-<?php echo $this->section('titulo'); ?> <?php echo esc($titulo); ?> <?php echo $this->endSection(); ?>
+<?php echo $this->section('titulo'); ?>
+<?php echo esc($titulo); ?>
+<?php echo $this->endSection(); ?>
 
 <?php echo $this->section('estilos'); ?>
-<link rel="stylesheet" href="<?php echo site_url('admin/css/usuarios.css'); ?>">
-<style>
-    .upload-area {
-        border: 2px dashed #dee2e6;
-        border-radius: 10px;
-        padding: 40px;
-        text-align: center;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-    .upload-area:hover {
-        border-color: #4d83ff;
-        background: #f8f9fa;
-    }
-
-    .upload-area .mdi {
-        font-size: 4rem;
-        color: #6c757d;
-    }
-
-    .upload-area p {
-        color: #6c757d;
-        margin-top: 10px;
-    }
-
-    .preview-imagem {
-        max-width: 200px;
-        max-height: 200px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .produto-imagem-atual {
-        max-width: 150px;
-        max-height: 150px;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-</style>
+<link rel="stylesheet" href="<?php echo site_url('admin/css/produtos.css'); ?>">
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('conteudo'); ?>
@@ -95,54 +57,5 @@
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script>
-    const uploadArea = document.getElementById('uploadArea');
-    const inputFile = document.getElementById('imagem');
-    const previewContainer = document.getElementById('preview-container');
-    const preview = document.getElementById('preview');
-
-    uploadArea.addEventListener('click', function() {
-        inputFile.click();
-    });
-
-    uploadArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        this.style.borderColor = '#4d83ff';
-        this.style.background = '#f8f9fa';
-    });
-
-    uploadArea.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        this.style.borderColor = '#dee2e6';
-        this.style.background = 'transparent';
-    });
-
-    uploadArea.addEventListener('drop', function(e) {
-        e.preventDefault();
-        this.style.borderColor = '#dee2e6';
-        this.style.background = 'transparent';
-
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            inputFile.files = files;
-            previewFile(files[0]);
-        }
-    });
-
-    inputFile.addEventListener('change', function() {
-        if (this.files.length > 0) {
-            previewFile(this.files[0]);
-        }
-    });
-
-    function previewFile(file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            previewContainer.style.display = 'block';
-            uploadArea.querySelector('p').textContent = 'Arquivo selecionado: ' + file.name;
-        };
-        reader.readAsDataURL(file);
-    }
-</script>
+<script src="<?php echo site_url('admin/js/produtos.js'); ?>"></script>
 <?php echo $this->endSection(); ?>
