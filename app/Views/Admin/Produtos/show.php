@@ -1,30 +1,11 @@
 <?php echo $this->extend('Admin/layout/principal'); ?>
 
-<?php echo $this->section('titulo'); ?> <?php echo esc($titulo); ?> <?php echo $this->endSection(); ?>
+<?php echo $this->section('titulo'); ?>
+<?php echo esc($titulo); ?>
+<?php echo $this->endSection(); ?>
 
 <?php echo $this->section('estilos'); ?>
-<link rel="stylesheet" href="<?php echo site_url('admin/css/usuarios.css'); ?>">
-<style>
-    .produto-imagem {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-purple {
-        background: #6f42c1;
-        border-color: #6f42c1;
-        color: #fff;
-    }
-
-    .btn-purple:hover {
-        background: #5a32a3;
-        border-color: #5a32a3;
-        color: #fff;
-    }
-</style>
+<link rel="stylesheet" href="<?php echo site_url('admin/css/produtos.css'); ?>">
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('conteudo'); ?>
@@ -37,7 +18,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        <img src="<?php echo $produto->getImagemUrl(); ?>" alt="<?php echo $produto->nome; ?>" class="produto-imagem">
+                        <img src="<?php echo $produto->getImagemUrl(); ?>"
+                            alt="<?php echo $produto->nome; ?>"
+                            class="produto-imagem">
                         <div class="mt-3">
                             <a href="<?php echo site_url('admin/produtos/upload-imagem/' . $produto->id); ?>" class="btn btn-warning btn-sm">
                                 <i class="mdi mdi-camera"></i> Alterar imagem
