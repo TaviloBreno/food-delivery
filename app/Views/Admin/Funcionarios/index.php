@@ -9,6 +9,7 @@
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('conteudo'); ?>
+<?php $perfil = perfilUsuarioLogado(); ?>
 <div class="row">
     <div class="col-12">
         <div class="welcome-text mb-4">
@@ -18,69 +19,84 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="stat-card stat-primary">
-            <div class="stat-icon"><i class="mdi mdi-account-star"></i></div>
-            <div class="stat-number"><?php echo $totalFuncionarios ?? 0; ?></div>
-            <div class="stat-label">Administradores</div>
-            <div class="stat-change"><i class="mdi mdi-security"></i> Perfil com acesso ao painel</div>
+<?php if ($perfil === 'admin'): ?>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="stat-card stat-primary">
+                <div class="stat-icon"><i class="mdi mdi-account-star"></i></div>
+                <div class="stat-number"><?php echo $totalFuncionarios ?? 0; ?></div>
+                <div class="stat-label">Administradores</div>
+                <div class="stat-change"><i class="mdi mdi-security"></i> Perfil com acesso ao painel</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card stat-success">
+                <div class="stat-icon"><i class="mdi mdi-account-check"></i></div>
+                <div class="stat-number"><?php echo $funcionariosAtivos ?? 0; ?></div>
+                <div class="stat-label">Funcionários ativos</div>
+                <div class="stat-change"><i class="mdi mdi-check-circle"></i> Com acesso liberado</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card stat-danger">
+                <div class="stat-icon"><i class="mdi mdi-account-off"></i></div>
+                <div class="stat-number"><?php echo $funcionariosInativos ?? 0; ?></div>
+                <div class="stat-label">Funcionários inativos</div>
+                <div class="stat-change"><i class="mdi mdi-alert-circle"></i> Sem acesso no momento</div>
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="stat-card stat-success">
-            <div class="stat-icon"><i class="mdi mdi-account-check"></i></div>
-            <div class="stat-number"><?php echo $funcionariosAtivos ?? 0; ?></div>
-            <div class="stat-label">Funcionários ativos</div>
-            <div class="stat-change"><i class="mdi mdi-check-circle"></i> Com acesso liberado</div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="stat-card stat-danger">
-            <div class="stat-icon"><i class="mdi mdi-account-off"></i></div>
-            <div class="stat-number"><?php echo $funcionariosInativos ?? 0; ?></div>
-            <div class="stat-label">Funcionários inativos</div>
-            <div class="stat-change"><i class="mdi mdi-alert-circle"></i> Sem acesso no momento</div>
-        </div>
-    </div>
-</div>
 
-<div class="card mt-4">
-    <div class="card-body">
-        <h4 class="section-title"><i class="mdi mdi-account-tie"></i> Últimos administradores</h4>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>E-mail</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($funcionarios)): ?>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4 class="section-title"><i class="mdi mdi-account-tie"></i> Últimos administradores</h4>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <td colspan="3" class="text-center text-muted">Nenhum funcionário encontrado.</td>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Status</th>
                         </tr>
-                    <?php else: ?>
-                        <?php foreach ($funcionarios as $funcionario): ?>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($funcionarios)): ?>
                             <tr>
-                                <td><?php echo esc($funcionario->nome); ?></td>
-                                <td><?php echo esc($funcionario->email); ?></td>
-                                <td>
-                                    <span class="badge badge-warning">Admin</span>
-                                    <?php if (!empty($funcionario->ativo)): ?>
-                                        <span class="badge badge-success">Ativo</span>
-                                    <?php else: ?>
-                                        <span class="badge badge-danger">Inativo</span>
-                                    <?php endif; ?>
-                                </td>
+                                <td colspan="3" class="text-center text-muted">Nenhum funcionário encontrado.</td>
                             </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                        <?php else: ?>
+                            <?php foreach ($funcionarios as $funcionario): ?>
+                                <tr>
+                                    <td><?php echo esc($funcionario->nome); ?></td>
+                                    <td><?php echo esc($funcionario->email); ?></td>
+                                    <td>
+                                        <span class="badge badge-warning">Admin</span>
+                                        <?php if (!empty($funcionario->ativo)): ?>
+                                            <span class="badge badge-success">Ativo</span>
+                                        <?php else: ?>
+                                            <span class="badge badge-danger">Inativo</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+<?php else: ?>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4 class="section-title"><i class="mdi mdi-lock-open-outline"></i> Acesso disponível para o seu perfil</h4>
+            <p class="text-muted">Este painel mostra apenas os recursos que o seu tipo de usuário pode acessar.</p>
+            <ul class="mb-0">
+                <?php if (podeAcessarModulo('produtos.ver')): ?><li>Produtos</li><?php endif; ?>
+                <?php if (podeAcessarModulo('categorias.ver')): ?><li>Categorias</li><?php endif; ?>
+                <?php if (podeAcessarModulo('pedidos.ver')): ?><li>Pedidos</li><?php endif; ?>
+                <?php if (podeAcessarModulo('perfil.ver')): ?><li>Meu perfil</li><?php endif; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>
 <?php echo $this->endSection(); ?>

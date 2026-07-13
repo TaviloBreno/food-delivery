@@ -170,66 +170,96 @@ $isExpedientes = strpos($currentUri, 'expedientes') !== false;
     <div class="container-fluid page-body-wrapper">
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item <?php echo $isDashboard ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/dashboard'); ?>">
-              <i class="mdi mdi-view-dashboard menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isUsuarios ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
-              <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">Usuários</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isClientes ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/clientes'); ?>">
-              <i class="mdi mdi-account-group menu-icon"></i>
-              <span class="menu-title">Clientes</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isFuncionarios ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/funcionarios'); ?>">
-              <i class="mdi mdi-account-tie menu-icon"></i>
-              <span class="menu-title">Funcionários</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isCategorias ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/categorias'); ?>">
-              <i class="mdi mdi-folder-outline menu-icon"></i>
-              <span class="menu-title">Categorias</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isProdutos ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/produtos'); ?>">
-              <i class="mdi mdi-food menu-icon"></i>
-              <span class="menu-title">Produtos</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isFormasPagamento ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/formas-pagamento'); ?>">
-              <i class="mdi mdi-credit-card menu-icon"></i>
-              <span class="menu-title">Formas de Pagamento</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isEntregadores ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/entregadores'); ?>">
-              <i class="mdi mdi-motorbike menu-icon"></i>
-              <span class="menu-title">Entregadores</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isBairrosAtendidos ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/bairros-atendidos'); ?>">
-              <i class="mdi mdi-map-marker menu-icon"></i>
-              <span class="menu-title">Bairros Atendidos</span>
-            </a>
-          </li>
-          <li class="nav-item <?php echo $isExpedientes ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?php echo site_url('admin/expedientes'); ?>">
-              <i class="mdi mdi-clock menu-icon"></i>
-              <span class="menu-title">Expediente</span>
-            </a>
-          </li>
+          <?php if (podeAcessarModulo('dashboard.ver')): ?>
+            <li class="nav-item <?php echo $isDashboard ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/dashboard'); ?>">
+                <i class="mdi mdi-view-dashboard menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('usuarios.ver')): ?>
+            <li class="nav-item <?php echo $isUsuarios ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+                <span class="menu-title">Usuários</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('clientes.ver')): ?>
+            <li class="nav-item <?php echo $isClientes ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/clientes'); ?>">
+                <i class="mdi mdi-account-group menu-icon"></i>
+                <span class="menu-title">Clientes</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('funcionarios.ver')): ?>
+            <li class="nav-item <?php echo $isFuncionarios ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/funcionarios'); ?>">
+                <i class="mdi mdi-account-tie menu-icon"></i>
+                <span class="menu-title">Funcionários</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('categorias.ver')): ?>
+            <li class="nav-item <?php echo $isCategorias ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/categorias'); ?>">
+                <i class="mdi mdi-folder-outline menu-icon"></i>
+                <span class="menu-title">Categorias</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('produtos.ver')): ?>
+            <li class="nav-item <?php echo $isProdutos ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/produtos'); ?>">
+                <i class="mdi mdi-food menu-icon"></i>
+                <span class="menu-title">Produtos</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('pagamentos.ver')): ?>
+            <li class="nav-item <?php echo $isFormasPagamento ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/formas-pagamento'); ?>">
+                <i class="mdi mdi-credit-card menu-icon"></i>
+                <span class="menu-title">Formas de Pagamento</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('entregadores.ver')): ?>
+            <li class="nav-item <?php echo $isEntregadores ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/entregadores'); ?>">
+                <i class="mdi mdi-motorbike menu-icon"></i>
+                <span class="menu-title">Entregadores</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('bairros.ver')): ?>
+            <li class="nav-item <?php echo $isBairrosAtendidos ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/bairros-atendidos'); ?>">
+                <i class="mdi mdi-map-marker menu-icon"></i>
+                <span class="menu-title">Bairros Atendidos</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
+          <?php if (podeAcessarModulo('expediente.ver')): ?>
+            <li class="nav-item <?php echo $isExpedientes ? 'active' : ''; ?>">
+              <a class="nav-link" href="<?php echo site_url('admin/expedientes'); ?>">
+                <i class="mdi mdi-clock menu-icon"></i>
+                <span class="menu-title">Expediente</span>
+              </a>
+            </li>
+          <?php endif; ?>
+
           <li class="nav-item">
             <a class="nav-link" href="<?php echo site_url('login/logout'); ?>">
               <i class="mdi mdi-logout menu-icon"></i>
