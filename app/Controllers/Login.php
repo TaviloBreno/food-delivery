@@ -18,7 +18,7 @@ class Login extends BaseController
     public function novo()
     {
         if ($this->auth->isLogged()) {
-            return redirect()->to(site_url('admin/usuarios'));
+            return $this->redirecionarUsuarioLogado();
         }
 
         $data = [
@@ -43,7 +43,7 @@ class Login extends BaseController
 
         if ($this->auth->login($email, $password)) {
             $usuario = $this->auth->pegaUsuarioLogado();
-            return redirect()->to(site_url('admin/dashboard'))->with('sucesso', 'Bem-vindo, ' . $usuario->nome . '!');
+            return $this->redirecionarUsuarioLogado($usuario);
         }
 
         return redirect()->back()->with('erro', 'E-mail ou senha inválidos.')->withInput();
@@ -58,7 +58,7 @@ class Login extends BaseController
     public function esqueci()
     {
         if ($this->auth->isLogged()) {
-            return redirect()->to(site_url('admin/usuarios'));
+            return $this->redirecionarUsuarioLogado();
         }
 
         $data = [
@@ -97,7 +97,7 @@ class Login extends BaseController
     public function redefinir($token = null)
     {
         if ($this->auth->isLogged()) {
-            return redirect()->to(site_url('admin/usuarios'));
+            return $this->redirecionarUsuarioLogado();
         }
 
         if (empty($token)) {
@@ -161,6 +161,17 @@ class Login extends BaseController
      * 🔥 ENVIO DE E-MAIL (SIMULAÇÃO)
      * Em produção, use: CodeIgniter\Email\Email ou PHPMailer
      */
+    private function redirecionarUsuarioLogado(?object $usuario = null)
+    {
+        $usuarioLogado = $usuario ?? $this->auth->pegaUsuarioLogado();
+
+        if ($usuarioLogado && !empty($usuarioLogado->is_admin)) {
+            return redirect()->to(site_url('admin/dashboard'));
+        }
+
+        return redirect()->to(site_url('/'))->with('sucesso', 'Bem-vindo, ' . ($usuarioLogado->nome ?? 'usuário') . '!');
+    }
+
     private function enviarEmailReset(string $email, string $link)
     {
         $assunto = 'Recuperação de senha - Food Delivery';

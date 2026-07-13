@@ -17,7 +17,7 @@ class AdminFilter implements FilterInterface
         }
 
         if ($session->get('is_admin') != 1) {
-            return redirect()->to(site_url('login/novo'))->with('erro', 'Você não tem permissão para acessar esta área.');
+            return redirect()->to(site_url('/'))->with('erro', 'Você não tem permissão para acessar esta área.');
         }
 
         return $request;
