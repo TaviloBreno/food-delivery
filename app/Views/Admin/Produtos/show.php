@@ -120,3 +120,7 @@
     </div>
 </div>
 <?php echo $this->endSection(); ?>
+
+<?php echo $this->section('scripts'); ?>
+<script src="<?php echo site_url('admin/js/produtos.js'); ?>"></script>
+<?php echo $this->endSection(); ?>
