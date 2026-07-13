@@ -166,10 +166,10 @@ class Login extends BaseController
         $usuarioLogado = $usuario ?? $this->auth->pegaUsuarioLogado();
 
         if ($usuarioLogado && !empty($usuarioLogado->is_admin)) {
-            return redirect()->to(site_url('admin/dashboard'));
+            return redirect()->to(site_url('admin/funcionarios'))->with('sucesso', 'Bem-vindo, ' . ($usuarioLogado->nome ?? 'funcionário') . '!');
         }
 
-        return redirect()->to(site_url('/'))->with('sucesso', 'Bem-vindo, ' . ($usuarioLogado->nome ?? 'usuário') . '!');
+        return redirect()->to(site_url('admin/clientes'))->with('sucesso', 'Bem-vindo, ' . ($usuarioLogado->nome ?? 'cliente') . '!');
     }
 
     private function enviarEmailReset(string $email, string $link)

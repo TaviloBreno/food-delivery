@@ -15,7 +15,7 @@ class Clientes extends BaseController
 
         $clientes = $usuarioModel
             ->where('is_admin', 0)
-            ->orderBy('created_at', 'DESC')
+            ->orderBy('criado_em', 'DESC')
             ->findAll(8);
 
         $data = [

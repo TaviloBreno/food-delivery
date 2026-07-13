@@ -15,7 +15,7 @@ class Funcionarios extends BaseController
 
         $funcionarios = $usuarioModel
             ->where('is_admin', 1)
-            ->orderBy('created_at', 'DESC')
+            ->orderBy('criado_em', 'DESC')
             ->findAll(8);
 
         $data = [

@@ -11,9 +11,14 @@ class AdminFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $session = session();
+        $path = trim($request->getUri()->getPath(), '/');
 
         if (!$session->has('usuario_id')) {
             return redirect()->to(site_url('login/novo'))->with('atencao', 'Você precisa estar logado para acessar esta página.');
+        }
+
+        if (in_array($path, ['admin/clientes', 'admin/funcionarios'], true)) {
+            return $request;
         }
 
         if ($session->get('is_admin') != 1) {
