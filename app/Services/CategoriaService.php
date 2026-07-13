@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\DTOs\CategoriaDTO;
+use App\Exceptions\CategoriaException;
 use App\Interfaces\CategoriaRepositoryInterface;
 use App\Interfaces\CategoriaServiceInterface;
-use App\Exceptions\CategoriaException;
 
 class CategoriaService implements CategoriaServiceInterface
 {
@@ -46,25 +47,29 @@ class CategoriaService implements CategoriaServiceInterface
         return $this->repository->search($term);
     }
 
-    public function criar(array $dados): array
+    public function criar(CategoriaDTO $dto): array
     {
-        $dados['slug'] = $this->gerarSlug($dados['nome']);
+        $slug = $this->gerarSlug($dto->nome);
+        $dados = $dto->toArray();
+        $dados['slug'] = $slug;
 
         $this->validarNomeUnico($dados['nome']);
-        $this->validarSlugUnico($dados['slug']);
+        $this->validarSlugUnico($slug);
 
         $this->repository->create($dados);
         return ['success' => true, 'message' => 'Categoria criada com sucesso!'];
     }
 
-    public function atualizar(int $id, array $dados): array
+    public function atualizar(int $id, CategoriaDTO $dto): array
     {
         $this->validarCategoriaExiste($id);
 
-        $dados['slug'] = $this->gerarSlug($dados['nome']);
+        $slug = $this->gerarSlug($dto->nome);
+        $dados = $dto->toArray();
+        $dados['slug'] = $slug;
 
         $this->validarNomeUnico($dados['nome'], $id);
-        $this->validarSlugUnico($dados['slug'], $id);
+        $this->validarSlugUnico($slug, $id);
 
         $this->repository->update($id, $dados);
         return ['success' => true, 'message' => 'Categoria atualizada com sucesso!'];
@@ -115,7 +120,8 @@ class CategoriaService implements CategoriaServiceInterface
 
     private function validarNomeUnico(string $nome, ?int $id = null): void
     {
-        $categoria = $this->repository->findBySlug($this->gerarSlug($nome));
+        $slug = $this->gerarSlug($nome);
+        $categoria = $this->repository->findBySlug($slug);
 
         if ($categoria && (!$id || $categoria->id !== $id)) {
             throw CategoriaException::nomeJaExiste($nome);
