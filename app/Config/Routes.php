@@ -3,7 +3,9 @@
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
-$routes->get('/', 'Home::index');
+// Rotas públicas
+$routes->get('/', 'Web\Site::index');
+$routes->get('busca', 'Web\Site::busca');
 
 $routes->get('login/novo', 'Login::novo');
 $routes->post('login/autenticar', 'Login::autenticar');
