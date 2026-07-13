@@ -229,7 +229,7 @@
                                         <p><?php echo esc($produto->descricao_curta ?? 'Deliciosa opção do nosso cardápio.'); ?></p>
                                         <div class="menu-footer">
                                             <span class="price">R$ <?php echo number_format($produto->preco, 2, ',', '.'); ?></span>
-                                            <a href="<?php echo base_url('pedido/adicionar/' . $produto->id); ?>" class="btn-order">
+                                            <a href="<?php echo base_url('checkout'); ?>" class="btn-order">
                                                 <i class="fa fa-shopping-cart"></i> Pedir
                                             </a>
                                         </div>

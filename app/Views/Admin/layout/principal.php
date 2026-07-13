@@ -3,6 +3,8 @@
 $currentUri = current_url();
 $isDashboard = strpos($currentUri, 'dashboard') !== false;
 $isUsuarios = strpos($currentUri, 'usuarios') !== false;
+$isClientes = strpos($currentUri, 'clientes') !== false;
+$isFuncionarios = strpos($currentUri, 'funcionarios') !== false;
 $isCategorias = strpos($currentUri, 'categorias') !== false;
 $isProdutos = strpos($currentUri, 'produtos') !== false;
 $isFormasPagamento = strpos($currentUri, 'formas-pagamento') !== false;
@@ -178,6 +180,18 @@ $isExpedientes = strpos($currentUri, 'expedientes') !== false;
             <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
               <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Usuários</span>
+            </a>
+          </li>
+          <li class="nav-item <?php echo $isClientes ? 'active' : ''; ?>">
+            <a class="nav-link" href="<?php echo site_url('admin/clientes'); ?>">
+              <i class="mdi mdi-account-group menu-icon"></i>
+              <span class="menu-title">Clientes</span>
+            </a>
+          </li>
+          <li class="nav-item <?php echo $isFuncionarios ? 'active' : ''; ?>">
+            <a class="nav-link" href="<?php echo site_url('admin/funcionarios'); ?>">
+              <i class="mdi mdi-account-tie menu-icon"></i>
+              <span class="menu-title">Funcionários</span>
             </a>
           </li>
           <li class="nav-item <?php echo $isCategorias ? 'active' : ''; ?>">
